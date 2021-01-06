@@ -3,12 +3,12 @@ import java.util.ArrayList;
 
 public class RequestCache implements CacheServices {
 
-	private ArrayList<CalculationRequest> requests = new ArrayList<>();
+	private ArrayList<Request> requests = new ArrayList<>();
 
-	public void addRequest(CalculationRequest in) {
+	public void addRequest(Request in) {
 		requests.add(in);
 	}
-	public CalculationRequest getNextRequest() {
+	public Request getNextRequest() {
 		return requests.get(0);
 	}
 }

@@ -1,5 +1,5 @@
 
 public interface CacheServices {
-	void addRequest(CalculationRequest in);
-	CalculationRequest getNextRequest();
+	void addRequest(Request in);
+	Request getNextRequest();
 }
