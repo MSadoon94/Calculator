@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 
-public class RequestCache implements CacheServices {
+public class RequestCache{
 
 	private ArrayList<Request> requests = new ArrayList<>();
 

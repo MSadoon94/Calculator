@@ -8,9 +8,8 @@ public class RequestHandlerTest {
 
 	@Test
 	public void whenRequestIsEntered_ThenShouldSendRequestToCache(){
-		RequestCache cache = new RequestCache();
-		RequestHandler requestHandler = new RequestHandler(cache);
-		requestHandler.sendRequest(input);
-		assertThat(cache.getNextRequest().toString(), is(input));
+		RequestHandler handler = new RequestHandler();
+		handler.sendRequest(input);
+		assertThat(handler.getRequest().toString(), is(input));
 	}
 }

@@ -7,21 +7,19 @@ public class Gui implements ActionListener{
 	private JPanel panel1;
 	private JTextArea mainTextArea;
 	private JButton button1;
-	private RequestHandler requestHandler;
+	private RequestServices requestServices;
 
-	public Gui() {
-		button1.addActionListener(this);
-		requestHandler = new RequestHandler(new RequestCache());
-	}
-	public Gui(JFrame frame, RequestHandler requestHandler){
-		this.requestHandler = requestHandler;
+	public Gui(JFrame frame, RequestServices services){
+		requestServices = services;
 		button1.addActionListener(this);
 		frame.add(panel1);
 	}
 
+
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Gui");
-		frame.setContentPane(new Gui().panel1);
+		Gui gui = new Gui(frame, new RequestHandler());
+		frame.setContentPane(gui.panel1);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
@@ -29,7 +27,8 @@ public class Gui implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == button1){
-			requestHandler.sendRequest(mainTextArea.getText().trim());
+			requestServices.sendRequest(mainTextArea.getText().trim());
+
 		}
 	}
 }
