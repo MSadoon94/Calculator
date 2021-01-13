@@ -5,6 +5,7 @@ public class Calculation {
 	public Calculation(String value){
 		this.value = value;
 	}
+
 	public String toString(){
 		return value;
 	}

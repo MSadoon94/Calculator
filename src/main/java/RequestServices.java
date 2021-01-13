@@ -1,4 +1,5 @@
 public interface RequestServices {
-	void sendRequest(String in);
+	void addRequest(String in);
 	Request getRequest();
+
 }

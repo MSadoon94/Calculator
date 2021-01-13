@@ -1,15 +1,22 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 public class RequestHandlerTest {
 
-	private String input = "2";
+	private String request = "2";
+	private RequestServices handler;
+
+	@BeforeEach
+	void setUp(){
+		handler = new RequestHandler();
+	}
 
 	@Test
-	public void whenRequestIsEntered_ThenShouldSendRequestToCache(){
-		RequestHandler handler = new RequestHandler();
-		handler.sendRequest(input);
-		assertThat(handler.getRequest().toString(), is(input));
+	void whenRequestIsPassed_ThenShouldSendRequestToCache(){
+		handler.addRequest(request);
+		assertThat(handler.getRequest().toString(), is(request));
 	}
+
 }

@@ -8,6 +8,7 @@ public class RequestCache{
 	public void addRequest(Request in) {
 		requests.add(in);
 	}
+
 	public Request getNextRequest() {
 		return requests.get(0);
 	}
