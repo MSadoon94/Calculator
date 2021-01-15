@@ -1,6 +1,9 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -12,14 +15,17 @@ public class RequestAnalyzerTest {
 		analyzer = new RequestAnalyzer();
 	}
 	@Test
-	void whenRequestIsSingleValue_ThenWillReturnRequest(){
-		Request single = new Request("2");
-		AnalyzedRequest analyzed = (AnalyzedRequest) analyzer.analysis(single);
-		assertThat(analyzed.toString(), is(equalTo(single.toString())));
+	void whenStringIsSingleValue_ThenWillReturnAnalyzedRequestWithExtractedSingleValue(){
+		String singleValue = ("2.0");
+		AnalyzedRequest analyzed = analyzer.analysis(singleValue);
+		assertThat(analyzed.toString(), is(equalTo(singleValue)));
 	}
 	@Test
-	void whenRequestHasAddition_ThenWillCreateAnalyzedRequestWithExtractedAddition(){
-		AnalyzedRequest analyzed = (AnalyzedRequest) analyzer.analysis(new Request("2+2-2"));
-		assertThat(analyzed.getAdditions(), is(equalTo("2+2")));
+	void whenStringHasAddition_ThenWillReturnAnalyzedRequestWithExtractedAdditionValues(){
+		String input = ("2+2+3+4");
+		String[] values = {"2","2","3","4"};
+		ArrayList<String> additionValues = new ArrayList<>(Arrays.asList(values));
+		AnalyzedRequest analyzed = analyzer.analysis(input);
+		assertThat(analyzed.getAdditions().toString(), is(equalTo(additionValues.toString())));
 	}
 }
