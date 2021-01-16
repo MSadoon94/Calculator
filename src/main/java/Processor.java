@@ -1,39 +1,43 @@
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class Processor implements ProcessorControl {
-
 	private AnswerServices ansServices;
 	private UiBoundary ui;
+	private DecimalFormat df = new DecimalFormat("#.00");
 
 	public Processor(UiBoundary ui, AnswerServices ansServices){
 		this.ui = ui;
 		this.ansServices = ansServices;
 	}
 	public void processRequest(AnalyzedRequest request){
-		Answer answer = calculate(request.toString());
+		Answer answer = calculate(request);
+		sendAnswer(answer);
 	}
 
-	public Answer calculate(String request){
-		Answer answer = request.contains("+") ? addition(request) : singleValue(request);
+	private Answer calculate(AnalyzedRequest request){
+		if (isSingleValue(request)){
+			return new Answer(request.toString());
+		}
+		double calculation = 0;
+		calculation +=(sumAdditionSection(request));
+		return new Answer(String.valueOf(calculation));
+	}
+
+	private boolean isSingleValue(AnalyzedRequest request){
+		return request.getAdditions() == null;
+	}
+
+	private double sumAdditionSection(AnalyzedRequest request){
+		ArrayList<String> additions = request.getAdditions();
+		return additions.stream()
+				.mapToDouble(Double::parseDouble)
+				.sum();
+	}
+
+	private void sendAnswer(Answer answer){
 		ansServices.addAnswer(answer.toString());
 		ui.setResponse(answer.toString());
-		return answer;
-	}
-
-	private Answer addition(String request) {
-		DecimalFormat df = new DecimalFormat("#.00");
-		double calculated = 0;
-		String[] parsed = request.split("\\+",0);
-		for (String value : parsed){
-			calculated += Double.parseDouble(value);
-			df.format(calculated);
-		}
-
-		return new Answer(String.valueOf(calculated));
-	}
-
-	private Answer singleValue(String request){
-		return new Answer(request);
 	}
 
 }
