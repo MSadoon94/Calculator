@@ -4,12 +4,14 @@ public class ComponentCreator {
 	private AnswerServices ansServices;
 	private RequestServices reqServices;
 	private Processor processor;
+	private RequestAnalyzer analyzer;
 
 	public ComponentCreator(){
 		createServices();
 		UiBoundary ui = createGui();
 		processor = new Processor(ui, ansServices);
-		Observer reqObserver = new RequestObserver(processor);
+		analyzer = new RequestAnalyzer(processor, new RequestBuilder());
+		Observer reqObserver = new RequestObserver(analyzer);
 		ui.attachObserver(reqObserver);
 	}
 

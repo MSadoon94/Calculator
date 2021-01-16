@@ -1,18 +1,28 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Stream;
+
 
 public class RequestAnalyzer {
 
-	public AnalyzedRequest analysis(String input){
-		AnalyzedRequest request = new AnalyzedRequest(input);
+	private ProcessorControl processor;
+	private RequestBuilder builder;
+	public RequestAnalyzer(ProcessorControl processor, RequestBuilder builder){
+		this.processor = processor;
+		this.builder = builder;
+	}
+
+	public void analysis(String input){
+		builder.addOriginalInput(input);
 		String addition = "+";
 		if (input.contains(addition)){
-			request.setAdditions(new ArrayList<>(Arrays.asList(input.split("[" + addition + "]"))));
+			builder.buildAdditionSection(new ArrayList<>(Arrays.asList(input.split("[" + addition + "]"))));
 		}
-		return request;
+		sendToProcessor();
 	}
+	private void sendToProcessor(){
+		AnalyzedRequest request = builder.getBuiltRequest();
+		processor.processRequest(request);
+	}
+
 
 }

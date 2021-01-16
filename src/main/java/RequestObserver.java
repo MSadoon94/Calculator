@@ -1,12 +1,11 @@
 public class RequestObserver implements Observer {
+	private RequestAnalyzer analyzer;
 
-	private Processor processor;
-
-	public RequestObserver(Processor processor){
-		this.processor = processor;
+	public RequestObserver(RequestAnalyzer analyzer){
+		this.analyzer = analyzer;
 	}
 
 	public void update(String update) {
-		processor.calculate(update);
+		analyzer.analysis(update);
 	}
 }

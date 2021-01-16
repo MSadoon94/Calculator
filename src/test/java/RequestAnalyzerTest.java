@@ -1,5 +1,9 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,25 +11,31 @@ import java.util.Arrays;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
+@ExtendWith(MockitoExtension.class)
 public class RequestAnalyzerTest {
+	@Mock private ProcessorControl processor;
 	private RequestAnalyzer analyzer;
+	private RequestBuilder builder;
 
 	@BeforeEach
 	void setUp(){
-		analyzer = new RequestAnalyzer();
+		builder = new RequestBuilder();
+		analyzer = new RequestAnalyzer(processor, builder);
 	}
 	@Test
 	void whenStringIsSingleValue_ThenWillReturnAnalyzedRequestWithExtractedSingleValue(){
 		String singleValue = ("2.0");
-		AnalyzedRequest analyzed = analyzer.analysis(singleValue);
-		assertThat(analyzed.toString(), is(equalTo(singleValue)));
+		analyzer.analysis(singleValue);
+		AnalyzedRequest request = builder.getBuiltRequest();
+		assertThat(request.toString(), is(equalTo(singleValue)));
 	}
 	@Test
 	void whenStringHasAddition_ThenWillReturnAnalyzedRequestWithExtractedAdditionValues(){
-		String input = ("2+2+3+4");
+		String addValue = ("2+2+3+4");
 		String[] values = {"2","2","3","4"};
 		ArrayList<String> additionValues = new ArrayList<>(Arrays.asList(values));
-		AnalyzedRequest analyzed = analyzer.analysis(input);
-		assertThat(analyzed.getAdditions().toString(), is(equalTo(additionValues.toString())));
+		analyzer.analysis(addValue);
+		AnalyzedRequest request = builder.getBuiltRequest();
+		assertThat(request.getAdditions().toString(), is(equalTo(additionValues.toString())));
 	}
 }

@@ -1,6 +1,6 @@
 import java.text.DecimalFormat;
 
-public class Processor {
+public class Processor implements ProcessorControl {
 
 	private AnswerServices ansServices;
 	private UiBoundary ui;
@@ -8,6 +8,9 @@ public class Processor {
 	public Processor(UiBoundary ui, AnswerServices ansServices){
 		this.ui = ui;
 		this.ansServices = ansServices;
+	}
+	public void processRequest(AnalyzedRequest request){
+		Answer answer = calculate(request.toString());
 	}
 
 	public Answer calculate(String request){
