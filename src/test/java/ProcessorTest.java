@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.*;
 public class ProcessorTest {
 	@Mock private UiBoundary ui;
 	private static HashMap<String, String> answers = new HashMap<>();
-	private static HashMap<String, AnalyzedRequest> values = new HashMap<>();
+	private static HashMap<String, Request> values = new HashMap<>();
 	private AnswerServices ansHandler;
 	private Processor processor;
 
@@ -39,15 +39,15 @@ public class ProcessorTest {
 			"Addition"
 	})
 	void whenRequestIsReceived_ThenCorrectAnswerIsCalculated(String input){
-		AnalyzedRequest request = values.get(input);
+		Request request = values.get(input);
 		processor.processRequest(request);
 
 		assertThat(ansHandler.getAnswer().toString(), is(answers.get(input)));
 	}
 
 	private void setValues() {
-		AnalyzedRequest singleValue = new AnalyzedRequest("2.0");
-		AnalyzedRequest addition = new AnalyzedRequest("2+2");
+		Request singleValue = new Request("2.0");
+		Request addition = new Request("2+2");
 		String[] addArray = {"2", "2"};
 		ArrayList<String> addList = new ArrayList<>(Arrays.asList(addArray));
 		addition.setAdditions(addList);

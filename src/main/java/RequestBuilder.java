@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class RequestBuilder {
-	private AnalyzedRequest request;
+	private Request request;
 	public void addOriginalInput(String in){
-		request = new AnalyzedRequest(in);
+		request = new Request(in);
 	}
-	public AnalyzedRequest getBuiltRequest() {
+	public Request getBuiltRequest() {
 		return request;
 	}
 

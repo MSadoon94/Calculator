@@ -20,7 +20,7 @@ public class RequestAnalyzer {
 		sendToProcessor();
 	}
 	private void sendToProcessor(){
-		AnalyzedRequest request = builder.getBuiltRequest();
+		Request request = builder.getBuiltRequest();
 		processor.processRequest(request);
 	}
 

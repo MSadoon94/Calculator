@@ -9,8 +9,8 @@ public class RequestBuilderTest {
 		RequestBuilder builder = new RequestBuilder();
 		String input = "2.0";
 		builder.addOriginalInput(input);
-		AnalyzedRequest builtRequest = builder.getBuiltRequest();
-		assertThat(builtRequest.getClass(), is(AnalyzedRequest.class));
+		Request builtRequest = builder.getBuiltRequest();
+		assertThat(builtRequest.getClass(), is(Request.class));
 		assertThat(builtRequest.toString(), is(equalTo(input)));
 	}
 }

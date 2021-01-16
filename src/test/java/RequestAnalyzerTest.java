@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +25,7 @@ public class RequestAnalyzerTest {
 	void whenStringIsSingleValue_ThenWillReturnAnalyzedRequestWithExtractedSingleValue(){
 		String singleValue = ("2.0");
 		analyzer.analysis(singleValue);
-		AnalyzedRequest request = builder.getBuiltRequest();
+		Request request = builder.getBuiltRequest();
 		assertThat(request.toString(), is(equalTo(singleValue)));
 	}
 	@Test
@@ -35,7 +34,7 @@ public class RequestAnalyzerTest {
 		String[] values = {"2","2","3","4"};
 		ArrayList<String> additionValues = new ArrayList<>(Arrays.asList(values));
 		analyzer.analysis(addValue);
-		AnalyzedRequest request = builder.getBuiltRequest();
+		Request request = builder.getBuiltRequest();
 		assertThat(request.getAdditions().toString(), is(equalTo(additionValues.toString())));
 	}
 }

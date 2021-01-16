@@ -10,12 +10,12 @@ public class Processor implements ProcessorControl {
 		this.ui = ui;
 		this.ansServices = ansServices;
 	}
-	public void processRequest(AnalyzedRequest request){
+	public void processRequest(Request request){
 		Answer answer = calculate(request);
 		sendAnswer(answer);
 	}
 
-	private Answer calculate(AnalyzedRequest request){
+	private Answer calculate(Request request){
 		if (isSingleValue(request)){
 			return new Answer(request.toString());
 		}
@@ -24,11 +24,11 @@ public class Processor implements ProcessorControl {
 		return new Answer(String.valueOf(calculation));
 	}
 
-	private boolean isSingleValue(AnalyzedRequest request){
+	private boolean isSingleValue(Request request){
 		return request.getAdditions() == null;
 	}
 
-	private double sumAdditionSection(AnalyzedRequest request){
+	private double sumAdditionSection(Request request){
 		ArrayList<String> additions = request.getAdditions();
 		return additions.stream()
 				.mapToDouble(Double::parseDouble)

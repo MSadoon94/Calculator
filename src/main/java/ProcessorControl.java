@@ -1,3 +1,3 @@
 public interface ProcessorControl {
-	void processRequest(AnalyzedRequest request);
+	void processRequest(Request request);
 }
