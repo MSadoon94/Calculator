@@ -1,16 +1,20 @@
-import java.util.ArrayList;
-
 public class Request extends Calculation {
-	private ArrayList<String> additions;
+	private String[] additions;
+	private String[] subtractions;
 	public Request(String request) {
 		super(request);
 	}
 
-	public ArrayList<String> getAdditions() {
+	public String[] getAdditions() {
 		return additions;
 	}
 
-	public void setAdditions(ArrayList<String> addList) {
+	public String[] getSubtractions(){return subtractions;}
+
+	public void setAdditions(String[] addList) {
 		additions = addList;
 	}
+
+	public void setSubtractions(String[] minusList) { subtractions = minusList;}
+
 }

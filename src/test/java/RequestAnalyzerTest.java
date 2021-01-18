@@ -15,6 +15,7 @@ public class RequestAnalyzerTest {
 	@Mock private ProcessorControl processor;
 	private RequestAnalyzer analyzer;
 	private RequestBuilder builder;
+	private String[] values = {"2","2","3","4"};
 
 	@BeforeEach
 	void setUp(){
@@ -31,10 +32,15 @@ public class RequestAnalyzerTest {
 	@Test
 	void whenStringHasAddition_ThenWillReturnAnalyzedRequestWithExtractedAdditionValues(){
 		String addValue = ("2+2+3+4");
-		String[] values = {"2","2","3","4"};
-		ArrayList<String> additionValues = new ArrayList<>(Arrays.asList(values));
 		analyzer.analysis(addValue);
 		Request request = builder.getBuiltRequest();
-		assertThat(request.getAdditions().toString(), is(equalTo(additionValues.toString())));
+		assertThat(Arrays.toString(request.getAdditions()), is(equalTo(Arrays.toString(values))));
+	}
+	@Test
+	void whenStringHasSubtraction_ThenWillReturnAnalyzedRequestWithExtractedSubtractionValues(){
+		String minusValue = ("2-2-3-4");
+		analyzer.analysis(minusValue);
+		Request request = builder.getBuiltRequest();
+		assertThat(Arrays.toString(request.getSubtractions()), is(equalTo(Arrays.toString(values))));
 	}
 }

@@ -1,4 +1,4 @@
-import org.junit.jupiter.api.AfterEach;
+import net.bytebuddy.implementation.bytecode.Addition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -6,10 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.netbeans.jemmy.operators.JButtonOperator;
 import org.netbeans.jemmy.operators.JFrameOperator;
 import org.netbeans.jemmy.operators.JTextAreaOperator;
-
-
 import java.util.HashMap;
-import java.util.stream.DoubleStream;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -36,7 +33,8 @@ public class AcceptanceTests {
 	@ParameterizedTest(name = "{index} ==> {0}")
 	@CsvSource({
 			"WhenNumberIsEntered_ThenThatSameNumberWillBeReturned, 2.0",
-			"WhenUserRequestsAddition_ThenInputtedValuesAreAdded, 2+2"
+			"WhenUserRequestsAddition_ThenInputtedValuesAreAdded, 2+2",
+			"WhenUserRequestsSubtraction_ThenInputtedValuesAreSubtracted, 4-2"
 	})
 	void testingFixture(String test, String aInput){
 		//Although unused, test variable is needed so test name isn't assigned to input.
@@ -55,8 +53,9 @@ public class AcceptanceTests {
 	}
 
 	private void setAnswers(){
-		answers.put("2.0", correctAnswer(DoubleStream.of(2.0)));
-		answers.put("2+2", correctAnswer(DoubleStream.of(2, 2)));
+		answers.put("2.0", "2.0");
+		answers.put("2+2", "4.0");
+		answers.put("4-2", "2.0");
 	}
 
 	private void startInputtingRequest(){
@@ -64,10 +63,6 @@ public class AcceptanceTests {
 		buttonOperator.push();
 	}
 
-	private String correctAnswer(DoubleStream inputs){
-		double answer = inputs.sum();
-		return String.valueOf(answer);
-	}
 
 	private void hasDisplayedAnswer() {
 		assertThat(textAreaOperator.getText().trim(), is(equalTo(answers.get(input))));

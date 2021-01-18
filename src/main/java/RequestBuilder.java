@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class RequestBuilder {
 	private Request request;
 	public void addOriginalInput(String in){
@@ -9,7 +7,11 @@ public class RequestBuilder {
 		return request;
 	}
 
-	public void buildAdditionSection(ArrayList<String> addList) {
+	public void buildAdditionSection(String[] addList) {
 		request.setAdditions(addList);
+	}
+
+	public void buildSubtractionSection(String[] minusList) {
+		request.setSubtractions(minusList);
 	}
 }

@@ -1,5 +1,4 @@
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 public class Processor implements ProcessorControl {
 	private AnswerServices ansServices;
@@ -20,19 +19,37 @@ public class Processor implements ProcessorControl {
 			return new Answer(request.toString());
 		}
 		double calculation = 0;
-		calculation +=(sumAdditionSection(request));
+		calculation +=(subtract(request));
+		calculation +=(addition(request));
 		return new Answer(String.valueOf(calculation));
 	}
 
-	private boolean isSingleValue(Request request){
-		return request.getAdditions() == null;
+	private double subtract(Request request) {
+		if(request.getSubtractions() == null){
+			return 0;
+		}
+		String[] subtractions = request.getSubtractions();
+		double value = Double.parseDouble(subtractions[0]);
+		for (int i = 1; i < subtractions.length; i++){
+			value -= Double.parseDouble(subtractions[i]);
+		}
+		return value;
 	}
 
-	private double sumAdditionSection(Request request){
-		ArrayList<String> additions = request.getAdditions();
-		return additions.stream()
-				.mapToDouble(Double::parseDouble)
-				.sum();
+	private boolean isSingleValue(Request request){
+		return request.getSubtractions() == null && request.getAdditions() == null;
+	}
+
+	private double addition(Request request){
+		if(request.getAdditions() == null){
+			return 0;
+		}
+		String[] additions = request.getAdditions();
+		double value = Double.parseDouble(additions[0]);
+		for (int i = 1; i < additions.length; i++){
+			value += Double.parseDouble(additions[i]);
+		}
+		return value;
 	}
 
 	private void sendAnswer(Answer answer){

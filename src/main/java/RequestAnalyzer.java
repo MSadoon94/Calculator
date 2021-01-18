@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-
-
 public class RequestAnalyzer {
 
 	private ProcessorControl processor;
@@ -13,15 +9,24 @@ public class RequestAnalyzer {
 
 	public void analysis(String input){
 		builder.addOriginalInput(input);
-		String addition = "+";
-		if (input.contains(addition)){
-			builder.buildAdditionSection(new ArrayList<>(Arrays.asList(input.split("[" + addition + "]"))));
-		}
+		buildRequest(input);
 		sendToProcessor();
 	}
 	private void sendToProcessor(){
 		Request request = builder.getBuiltRequest();
 		processor.processRequest(request);
+	}
+	private void buildRequest(String input){
+		String addition = "+";
+		String subtraction = "-";
+		if (input.contains(addition)){
+			builder.buildAdditionSection(
+					input.split("[" + addition + "]"));
+		}
+		if(input.contains(subtraction)){
+			builder.buildSubtractionSection(
+					input.split("[" + subtraction + "]"));
+		}
 	}
 
 
