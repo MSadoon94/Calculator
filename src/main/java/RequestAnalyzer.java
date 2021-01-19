@@ -2,9 +2,11 @@ public class RequestAnalyzer {
 
 	private ProcessorControl processor;
 	private RequestBuilder builder;
+	private RequestFormatter formatter;
 	public RequestAnalyzer(ProcessorControl processor, RequestBuilder builder){
 		this.processor = processor;
 		this.builder = builder;
+		formatter = new RequestFormatter();
 	}
 
 	public void analysis(String input){
@@ -20,13 +22,18 @@ public class RequestAnalyzer {
 		String addition = "+";
 		String subtraction = "-";
 		if (input.contains(addition)){
-			builder.buildAdditionSection(
-					input.split("[" + addition + "]"));
+			double[] formattedInput =
+					formatStringsToDoubles(input.split("[" + addition + "]"));
+			builder.buildAdditionSection(formattedInput);
 		}
 		if(input.contains(subtraction)){
-			builder.buildSubtractionSection(
-					input.split("[" + subtraction + "]"));
+			double[] formattedInput =
+					formatStringsToDoubles(input.split("[" + subtraction + "]"));
+			builder.buildSubtractionSection(formattedInput);
 		}
+	}
+	private double[] formatStringsToDoubles(String[] strings){
+		return formatter.format(strings);
 	}
 
 

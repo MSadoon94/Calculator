@@ -7,11 +7,11 @@ public class RequestBuilder {
 		return request;
 	}
 
-	public void buildAdditionSection(String[] addList) {
+	public void buildAdditionSection(double[] addList) {
 		request.setAdditions(addList);
 	}
 
-	public void buildSubtractionSection(String[] minusList) {
+	public void buildSubtractionSection(double[] minusList) {
 		request.setSubtractions(minusList);
 	}
 }

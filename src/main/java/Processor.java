@@ -28,10 +28,10 @@ public class Processor implements ProcessorControl {
 		if(request.getSubtractions() == null){
 			return 0;
 		}
-		String[] subtractions = request.getSubtractions();
-		double value = Double.parseDouble(subtractions[0]);
+		double[] subtractions = request.getSubtractions();
+		double value = subtractions[0];
 		for (int i = 1; i < subtractions.length; i++){
-			value -= Double.parseDouble(subtractions[i]);
+			value -= subtractions[i];
 		}
 		return value;
 	}
@@ -44,10 +44,10 @@ public class Processor implements ProcessorControl {
 		if(request.getAdditions() == null){
 			return 0;
 		}
-		String[] additions = request.getAdditions();
-		double value = Double.parseDouble(additions[0]);
+		double[] additions = request.getAdditions();
+		double value = additions[0];
 		for (int i = 1; i < additions.length; i++){
-			value += Double.parseDouble(additions[i]);
+			value += additions[i];
 		}
 		return value;
 	}

@@ -29,13 +29,13 @@ public class ProcessorTestHelper {
 	private void setForAdditionValue(){
 		input = "2+2";
 		request = new Request(input);
-		request.setAdditions(new String[]{"2", "2"});
+		request.setAdditions(new double[]{2.0, 2.0});
 		answers.put(type[1], "4.0");
 	}
 	private void setForSubtractionValue(){
 		input = "4-2";
 		request = new Request(input);
-		request.setSubtractions(new String[]{"4", "2"});
+		request.setSubtractions(new double[]{4.0, 2.0});
 		answers.put(type[2], "2.0");
 	}
 

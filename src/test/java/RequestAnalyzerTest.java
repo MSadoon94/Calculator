@@ -3,8 +3,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,7 +13,7 @@ public class RequestAnalyzerTest {
 	@Mock private ProcessorControl processor;
 	private RequestAnalyzer analyzer;
 	private RequestBuilder builder;
-	private String[] values = {"2","2","3","4"};
+	private double[] values = {2.0,2.0,3.0,4.0};
 
 	@BeforeEach
 	void setUp(){
