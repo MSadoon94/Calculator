@@ -1,4 +1,3 @@
-import net.bytebuddy.implementation.bytecode.Addition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -49,7 +48,7 @@ public class AcceptanceTests {
 	private void setOperators(){
 		frameOperator = new JFrameOperator("Gui");
 		textAreaOperator = new JTextAreaOperator(frameOperator, 0);
-		buttonOperator = new JButtonOperator(frameOperator, 0);
+		buttonOperator = new JButtonOperator(frameOperator, "=");
 	}
 
 	private void setAnswers(){

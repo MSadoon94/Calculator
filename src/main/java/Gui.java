@@ -7,17 +7,25 @@ public class Gui implements ActionListener, UiBoundary{
 
 	private RequestServices reqServices;
 	private Observer reqObserver;
-	private JPanel panel1;
+	private JPanel mainPanel;
 	private JTextArea mainTextArea;
-	private JButton button1;
-
+	private JButton equalsButton;
+	private JButton addButton;
+	private JButton subtractButton;
+	private JButton divideButton;
+	private JButton multiplyButton;
 
 
 	public Gui(JFrame frame, RequestServices services){
 		reqServices = services;
-		button1.addActionListener(this);
-		frame.add(panel1);
-		frame.setContentPane(panel1);
+		equalsButton.addActionListener(this);
+		addButton.addActionListener(this);
+		subtractButton.addActionListener(this);
+		divideButton.addActionListener(this);
+		multiplyButton.addActionListener(this);
+		frame.add(mainPanel);
+		frame.setContentPane(mainPanel);
+
 	}
 
 	public void attachObserver(Observer observer) {
@@ -33,9 +41,21 @@ public class Gui implements ActionListener, UiBoundary{
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == button1){
+		if (e.getSource() == equalsButton){
 			addRequest();
 			sendRequest(mainTextArea.getText().trim());
+		}
+		if (e.getSource() == addButton){
+			mainTextArea.append("+");
+		}
+		if (e.getSource() == subtractButton){
+			mainTextArea.append("-");
+		}
+		if (e.getSource() == multiplyButton){
+			mainTextArea.append("*");
+		}
+		if (e.getSource() == divideButton){
+			mainTextArea.append("/");
 		}
 	}
 
