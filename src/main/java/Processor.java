@@ -4,11 +4,13 @@ public class Processor implements ProcessorControl {
 	private AnswerServices ansServices;
 	private UiBoundary ui;
 	private DecimalFormat df = new DecimalFormat("#.00");
+	private ProcessorContext context = new ProcessorContext();
 
 	public Processor(UiBoundary ui, AnswerServices ansServices){
 		this.ui = ui;
 		this.ansServices = ansServices;
 	}
+
 	public void processRequest(Request request){
 		Answer answer = calculate(request);
 		sendAnswer(answer);
@@ -17,39 +19,20 @@ public class Processor implements ProcessorControl {
 	private Answer calculate(Request request){
 		if (isSingleValue(request)){
 			return new Answer(request.toString());
+		} else if (hasArithmetic(request)){
+			context.setStrategy(new ArithmeticStrategy());
 		}
-		double calculation = 0;
-		calculation +=(subtract(request));
-		calculation +=(addition(request));
+		double calculation = context.executeStrategy(request);
 		return new Answer(String.valueOf(calculation));
-	}
-
-	private double subtract(Request request) {
-		if(request.getSubtractions() == null){
-			return 0;
-		}
-		double[] subtractions = request.getSubtractions();
-		double value = subtractions[0];
-		for (int i = 1; i < subtractions.length; i++){
-			value -= subtractions[i];
-		}
-		return value;
 	}
 
 	private boolean isSingleValue(Request request){
 		return request.getSubtractions() == null && request.getAdditions() == null;
 	}
 
-	private double addition(Request request){
-		if(request.getAdditions() == null){
-			return 0;
-		}
-		double[] additions = request.getAdditions();
-		double value = additions[0];
-		for (int i = 1; i < additions.length; i++){
-			value += additions[i];
-		}
-		return value;
+	private boolean hasArithmetic(Request request){
+		String input = request.toString();
+		return (input.contains("+") | input.contains("-"));
 	}
 
 	private void sendAnswer(Answer answer){
