@@ -1,6 +1,9 @@
+package org.calculator.common;
+
 public class Request extends Calculation {
 	private double[] additions;
 	private double[] subtractions;
+
 	public Request(String request) {
 		super(request);
 	}

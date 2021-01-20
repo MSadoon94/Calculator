@@ -1,3 +1,5 @@
+package org.calculator.common;
+
 public class Calculation {
 
 	private final String value;

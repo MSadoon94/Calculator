@@ -1,3 +1,5 @@
+package org.calculator.request;
+
 public class RequestFormatter{
 
 	public double[] format(String[] input) {

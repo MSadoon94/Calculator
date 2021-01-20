@@ -1,9 +1,15 @@
+package org.calculator.user;
+
+import org.calculator.common.Request;
+import org.calculator.request.Observer;
+import org.calculator.request.RequestServices;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Gui implements ActionListener, UiBoundary{
+public class Gui implements ActionListener, UiBoundary {
 
 	private RequestServices reqServices;
 	private Observer reqObserver;

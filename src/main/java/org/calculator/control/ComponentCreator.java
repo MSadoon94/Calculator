@@ -1,3 +1,12 @@
+package org.calculator.control;
+
+import org.calculator.answer.AnswerHandler;
+import org.calculator.answer.AnswerServices;
+import org.calculator.processing.Processor;
+import org.calculator.request.*;
+import org.calculator.user.Gui;
+import org.calculator.user.UiBoundary;
+
 import javax.swing.*;
 
 public class ComponentCreator {

@@ -1,4 +1,8 @@
-public class ArithmeticStrategy implements OperationStrategy{
+package org.calculator.processing;
+
+import org.calculator.common.Request;
+
+class ArithmeticStrategy implements OperationStrategy {
 	private Request request;
 	public double execute(Request request) {
 		this.request = request;

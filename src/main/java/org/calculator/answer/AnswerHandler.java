@@ -1,3 +1,7 @@
+package org.calculator.answer;
+
+import org.calculator.common.Answer;
+
 public class AnswerHandler implements AnswerServices {
 	private AnswerCache cache = new AnswerCache();
 

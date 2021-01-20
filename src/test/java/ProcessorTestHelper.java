@@ -1,3 +1,5 @@
+import org.calculator.common.Request;
+
 import java.util.HashMap;
 
 public class ProcessorTestHelper {

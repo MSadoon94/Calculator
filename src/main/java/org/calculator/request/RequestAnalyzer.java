@@ -1,3 +1,8 @@
+package org.calculator.request;
+
+import org.calculator.common.Request;
+import org.calculator.processing.ProcessorControl;
+
 public class RequestAnalyzer {
 
 	private ProcessorControl processor;

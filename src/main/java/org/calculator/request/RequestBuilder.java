@@ -1,3 +1,7 @@
+package org.calculator.request;
+
+import org.calculator.common.Request;
+
 public class RequestBuilder {
 	private Request request;
 	public void addOriginalInput(String in){

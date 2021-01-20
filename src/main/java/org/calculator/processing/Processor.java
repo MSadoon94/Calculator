@@ -1,3 +1,10 @@
+package org.calculator.processing;
+
+import org.calculator.common.Answer;
+import org.calculator.answer.AnswerServices;
+import org.calculator.common.Request;
+import org.calculator.user.UiBoundary;
+
 import java.text.DecimalFormat;
 
 public class Processor implements ProcessorControl {

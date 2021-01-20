@@ -1,6 +1,10 @@
+package org.calculator.answer;
+
+import org.calculator.common.Answer;
+
 import java.util.ArrayList;
 
-public class AnswerCache {
+class AnswerCache {
 	private ArrayList<Answer> answers = new ArrayList<>();
 
 	public void addAnswer(Answer in) {
