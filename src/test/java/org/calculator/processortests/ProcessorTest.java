@@ -1,29 +1,36 @@
+package org.calculator.processortests;
+
 import org.calculator.answer.AnswerHandler;
 import org.calculator.answer.AnswerServices;
+import org.calculator.processing.ProcessorActions;
+import org.calculator.processing.ProcessorBoundary;
+import org.calculator.processing.ProcessorController;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.calculator.processing.Processor;
 import org.calculator.common.Request;
-import org.calculator.user.UiBoundary;
+import org.calculator.user.UiActions;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ProcessorTest {
-	@Mock private UiBoundary ui;
+	@Mock private UiActions ui;
 	private AnswerServices ansHandler;
-	private Processor processor;
+	private ProcessorActions processor;
 	private ProcessorTestHelper helper;
 
 	@BeforeEach
 	void setUp(){
+		ProcessorBoundary processorController = new ProcessorController();
 		ansHandler = new AnswerHandler();
-		processor = new Processor(ui,  ansHandler);
+		processor = processorController.processorActions(ui,  ansHandler);
 		helper = new ProcessorTestHelper();
 	}
 
@@ -38,6 +45,6 @@ public class ProcessorTest {
 		Request request = helper.getRequest();
 		processor.processRequest(request);
 
-		assertThat(ansHandler.getAnswer().toString(), is(helper.getAnswer(input)));
+		MatcherAssert.assertThat(ansHandler.getAnswer().toString(), Matchers.is(helper.getAnswer(input)));
 	}
 }

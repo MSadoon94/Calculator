@@ -5,7 +5,7 @@ import org.calculator.common.Request;
 import java.util.ArrayList;
 
 
-public class RequestCache{
+class RequestCache{
 
 	private ArrayList<Request> requests = new ArrayList<>();
 

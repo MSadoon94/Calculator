@@ -3,17 +3,17 @@ package org.calculator.processing;
 import org.calculator.common.Answer;
 import org.calculator.answer.AnswerServices;
 import org.calculator.common.Request;
-import org.calculator.user.UiBoundary;
+import org.calculator.user.UiActions;
 
 import java.text.DecimalFormat;
 
-public class Processor implements ProcessorControl {
+class Processor implements ProcessorActions {
 	private AnswerServices ansServices;
-	private UiBoundary ui;
+	private UiActions ui;
 	private DecimalFormat df = new DecimalFormat("#.00");
 	private ProcessorContext context = new ProcessorContext();
 
-	public Processor(UiBoundary ui, AnswerServices ansServices){
+	public Processor(UiActions ui, AnswerServices ansServices){
 		this.ui = ui;
 		this.ansServices = ansServices;
 	}

@@ -1,15 +1,18 @@
 package org.calculator.request;
 
 import org.calculator.common.Request;
-import org.calculator.processing.ProcessorControl;
+import org.calculator.processing.ProcessorActions;
+import org.calculator.processing.ProcessorBoundary;
 
-public class RequestAnalyzer {
 
-	private ProcessorControl processor;
-	private RequestBuilder builder;
+class RequestAnalyzer implements Analyzer {
+
+	private ProcessorActions processorActions;
+	private Builder builder;
 	private RequestFormatter formatter;
-	public RequestAnalyzer(ProcessorControl processor, RequestBuilder builder){
-		this.processor = processor;
+	public RequestAnalyzer(ProcessorActions processorActions, Builder builder){
+
+		this.processorActions = processorActions;
 		this.builder = builder;
 		formatter = new RequestFormatter();
 	}
@@ -19,9 +22,10 @@ public class RequestAnalyzer {
 		buildRequest(input);
 		sendToProcessor();
 	}
+
 	private void sendToProcessor(){
 		Request request = builder.getBuiltRequest();
-		processor.processRequest(request);
+		processorActions.processRequest(request);
 	}
 	private void buildRequest(String input){
 		String addition = "+";

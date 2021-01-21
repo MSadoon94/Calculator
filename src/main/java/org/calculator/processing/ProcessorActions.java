@@ -2,6 +2,6 @@ package org.calculator.processing;
 
 import org.calculator.common.Request;
 
-public interface ProcessorControl {
+public interface ProcessorActions {
 	void processRequest(Request request);
 }

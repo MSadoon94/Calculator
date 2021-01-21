@@ -1,3 +1,5 @@
+package org.calculator;
+
 import org.calculator.control.ComponentCreator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Gui implements ActionListener, UiBoundary {
+public class Gui implements ActionListener, UiActions {
 
 	private RequestServices reqServices;
 	private Observer reqObserver;

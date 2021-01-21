@@ -1,6 +1,6 @@
 package org.calculator.request;
 
-public class RequestFormatter{
+class RequestFormatter implements Formatter{
 
 	public double[] format(String[] input) {
 		double[] doubles = new double[input.length];

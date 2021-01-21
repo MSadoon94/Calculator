@@ -2,7 +2,7 @@ package org.calculator.request;
 
 import org.calculator.common.Request;
 
-public class RequestHandler implements RequestServices {
+class RequestHandler implements RequestServices {
 
 	private RequestCache cache = new RequestCache();
 

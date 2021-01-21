@@ -1,9 +1,9 @@
 package org.calculator.request;
 
-public class RequestObserver implements Observer {
-	private RequestAnalyzer analyzer;
+class RequestObserver implements Observer {
+	private Analyzer analyzer;
 
-	public RequestObserver(RequestAnalyzer analyzer){
+	public RequestObserver(Analyzer analyzer){
 		this.analyzer = analyzer;
 	}
 
