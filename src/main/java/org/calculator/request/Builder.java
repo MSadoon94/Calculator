@@ -7,7 +7,6 @@ public interface Builder {
 
 	Request getBuiltRequest();
 
-	void buildAdditionSection(double[] addList);
+	void buildSection(String section, double[] values);
 
-	void buildSubtractionSection(double[] minusList);
 }

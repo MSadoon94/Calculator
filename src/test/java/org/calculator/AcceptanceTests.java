@@ -36,7 +36,8 @@ public class AcceptanceTests {
 	@CsvSource({
 			"WhenNumberIsEntered_ThenThatSameNumberWillBeReturned, 2.0",
 			"WhenUserRequestsAddition_ThenInputtedValuesAreAdded, 2+2",
-			"WhenUserRequestsSubtraction_ThenInputtedValuesAreSubtracted, 4-2"
+			"WhenUserRequestsSubtraction_ThenInputtedValuesAreSubtracted, 4-2",
+			"WhenUserRequestsMultiplication_ThenInputtedValuesAreMultiplied, 2*2"
 	})
 	void testingFixture(String test, String aInput){
 		//Although unused, test variable is needed so test name isn't assigned to input.
@@ -58,6 +59,7 @@ public class AcceptanceTests {
 		answers.put("2.0", "2.0");
 		answers.put("2+2", "4.0");
 		answers.put("4-2", "2.0");
+		answers.put("2*2", "4.0");
 	}
 
 	private void startInputtingRequest(){

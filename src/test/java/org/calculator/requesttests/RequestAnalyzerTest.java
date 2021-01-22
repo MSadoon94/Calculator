@@ -7,9 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import org.calculator.common.Request;
-
 import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -39,15 +37,26 @@ public class RequestAnalyzerTest {
 	@Test
 	void whenStringHasAddition_ThenWillReturnAnalyzedRequestWithExtractedAdditionValues(){
 		String addValue = ("2+2+3+4");
+		String addition = "+";
 		requestAnalyzer.analysis(addValue);
 		Request request = requestBuilder.getBuiltRequest();
-		assertThat(Arrays.toString(request.getAdditions()), is(equalTo(Arrays.toString(values))));
+		assertThat(Arrays.toString(request.getSection(addition)), is(equalTo(Arrays.toString(values))));
 	}
 	@Test
 	void whenStringHasSubtraction_ThenWillReturnAnalyzedRequestWithExtractedSubtractionValues(){
 		String minusValue = ("2-2-3-4");
+		String subtraction = "-";
 		requestAnalyzer.analysis(minusValue);
 		Request request = requestBuilder.getBuiltRequest();
-		assertThat(Arrays.toString(request.getSubtractions()), is(equalTo(Arrays.toString(values))));
+		assertThat(Arrays.toString(request.getSection(subtraction)), is(equalTo(Arrays.toString(values))));
+	}
+
+	@Test
+	void whenStringHasMultiplication_ThenWillReturnAnalyzedRequestWithExtractedMultiplicationValues(){
+		String minusValue = ("2*2*3*4");
+		String multiplication = "*";
+		requestAnalyzer.analysis(minusValue);
+		Request request = requestBuilder.getBuiltRequest();
+		assertThat(Arrays.toString(request.getSection(multiplication)), is(equalTo(Arrays.toString(values))));
 	}
 }

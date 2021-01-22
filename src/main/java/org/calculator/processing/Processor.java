@@ -2,6 +2,7 @@ package org.calculator.processing;
 
 import org.calculator.common.Answer;
 import org.calculator.answer.AnswerServices;
+import org.calculator.common.Operations;
 import org.calculator.common.Request;
 import org.calculator.user.UiActions;
 
@@ -34,12 +35,16 @@ class Processor implements ProcessorActions {
 	}
 
 	private boolean isSingleValue(Request request){
-		return request.getSubtractions() == null && request.getAdditions() == null;
+		return request.getSection(Operations.ADDITION.symbol()) == null &&
+				request.getSection(Operations.SUBTRACTION.symbol()) == null &&
+				request.getSection(Operations.MULTIPLICATION.symbol()) == null;
 	}
 
 	private boolean hasArithmetic(Request request){
 		String input = request.toString();
-		return (input.contains("+") | input.contains("-"));
+		return (input.contains(Operations.ADDITION.symbol())
+				| input.contains(Operations.SUBTRACTION.symbol())
+				| input.contains(Operations.MULTIPLICATION.symbol()));
 	}
 
 	private void sendAnswer(Answer answer){

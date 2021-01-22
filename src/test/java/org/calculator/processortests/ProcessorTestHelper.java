@@ -1,12 +1,13 @@
 package org.calculator.processortests;
 
+import org.calculator.common.Operations;
 import org.calculator.common.Request;
 
 import java.util.HashMap;
 
 public class ProcessorTestHelper {
 	private HashMap<String, String> answers = new HashMap<>();
-	private String[] type = {"SingleValue", "Addition", "Subtraction"};
+	private String[] type = {"SingleValue", "Addition", "Subtraction", "Multiplication"};
 	private String input;
 	private Request request;
 
@@ -17,6 +18,8 @@ public class ProcessorTestHelper {
 			setForAdditionValue();
 		} else if (test.equals(type[2])){
 			setForSubtractionValue();
+		} else if (test.equals(type[3])){
+			setForMultiplicationValue();
 		}
 	}
 	public Request getRequest(){
@@ -33,14 +36,20 @@ public class ProcessorTestHelper {
 	private void setForAdditionValue(){
 		input = "2+2";
 		request = new Request(input);
-		request.setAdditions(new double[]{2.0, 2.0});
+		request.setSection(Operations.ADDITION.symbol(), new double[]{2.0, 2.0});
 		answers.put(type[1], "4.0");
 	}
 	private void setForSubtractionValue(){
 		input = "4-2";
 		request = new Request(input);
-		request.setSubtractions(new double[]{4.0, 2.0});
+		request.setSection(Operations.SUBTRACTION.symbol(), new double[]{4.0, 2.0});
 		answers.put(type[2], "2.0");
+	}
+	private void setForMultiplicationValue(){
+		input = "2*2";
+		request = new Request(input);
+		request.setSection(Operations.MULTIPLICATION.symbol(), new double[]{2.0, 2.0});
+		answers.put(type[3], "4.0");
 	}
 
 }

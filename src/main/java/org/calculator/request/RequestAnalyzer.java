@@ -2,14 +2,13 @@ package org.calculator.request;
 
 import org.calculator.common.Request;
 import org.calculator.processing.ProcessorActions;
-import org.calculator.processing.ProcessorBoundary;
-
 
 class RequestAnalyzer implements Analyzer {
 
 	private ProcessorActions processorActions;
 	private Builder builder;
 	private RequestFormatter formatter;
+	private String[] operations = {"+", "-", "*"};
 	public RequestAnalyzer(ProcessorActions processorActions, Builder builder){
 
 		this.processorActions = processorActions;
@@ -27,22 +26,18 @@ class RequestAnalyzer implements Analyzer {
 		Request request = builder.getBuiltRequest();
 		processorActions.processRequest(request);
 	}
-	private void buildRequest(String input){
-		String addition = "+";
-		String subtraction = "-";
-		if (input.contains(addition)){
-			double[] formattedInput =
-					formatStringsToDoubles(input.split("[" + addition + "]"));
-			builder.buildAdditionSection(formattedInput);
-		}
-		if(input.contains(subtraction)){
-			double[] formattedInput =
-					formatStringsToDoubles(input.split("[" + subtraction + "]"));
-			builder.buildSubtractionSection(formattedInput);
-		}
-	}
+
 	private double[] formatStringsToDoubles(String[] strings){
 		return formatter.format(strings);
+	}
+	private void buildRequest(String input){
+		for (String operation : operations) {
+			if (input.contains(operation)) {
+				double[] formattedInput =
+						formatStringsToDoubles(input.split("[" + operation + "]"));
+				builder.buildSection(operation, formattedInput);
+			}
+		}
 	}
 
 

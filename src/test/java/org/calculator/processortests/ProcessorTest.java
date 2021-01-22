@@ -5,8 +5,6 @@ import org.calculator.answer.AnswerServices;
 import org.calculator.processing.ProcessorActions;
 import org.calculator.processing.ProcessorBoundary;
 import org.calculator.processing.ProcessorController;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,13 +36,14 @@ public class ProcessorTest {
 	@CsvSource({
 			"SingleValue",
 			"Addition",
-			"Subtraction"
+			"Subtraction",
+			"Multiplication"
 	})
 	void whenRequestIsReceived_ThenCorrectAnswerIsCalculated(String input){
 		helper.setTestTypeFields(input);
 		Request request = helper.getRequest();
 		processor.processRequest(request);
 
-		MatcherAssert.assertThat(ansHandler.getAnswer().toString(), Matchers.is(helper.getAnswer(input)));
+		assertThat(ansHandler.getAnswer().toString(), is(helper.getAnswer(input)));
 	}
 }
