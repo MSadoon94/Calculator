@@ -10,7 +10,7 @@ class ArithmeticStrategy implements OperationStrategy {
 		return multiplication() + subtract() + addition();
 	}
 	private double subtract(){
-		double[] subtractions = request.getSection(Operations.SUBTRACTION.symbol());
+		double[] subtractions = request.getSection(Operations.SUBTRACTION);
 		if(subtractions == null){
 			return 0;
 		}
@@ -23,7 +23,7 @@ class ArithmeticStrategy implements OperationStrategy {
 	}
 
 	private double addition(){
-		double[] additions = request.getSection(Operations.ADDITION.symbol());
+		double[] additions = request.getSection(Operations.ADDITION);
 		if(additions == null){
 			return 0;
 		}
@@ -35,7 +35,7 @@ class ArithmeticStrategy implements OperationStrategy {
 	}
 
 	private double multiplication(){
-		double[] multiplication = request.getSection(Operations.MULTIPLICATION.symbol());
+		double[] multiplication = request.getSection(Operations.MULTIPLICATION);
 		if( multiplication == null){
 			return 0;
 		}

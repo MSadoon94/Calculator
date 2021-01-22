@@ -35,9 +35,9 @@ class Processor implements ProcessorActions {
 	}
 
 	private boolean isSingleValue(Request request){
-		return request.getSection(Operations.ADDITION.symbol()) == null &&
-				request.getSection(Operations.SUBTRACTION.symbol()) == null &&
-				request.getSection(Operations.MULTIPLICATION.symbol()) == null;
+		return request.getSection(Operations.ADDITION) == null &&
+				request.getSection(Operations.SUBTRACTION) == null &&
+				request.getSection(Operations.MULTIPLICATION) == null;
 	}
 
 	private boolean hasArithmetic(Request request){

@@ -1,5 +1,6 @@
 package org.calculator.request;
 
+import org.calculator.common.Operations;
 import org.calculator.common.Request;
 import org.calculator.processing.ProcessorActions;
 
@@ -31,10 +32,10 @@ class RequestAnalyzer implements Analyzer {
 		return formatter.format(strings);
 	}
 	private void buildRequest(String input){
-		for (String operation : operations) {
-			if (input.contains(operation)) {
+		for (Operations operation : Operations.values()) {
+			if (input.contains(operation.symbol())) {
 				double[] formattedInput =
-						formatStringsToDoubles(input.split("[" + operation + "]"));
+						formatStringsToDoubles(input.split("[" + operation.symbol() + "]"));
 				builder.buildSection(operation, formattedInput);
 			}
 		}

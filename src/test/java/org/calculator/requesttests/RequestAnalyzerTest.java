@@ -1,5 +1,6 @@
 package org.calculator.requesttests;
 
+import org.calculator.common.Operations;
 import org.calculator.processing.ProcessorActions;
 import org.calculator.request.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,26 +38,23 @@ public class RequestAnalyzerTest {
 	@Test
 	void whenStringHasAddition_ThenWillReturnAnalyzedRequestWithExtractedAdditionValues(){
 		String addValue = ("2+2+3+4");
-		String addition = "+";
 		requestAnalyzer.analysis(addValue);
 		Request request = requestBuilder.getBuiltRequest();
-		assertThat(Arrays.toString(request.getSection(addition)), is(equalTo(Arrays.toString(values))));
+		assertThat(Arrays.toString(request.getSection(Operations.ADDITION)), is(equalTo(Arrays.toString(values))));
 	}
 	@Test
 	void whenStringHasSubtraction_ThenWillReturnAnalyzedRequestWithExtractedSubtractionValues(){
 		String minusValue = ("2-2-3-4");
-		String subtraction = "-";
 		requestAnalyzer.analysis(minusValue);
 		Request request = requestBuilder.getBuiltRequest();
-		assertThat(Arrays.toString(request.getSection(subtraction)), is(equalTo(Arrays.toString(values))));
+		assertThat(Arrays.toString(request.getSection(Operations.SUBTRACTION)), is(equalTo(Arrays.toString(values))));
 	}
 
 	@Test
 	void whenStringHasMultiplication_ThenWillReturnAnalyzedRequestWithExtractedMultiplicationValues(){
 		String minusValue = ("2*2*3*4");
-		String multiplication = "*";
 		requestAnalyzer.analysis(minusValue);
 		Request request = requestBuilder.getBuiltRequest();
-		assertThat(Arrays.toString(request.getSection(multiplication)), is(equalTo(Arrays.toString(values))));
+		assertThat(Arrays.toString(request.getSection(Operations.MULTIPLICATION)), is(equalTo(Arrays.toString(values))));
 	}
 }

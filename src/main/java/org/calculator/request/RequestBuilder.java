@@ -1,5 +1,6 @@
 package org.calculator.request;
 
+import org.calculator.common.Operations;
 import org.calculator.common.Request;
 
 class RequestBuilder implements Builder{
@@ -13,7 +14,7 @@ class RequestBuilder implements Builder{
 		return request;
 	}
 
-	public void buildSection(String section, double[] values) {
+	public void buildSection(Operations section, double[] values) {
 		request.setSection(section, values);
 	}
 }

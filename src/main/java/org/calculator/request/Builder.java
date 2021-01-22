@@ -1,5 +1,6 @@
 package org.calculator.request;
 
+import org.calculator.common.Operations;
 import org.calculator.common.Request;
 
 public interface Builder {
@@ -7,6 +8,6 @@ public interface Builder {
 
 	Request getBuiltRequest();
 
-	void buildSection(String section, double[] values);
+	void buildSection(Operations section, double[] values);
 
 }

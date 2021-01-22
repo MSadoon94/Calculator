@@ -36,19 +36,19 @@ public class ProcessorTestHelper {
 	private void setForAdditionValue(){
 		input = "2+2";
 		request = new Request(input);
-		request.setSection(Operations.ADDITION.symbol(), new double[]{2.0, 2.0});
+		request.setSection(Operations.ADDITION, new double[]{2.0, 2.0});
 		answers.put(type[1], "4.0");
 	}
 	private void setForSubtractionValue(){
 		input = "4-2";
 		request = new Request(input);
-		request.setSection(Operations.SUBTRACTION.symbol(), new double[]{4.0, 2.0});
+		request.setSection(Operations.SUBTRACTION, new double[]{4.0, 2.0});
 		answers.put(type[2], "2.0");
 	}
 	private void setForMultiplicationValue(){
 		input = "2*2";
 		request = new Request(input);
-		request.setSection(Operations.MULTIPLICATION.symbol(), new double[]{2.0, 2.0});
+		request.setSection(Operations.MULTIPLICATION, new double[]{2.0, 2.0});
 		answers.put(type[3], "4.0");
 	}
 
