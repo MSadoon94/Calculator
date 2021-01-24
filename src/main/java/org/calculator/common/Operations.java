@@ -1,6 +1,7 @@
 package org.calculator.common;
 
 public enum Operations {
+	SINGLE_VALUE("SINGLE_VALUE"),
 	ADDITION("+"),
 	SUBTRACTION("-"),
 	MULTIPLICATION("*");

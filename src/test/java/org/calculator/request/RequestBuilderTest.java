@@ -1,7 +1,5 @@
-package org.calculator.requesttests;
+package org.calculator.request;
 
-import org.calculator.request.Builder;
-import org.calculator.request.RequestController;
 import org.junit.jupiter.api.Test;
 import org.calculator.common.Request;
 

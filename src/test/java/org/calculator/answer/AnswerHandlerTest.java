@@ -1,7 +1,5 @@
-package org.calculator.answertests;
+package org.calculator.answer;
 
-import org.calculator.answer.AnswerHandler;
-import org.calculator.answer.AnswerServices;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;

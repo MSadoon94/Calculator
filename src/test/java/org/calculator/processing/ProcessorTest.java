@@ -1,14 +1,15 @@
-package org.calculator.processortests;
+package org.calculator.processing;
 
 import org.calculator.answer.AnswerHandler;
 import org.calculator.answer.AnswerServices;
-import org.calculator.processing.ProcessorActions;
-import org.calculator.processing.ProcessorBoundary;
-import org.calculator.processing.ProcessorController;
+import org.calculator.common.Operations;
+import org.calculator.common.TestHelper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.calculator.common.Request;
@@ -22,28 +23,21 @@ public class ProcessorTest {
 	@Mock private UiActions ui;
 	private AnswerServices ansHandler;
 	private ProcessorActions processor;
-	private ProcessorTestHelper helper;
 
 	@BeforeEach
 	void setUp(){
 		ProcessorBoundary processorController = new ProcessorController();
 		ansHandler = new AnswerHandler();
 		processor = processorController.processorActions(ui,  ansHandler);
-		helper = new ProcessorTestHelper();
 	}
 
 	@ParameterizedTest(name = "{index} ==> {0}")
-	@CsvSource({
-			"SingleValue",
-			"Addition",
-			"Subtraction",
-			"Multiplication"
-	})
-	void whenRequestIsReceived_ThenCorrectAnswerIsCalculated(String input){
-		helper.setTestTypeFields(input);
-		Request request = helper.getRequest();
+	@EnumSource(TestHelper.class)
+	void whenRequestIsReceived_ThenCorrectAnswerIsCalculated(TestHelper helper){
+		Request request = new Request(helper.input());
+		request.setSection(Operations.valueOf(helper.name()), helper.doubles());
 		processor.processRequest(request);
 
-		assertThat(ansHandler.getAnswer().toString(), is(helper.getAnswer(input)));
+		assertThat(ansHandler.getAnswer().toString(), is(helper.answer()));
 	}
 }

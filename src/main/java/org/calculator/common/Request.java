@@ -9,6 +9,10 @@ public class Request extends Calculation {
 		super(request);
 	}
 	public void setSection(Operations type, double[] values){
+		if (type == Operations.SINGLE_VALUE){
+			double[] value = {Double.parseDouble(this.toString())};
+			sectionType.put(type,value);
+		}
 		sectionType.put(type,values);
 	}
 

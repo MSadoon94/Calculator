@@ -1,8 +1,7 @@
-package org.calculator.requesttests;
+package org.calculator.request;
 
 import org.calculator.common.Operations;
 import org.calculator.processing.ProcessorActions;
-import org.calculator.request.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -9,7 +9,6 @@ class RequestAnalyzer implements Analyzer {
 	private ProcessorActions processorActions;
 	private Builder builder;
 	private RequestFormatter formatter;
-	private String[] operations = {"+", "-", "*"};
 	public RequestAnalyzer(ProcessorActions processorActions, Builder builder){
 
 		this.processorActions = processorActions;

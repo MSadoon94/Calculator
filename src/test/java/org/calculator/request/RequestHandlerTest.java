@@ -1,9 +1,7 @@
-package org.calculator.requesttests;
+package org.calculator.request;
 
-import org.calculator.request.RequestController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.calculator.request.RequestServices;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
