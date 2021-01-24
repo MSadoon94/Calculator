@@ -6,6 +6,8 @@ import org.calculator.processing.ProcessorActions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.calculator.common.Request;
@@ -25,32 +27,16 @@ public class RequestAnalyzerTest {
 		requestAnalyzer = new RequestAnalyzer(processor, requestBuilder);
 	}
 
-	@Test
-	void whenStringIsSingleValue_ThenWillReturnAnalyzedRequestWithExtractedSingleValue(){
-		requestAnalyzer.analysis(TestHelper.SINGLE_VALUE.input());
+	@ParameterizedTest(name = "{index} ==> {0}")
+	@EnumSource
+	void whenPassedString_ThenWillReturnAnalyzedRequestWithExtractedValuesRelatingToString(TestHelper helper){
+		requestAnalyzer.analysis(helper.input());
 		Request request = requestBuilder.getBuiltRequest();
-		assertThat(request.toString(), is(equalTo(TestHelper.SINGLE_VALUE.answer())));
+		if (helper == TestHelper.SINGLE_VALUE){
+			assertThat(request.toString(), is(equalTo(helper.answer())));
+		} else {
+			assertThat(request.getSection(Operations.valueOf(helper.name())), is(equalTo(helper.doubles())));
+		}
 	}
 
-	@Test
-	void whenStringHasAddition_ThenWillReturnAnalyzedRequestWithExtractedAdditionValues(){
-		requestAnalyzer.analysis(TestHelper.ADDITION.input());
-		Request request = requestBuilder.getBuiltRequest();
-		assertThat(request.getSection(Operations.ADDITION), is(equalTo(TestHelper.ADDITION.doubles())));
-	}
-
-	@Test
-	void whenStringHasSubtraction_ThenWillReturnAnalyzedRequestWithExtractedSubtractionValues(){
-
-		requestAnalyzer.analysis(TestHelper.SUBTRACTION.input());
-		Request request = requestBuilder.getBuiltRequest();
-		assertThat(request.getSection(Operations.SUBTRACTION), is(equalTo(TestHelper.SUBTRACTION.doubles())));
-	}
-
-	@Test
-	void whenStringHasMultiplication_ThenWillReturnAnalyzedRequestWithExtractedMultiplicationValues(){
-		requestAnalyzer.analysis(TestHelper.MULTIPLICATION.input());
-		Request request = requestBuilder.getBuiltRequest();
-		assertThat(request.getSection(Operations.MULTIPLICATION), is(equalTo(TestHelper.MULTIPLICATION.doubles())));
-	}
 }

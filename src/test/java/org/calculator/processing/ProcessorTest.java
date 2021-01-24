@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.*;
 public class ProcessorTest {
 	@Mock private UiActions ui;
 	private AnswerServices ansHandler;
-	private ProcessorActions processor;
+	private Processor processor;
 
 	@BeforeEach
 	void setUp(){
@@ -30,7 +30,7 @@ public class ProcessorTest {
 	}
 
 	@ParameterizedTest(name = "{index} ==> {0}")
-	@EnumSource(TestHelper.class)
+	@EnumSource
 	void whenRequestIsReceived_ThenCorrectAnswerIsCalculated(TestHelper helper){
 		Request request = new Request(helper.input());
 		request.setSection(Operations.valueOf(helper.name()), helper.doubles());
