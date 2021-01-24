@@ -1,5 +1,6 @@
 package org.calculator;
 
+import org.calculator.common.TestHelper;
 import org.calculator.control.ComponentCreator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,8 +24,6 @@ public class AcceptanceTests {
 
 	private String input = "0";
 
-
-
 	@BeforeEach
 	void setUp(){
 		new ComponentCreator();
@@ -37,7 +36,9 @@ public class AcceptanceTests {
 			"WhenNumberIsEntered_ThenThatSameNumberWillBeReturned, 2.0",
 			"WhenUserRequestsAddition_ThenInputtedValuesAreAdded, 2+2",
 			"WhenUserRequestsSubtraction_ThenInputtedValuesAreSubtracted, 4-2",
-			"WhenUserRequestsMultiplication_ThenInputtedValuesAreMultiplied, 2*2"
+			"WhenUserRequestsMultiplication_ThenInputtedValuesAreMultiplied, 2*2",
+			"WhenUserRequestsDivision_ThenInputtedValuesAreDivided, 4/2",
+			"WhenUserRequestsPercentage_ThenInputtedValuesAreTurnedIntoPercentages, 0.50"
 	})
 	void testingFixture(String test, String aInput){
 		//Although unused, test variable is needed so test name isn't assigned to input.
@@ -56,10 +57,10 @@ public class AcceptanceTests {
 	}
 
 	private void setAnswers(){
-		answers.put("2.0", "2.0");
-		answers.put("2+2", "4.0");
-		answers.put("4-2", "2.0");
-		answers.put("2*2", "4.0");
+		TestHelper[] types = TestHelper.values();
+		for (TestHelper type : types) {
+			answers.put(type.input(), type.answer());
+		}
 	}
 
 	private void startInputtingRequest(){

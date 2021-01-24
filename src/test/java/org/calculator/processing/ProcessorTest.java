@@ -5,10 +5,8 @@ import org.calculator.answer.AnswerServices;
 import org.calculator.common.Operations;
 import org.calculator.common.TestHelper;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -26,9 +24,9 @@ public class ProcessorTest {
 
 	@BeforeEach
 	void setUp(){
-		ProcessorBoundary processorController = new ProcessorController();
 		ansHandler = new AnswerHandler();
-		processor = processorController.processorActions(ui,  ansHandler);
+		processor = new Processor(ui,  ansHandler);
+
 	}
 
 	@ParameterizedTest(name = "{index} ==> {0}")
