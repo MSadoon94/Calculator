@@ -7,7 +7,19 @@ class ArithmeticStrategy implements OperationStrategy {
 	private Request request;
 	public double execute(Request request) {
 		this.request = request;
-		return multiplication() + subtract() + addition() + singleValue();
+		return division() + multiplication() + subtract() + addition() + singleValue();
+	}
+
+	private double division(){
+		double[] division = request.getSection(Operations.DIVISION);
+		if (division == null){
+			return 0;
+		}
+		double value = division[0];
+		for (int i = 1; i < division.length; i++){
+			value /= division[i];
+		}
+		return value;
 	}
 
 	private double multiplication(){
@@ -54,6 +66,5 @@ class ArithmeticStrategy implements OperationStrategy {
 		}
 		return value[0];
 	}
-
 
 }

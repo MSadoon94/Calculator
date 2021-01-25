@@ -4,12 +4,17 @@ public enum Operations {
 	SINGLE_VALUE("SINGLE_VALUE"),
 	ADDITION("+"),
 	SUBTRACTION("-"),
-	MULTIPLICATION("*");
+	MULTIPLICATION("*"),
+	DIVISION("/");
+
 	private final String operation;
 	Operations(String operation) {
 		this.operation = operation;
 	}
 	public String symbol(){
 		return operation;
+	}
+	public static String[] arithmeticSymbols(){
+		return new String[]{ADDITION.symbol(), SUBTRACTION.symbol(), MULTIPLICATION.symbol(), DIVISION.symbol()};
 	}
 }

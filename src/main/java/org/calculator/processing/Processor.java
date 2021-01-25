@@ -7,6 +7,7 @@ import org.calculator.common.Request;
 import org.calculator.user.UiActions;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 class Processor implements ProcessorActions {
 	private AnswerServices ansServices;
@@ -35,16 +36,19 @@ class Processor implements ProcessorActions {
 	}
 
 	private boolean isSingleValue(Request request){
-		return request.getSection(Operations.ADDITION) == null &&
-				request.getSection(Operations.SUBTRACTION) == null &&
-				request.getSection(Operations.MULTIPLICATION) == null;
+		return request.getSection(Operations.SINGLE_VALUE) != null;
 	}
 
 	private boolean hasArithmetic(Request request){
+		boolean hasArithmetic = false;
 		String input = request.toString();
-		return (input.contains(Operations.ADDITION.symbol())
-				| input.contains(Operations.SUBTRACTION.symbol())
-				| input.contains(Operations.MULTIPLICATION.symbol()));
+		String[] symbols = Operations.arithmeticSymbols();
+		for (String symbol : symbols) {
+			if (input.contains(symbol)) {
+				hasArithmetic = true;
+			}
+		}
+		return hasArithmetic;
 	}
 
 	private void sendAnswer(Answer answer){
