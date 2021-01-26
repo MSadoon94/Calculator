@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.calculator.common.Request;
 
+import java.util.Arrays;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -31,10 +33,14 @@ public class RequestAnalyzerTest {
 	void whenPassedString_ThenWillReturnAnalyzedRequestWithExtractedValuesRelatingToString(TestHelper helper){
 		requestAnalyzer.analysis(helper.input());
 		Request request = requestBuilder.getBuiltRequest();
-		if (helper == TestHelper.SINGLE_VALUE){
-			assertThat(request.toString(), is(equalTo(helper.answer())));
+		boolean typeIsFunctionOperation = Arrays.stream(Operations.functionOps())
+				.anyMatch(op -> op.name().equals(helper.name()));
+		if (typeIsFunctionOperation){
+			String functionValue = String.valueOf(helper.doubles()[0]);
+			assertThat(request.toString(), is(equalTo(functionValue)));
 		} else {
-			assertThat(request.getSection(Operations.valueOf(helper.name())), is(equalTo(helper.doubles())));
+			double[] extractedValues = request.getSection(Operations.valueOf(helper.name()));
+			assertThat(extractedValues, is(equalTo(helper.doubles())));
 		}
 	}
 

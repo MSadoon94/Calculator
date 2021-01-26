@@ -1,5 +1,6 @@
 package org.calculator.common;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Request extends Calculation {
@@ -9,7 +10,8 @@ public class Request extends Calculation {
 		super(request);
 	}
 	public void setSection(Operations type, double[] values){
-		if (type == Operations.SINGLE_VALUE){
+		boolean typeIsFunctionOperation = Arrays.stream(Operations.functionOps()).anyMatch(op -> op == type);
+		if (typeIsFunctionOperation) {
 			double[] value = {Double.parseDouble(this.toString())};
 			sectionType.put(type,value);
 		}

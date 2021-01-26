@@ -20,7 +20,7 @@ public class AcceptanceTests {
 
 	private JFrameOperator frameOperator;
 	private JTextAreaOperator textAreaOperator;
-	private JButtonOperator buttonOperator;
+	private JButtonOperator equalsButton, percentageButton;
 
 	private String input = "0";
 
@@ -44,7 +44,7 @@ public class AcceptanceTests {
 		//Although unused, test variable is needed so test name isn't assigned to input.
 		input = aInput;
 		setOperators();
-		startInputtingRequest();
+		startInputtingRequest(test);
 		hasDisplayedAnswer();
 		frameOperator.getWindow().dispose();
 
@@ -53,7 +53,8 @@ public class AcceptanceTests {
 	private void setOperators(){
 		frameOperator = new JFrameOperator("Gui");
 		textAreaOperator = new JTextAreaOperator(frameOperator, 0);
-		buttonOperator = new JButtonOperator(frameOperator, "=");
+		equalsButton = new JButtonOperator(frameOperator, "=");
+		percentageButton = new JButtonOperator(frameOperator, "%");
 	}
 
 	private void setAnswers(){
@@ -63,9 +64,14 @@ public class AcceptanceTests {
 		}
 	}
 
-	private void startInputtingRequest(){
+	private void startInputtingRequest(String test){
 		textAreaOperator.enterText(input);
-		buttonOperator.push();
+		if (test.contains("Percentage")){
+			percentageButton.push();
+		} else {
+			equalsButton.push();
+		}
+
 	}
 
 

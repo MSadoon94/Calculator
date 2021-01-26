@@ -41,9 +41,8 @@ class Processor implements ProcessorActions {
 	private boolean hasArithmetic(Request request){
 		boolean hasArithmetic = false;
 		String input = request.toString();
-		String[] symbols = Operations.arithmeticSymbols();
-		for (String symbol : symbols) {
-			if (input.contains(symbol)) {
+		for (Operations op : Operations.arithmeticOps()){
+			if (input.contains(op.symbol())){
 				hasArithmetic = true;
 			}
 		}
