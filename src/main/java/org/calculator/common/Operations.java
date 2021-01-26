@@ -5,7 +5,8 @@ public enum Operations {
 	ADDITION("+"),
 	SUBTRACTION("-"),
 	MULTIPLICATION("*"),
-	DIVISION("/");
+	DIVISION("/"),
+	PERCENTAGE("%");
 
 	private final String operation;
 	Operations(String operation) {

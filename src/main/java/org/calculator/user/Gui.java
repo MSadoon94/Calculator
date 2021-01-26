@@ -20,6 +20,7 @@ public class Gui implements ActionListener, UiActions {
 	private JButton subtractButton;
 	private JButton divideButton;
 	private JButton multiplyButton;
+	private JButton percentageButton;
 
 
 	public Gui(JFrame frame, RequestServices services){

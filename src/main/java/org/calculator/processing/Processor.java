@@ -7,7 +7,6 @@ import org.calculator.common.Request;
 import org.calculator.user.UiActions;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
 
 class Processor implements ProcessorActions {
 	private AnswerServices ansServices;
