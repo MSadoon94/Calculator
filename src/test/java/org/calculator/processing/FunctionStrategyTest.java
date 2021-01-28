@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.*;
 public class FunctionStrategyTest {
 
 	@Test
-	void givenRequest_WhenRequestIsFunction_ThenWillSumAllFunctionSectionsOfRequestIntoDouble(){
+	void shouldSumAllFunctionSectionsOfRequestIntoSingleBigDecimal(){
 		FunctionStrategy strategy = new FunctionStrategy();
 		String input = TestHelper.SINGLE_VALUE.input();
 		Request request = new Request(input);

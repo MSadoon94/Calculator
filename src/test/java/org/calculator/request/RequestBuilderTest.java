@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.*;
 public class RequestBuilderTest {
 
 	@Test
-	void whenPassedString_ThenShouldBuildRequestThatContainsSameString(){
+	void shouldBuildRequestFromString(){
 		RequestBuilder builder = new RequestBuilder();
 		builder.addOriginalInput(TestHelper.SINGLE_VALUE.input());
 		Request builtRequest = builder.getBuiltRequest();

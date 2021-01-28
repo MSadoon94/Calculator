@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.*;
 public class ArithmeticStrategyTest {
 
 	@Test
-	void givenPassedRequest_WhenRequestIsArithmeticOperation_ThenWillSumAllArithmeticSectionsOfRequestIntoBigDecimal(){
+	void shouldSumAllArithmeticSectionsOfRequestIntoSingleBigDecimal(){
 		ArithmeticStrategy strategy = new ArithmeticStrategy();
 		Request request = new Request("2.0");
 		BigDecimal answer = BigDecimal.ZERO;

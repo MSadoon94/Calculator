@@ -31,7 +31,7 @@ public class ProcessorTest {
 
 	@ParameterizedTest(name = "{index} ==> {0}")
 	@EnumSource
-	void whenRequestIsReceived_ThenCorrectAnswerIsCalculated(TestHelper helper){
+	void shouldCalculateAnswerForSpecificOperationWhenRequestIsReceived(TestHelper helper){
 		Request request = new Request(helper.input());
 		request.setSection(Operations.valueOf(helper.name()), helper.extracted());
 		processor.processRequest(request);

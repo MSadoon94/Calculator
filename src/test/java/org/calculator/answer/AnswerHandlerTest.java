@@ -7,11 +7,12 @@ import static org.hamcrest.Matchers.*;
 public class AnswerHandlerTest {
 
 	@Test
-	void whenAnswerIsPassed_ThenShouldSendToAnswerCache(){
+	void shouldStoreAnswerInAnswerCache(){
 		String answer = "2";
 		AnswerServices handler = new AnswerHandler();
 		handler.addAnswer(answer);
 
 		assertThat(handler.getAnswer().toString(), is(equalTo(answer)));
 	}
+
 }

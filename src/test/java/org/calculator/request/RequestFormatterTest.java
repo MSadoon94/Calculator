@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.*;
 public class RequestFormatterTest {
 
 	@Test
-	void whenPassedStringArray_ThenWillParseStringArrayToBigDecimalArrayWithSameValues(){
+	void shouldParseStringArrayToBigDecimalArray(){
 		RequestFormatter requestFormatter = new RequestFormatter();
 		String[] input = {"0", "2", "4"};
 		BigDecimal[] decimals = new BigDecimal[input.length];

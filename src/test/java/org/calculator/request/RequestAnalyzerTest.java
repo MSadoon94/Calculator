@@ -34,7 +34,7 @@ public class RequestAnalyzerTest {
 
 	@ParameterizedTest(name = "{index} ==> {0}")
 	@EnumSource
-	void whenPassedString_ThenWillReturnRequestWithExtractedValuesRelatingToString(TestHelper helper){
+	void shouldExtractValuesFromStringIntoEachSectionOfRequest(TestHelper helper){
 		requestAnalyzer.analysis(helper.input());
 		System.out.println(Arrays.toString(helper.extracted()));
 		Request request = requestBuilder.getBuiltRequest();

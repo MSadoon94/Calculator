@@ -17,7 +17,7 @@ public class RequestHandlerTest {
 	}
 
 	@Test
-	void whenRequestIsPassed_ThenShouldSendRequestToCache(){
+	void shouldStoreRequestInRequestCache(){
 		handler.addRequest(request);
 		assertThat(handler.getRequest().toString(), is(request));
 	}
