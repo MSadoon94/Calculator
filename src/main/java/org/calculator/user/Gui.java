@@ -15,13 +15,7 @@ public class Gui implements ActionListener, UiActions {
 	private Observer reqObserver;
 	private JPanel mainPanel;
 	private JTextArea mainTextArea;
-	private JButton equalsButton;
-	private JButton addButton;
-	private JButton subtractButton;
-	private JButton divideButton;
-	private JButton multiplyButton;
-	private JButton percentageButton;
-
+	private JButton equalsButton, addButton, subtractButton, divideButton, multiplyButton, percentageButton;
 
 	public Gui(JFrame frame, RequestServices services){
 		reqServices = services;
@@ -30,6 +24,7 @@ public class Gui implements ActionListener, UiActions {
 		subtractButton.addActionListener(this);
 		divideButton.addActionListener(this);
 		multiplyButton.addActionListener(this);
+		percentageButton.addActionListener(this);
 		frame.add(mainPanel);
 		frame.setContentPane(mainPanel);
 
@@ -63,6 +58,10 @@ public class Gui implements ActionListener, UiActions {
 		}
 		if (e.getSource() == divideButton){
 			mainTextArea.append("/");
+		}
+		if (e.getSource() == percentageButton){
+			mainTextArea.append("%");
+			equalsButton.doClick();
 		}
 	}
 

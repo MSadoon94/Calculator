@@ -4,13 +4,17 @@ import org.calculator.common.Operations;
 import org.calculator.common.TestHelper;
 import org.calculator.processing.ProcessorActions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.calculator.common.Request;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -30,18 +34,20 @@ public class RequestAnalyzerTest {
 
 	@ParameterizedTest(name = "{index} ==> {0}")
 	@EnumSource
-	void whenPassedString_ThenWillReturnAnalyzedRequestWithExtractedValuesRelatingToString(TestHelper helper){
+	void whenPassedString_ThenWillReturnRequestWithExtractedValuesRelatingToString(TestHelper helper){
 		requestAnalyzer.analysis(helper.input());
+		System.out.println(Arrays.toString(helper.extracted()));
 		Request request = requestBuilder.getBuiltRequest();
-		boolean typeIsFunctionOperation = Arrays.stream(Operations.functionOps())
-				.anyMatch(op -> op.name().equals(helper.name()));
-		if (typeIsFunctionOperation){
-			String functionValue = String.valueOf(helper.doubles()[0]);
+		if (helper == TestHelper.SINGLE_VALUE){
+			String functionValue = String.valueOf(helper.extracted()[0]);
 			assertThat(request.toString(), is(equalTo(functionValue)));
+			System.out.println(request.toString() + " " + functionValue);
 		} else {
-			double[] extractedValues = request.getSection(Operations.valueOf(helper.name()));
-			assertThat(extractedValues, is(equalTo(helper.doubles())));
+			BigDecimal[] extractedValues = request.getSection(Operations.valueOf(helper.name()));
+			assertThat(extractedValues, is(equalTo(helper.extracted())));
+			System.out.println( Arrays.toString(extractedValues) + " " + Arrays.toString(helper.extracted()));
 		}
 	}
+
 
 }

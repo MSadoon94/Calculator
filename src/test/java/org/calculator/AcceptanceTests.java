@@ -38,13 +38,13 @@ public class AcceptanceTests {
 			"WhenUserRequestsSubtraction_ThenInputtedValuesAreSubtracted, 4-2",
 			"WhenUserRequestsMultiplication_ThenInputtedValuesAreMultiplied, 2*2",
 			"WhenUserRequestsDivision_ThenInputtedValuesAreDivided, 4/2",
-			"WhenUserRequestsPercentage_ThenInputtedValuesAreTurnedIntoPercentages, 0.50"
+			"WhenUserRequestsPercentage_ThenInputtedValuesAreTurnedIntoPercentages, 0.5%"
 	})
 	void testingFixture(String test, String aInput){
 		//Although unused, test variable is needed so test name isn't assigned to input.
 		input = aInput;
 		setOperators();
-		startInputtingRequest(test);
+		startInputtingRequest();
 		hasDisplayedAnswer();
 		frameOperator.getWindow().dispose();
 
@@ -54,7 +54,6 @@ public class AcceptanceTests {
 		frameOperator = new JFrameOperator("Gui");
 		textAreaOperator = new JTextAreaOperator(frameOperator, 0);
 		equalsButton = new JButtonOperator(frameOperator, "=");
-		percentageButton = new JButtonOperator(frameOperator, "%");
 	}
 
 	private void setAnswers(){
@@ -62,15 +61,12 @@ public class AcceptanceTests {
 		for (TestHelper type : types) {
 			answers.put(type.input(), type.answer());
 		}
+
 	}
 
-	private void startInputtingRequest(String test){
+	private void startInputtingRequest(){
 		textAreaOperator.enterText(input);
-		if (test.contains("Percentage")){
-			percentageButton.push();
-		} else {
-			equalsButton.push();
-		}
+		equalsButton.push();
 
 	}
 

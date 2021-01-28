@@ -2,6 +2,8 @@ package org.calculator.processing;
 
 import org.calculator.common.Request;
 
+import java.math.BigDecimal;
+
 interface OperationStrategy {
-	double execute(Request request);
+	BigDecimal execute(Request request);
 }

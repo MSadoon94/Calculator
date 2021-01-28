@@ -1,11 +1,15 @@
 package org.calculator.processing;
 
+import org.calculator.answer.AnswerBuilder;
 import org.calculator.common.Answer;
 import org.calculator.answer.AnswerServices;
 import org.calculator.common.Operations;
 import org.calculator.common.Request;
 import org.calculator.user.UiActions;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 class Processor implements ProcessorActions {
@@ -13,6 +17,7 @@ class Processor implements ProcessorActions {
 	private UiActions ui;
 	private DecimalFormat df = new DecimalFormat("#.00");
 	private ProcessorContext context = new ProcessorContext();
+	private AnswerBuilder builder = new AnswerBuilder();
 
 	public Processor(UiActions ui, AnswerServices ansServices){
 		this.ui = ui;
@@ -20,35 +25,31 @@ class Processor implements ProcessorActions {
 	}
 
 	public void processRequest(Request request){
-		Answer answer = calculate(request);
+		BigDecimal calculated = calculate(request);
+		Answer answer = builder.answer(symbol(request), calculated);
 		sendAnswer(answer);
 	}
-
-	private Answer calculate(Request request){
-		if (isSingleValue(request)){
-			return new Answer(request.toString());
-		} else if (hasArithmetic(request)){
-			context.setStrategy(new ArithmeticStrategy());
+	private String symbol(Request request){
+		String symbol = "";
+		if (request.toString().contains(Operations.PERCENTAGE.symbol())){
+			symbol = Operations.PERCENTAGE.symbol();
 		}
-		double calculation = context.executeStrategy(request);
-		return new Answer(String.valueOf(calculation));
+		return symbol;
 	}
 
-	private boolean isSingleValue(Request request){
-		return request.getSection(Operations.SINGLE_VALUE) != null;
-	}
-
-	private boolean hasArithmetic(Request request){
-		boolean hasArithmetic = false;
-		String input = request.toString();
-		for (Operations op : Operations.arithmeticOps()){
-			if (input.contains(op.symbol())){
-				hasArithmetic = true;
-			}
+	private BigDecimal calculate(Request request){
+		OperationStrategy[] strategies = {new FunctionStrategy(), new ArithmeticStrategy()};
+		BigDecimal answer = BigDecimal.ZERO;
+		for (OperationStrategy strategy : strategies) {
+			answer =  answer.add(calculation(strategy, request), MathContext.DECIMAL32);
 		}
-		return hasArithmetic;
+		return answer.setScale(2, RoundingMode.HALF_UP);
 	}
 
+	private BigDecimal calculation(OperationStrategy strategy, Request request){
+		context.setStrategy(strategy);
+		return context.executeStrategy(request);
+	}
 	private void sendAnswer(Answer answer){
 		ansServices.addAnswer(answer.toString());
 		ui.setResponse(answer.toString());

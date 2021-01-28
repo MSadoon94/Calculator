@@ -20,7 +20,7 @@ public class RequestController implements RequestBoundary{
 		return new RequestBuilder();
 	}
 
-	public Formatter requestFormatter() {
+	public RequestFormat requestFormatter() {
 		return new RequestFormatter();
 	}
 

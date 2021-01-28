@@ -6,14 +6,14 @@ public enum Operations {
 	SUBTRACTION("-"),
 	MULTIPLICATION("*"),
 	DIVISION("/"),
-	PERCENTAGE("PERCENTAGE");
+	PERCENTAGE("%");
 
-	private final String operation;
-	Operations(String operation) {
-		this.operation = operation;
+	private final String symbol;
+	Operations(String symbol) {
+		this.symbol = symbol;
 	}
 	public String symbol(){
-		return operation;
+		return symbol;
 	}
 	public static Operations[] arithmeticOps(){
 		return new Operations[]{ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION};

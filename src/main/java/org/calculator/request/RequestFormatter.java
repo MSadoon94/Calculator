@@ -1,12 +1,14 @@
 package org.calculator.request;
 
-class RequestFormatter implements Formatter{
+import java.math.BigDecimal;
 
-	public double[] format(String[] input) {
-		double[] doubles = new double[input.length];
+class RequestFormatter implements RequestFormat {
+
+	public BigDecimal[] format(String[] input) {
+		BigDecimal[] values = new BigDecimal[input.length];
 		for (int i = 0; i < input.length; i++){
-			doubles[i] = Double.parseDouble(input[i]);
+			values[i] = new BigDecimal(input[i]);
 		}
-		return doubles;
+		return values;
 	}
 }

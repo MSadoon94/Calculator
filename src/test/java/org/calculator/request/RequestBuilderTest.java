@@ -10,11 +10,11 @@ import static org.hamcrest.Matchers.*;
 public class RequestBuilderTest {
 
 	@Test
-	void whenPassedString_ThenShouldBuildAnalyzedRequestThatContainsSameString(){
+	void whenPassedString_ThenShouldBuildRequestThatContainsSameString(){
 		RequestBuilder builder = new RequestBuilder();
 		builder.addOriginalInput(TestHelper.SINGLE_VALUE.input());
 		Request builtRequest = builder.getBuiltRequest();
 		assertThat(builtRequest.getClass(), is(Request.class));
-		assertThat(builtRequest.toString(), is(equalTo(TestHelper.SINGLE_VALUE.answer())));
+		assertThat(builtRequest.toString(), is(equalTo(TestHelper.SINGLE_VALUE.input())));
 	}
 }

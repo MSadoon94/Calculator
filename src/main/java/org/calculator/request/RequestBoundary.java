@@ -8,7 +8,7 @@ public interface RequestBoundary {
 	Observer requestObserver(Analyzer analyzer);
 	RequestServices requestServices();
 	Builder requestBuilder();
-	Formatter requestFormatter();
+	RequestFormat requestFormatter();
 	RequestServices requestHandler();
 
 }

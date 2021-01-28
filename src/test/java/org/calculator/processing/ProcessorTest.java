@@ -33,7 +33,7 @@ public class ProcessorTest {
 	@EnumSource
 	void whenRequestIsReceived_ThenCorrectAnswerIsCalculated(TestHelper helper){
 		Request request = new Request(helper.input());
-		request.setSection(Operations.valueOf(helper.name()), helper.doubles());
+		request.setSection(Operations.valueOf(helper.name()), helper.extracted());
 		processor.processRequest(request);
 
 		assertThat(ansHandler.getAnswer().toString(), is(helper.answer()));

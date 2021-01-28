@@ -4,6 +4,9 @@ import org.calculator.common.Operations;
 import org.calculator.common.Request;
 import org.calculator.processing.ProcessorActions;
 
+import java.math.BigDecimal;
+import java.util.Arrays;
+
 class RequestAnalyzer implements Analyzer {
 
 	private ProcessorActions processorActions;
@@ -27,17 +30,26 @@ class RequestAnalyzer implements Analyzer {
 		processorActions.processRequest(request);
 	}
 
-	private double[] formatStringsToDoubles(String[] strings){
+	private BigDecimal[] formatStringsToBigDecimal(String[] strings){
 		return formatter.format(strings);
 	}
 	private void buildRequest(String input){
-		for (Operations operation : Operations.values()) {
-			if (input.contains(operation.symbol())) {
-				double[] formattedInput =
-						formatStringsToDoubles(input.split("[" + operation.symbol() + "]"));
-				builder.buildSection(operation, formattedInput);
+		System.out.println(input);
+		String filteredInput = filterSingleValues(input);
+		Arrays.stream(Operations.values()).forEach(op -> {
+			if (filteredInput.contains(op.symbol())) {
+				BigDecimal[] formattedInput =
+						formatStringsToBigDecimal(filteredInput.split("[" + op.symbol() + "]"));
+				builder.buildSection(op, formattedInput);
 			}
+		});
+	}
+	private String filterSingleValues(String input){
+		String filteredInput = input;
+		if (Arrays.stream(Operations.values()).noneMatch(op -> input.contains(op.symbol()))) {
+			filteredInput += Operations.SINGLE_VALUE.symbol();
 		}
+		return  filteredInput;
 	}
 
 

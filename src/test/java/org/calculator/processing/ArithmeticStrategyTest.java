@@ -1,9 +1,9 @@
 package org.calculator.processing;
 import org.calculator.common.Operations;
 import org.calculator.common.Request;
-import org.calculator.common.TestHelper;
 import org.junit.jupiter.api.Test;
-import java.util.Arrays;
+
+import java.math.BigDecimal;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -11,22 +11,16 @@ import static org.hamcrest.Matchers.*;
 public class ArithmeticStrategyTest {
 
 	@Test
-	void givenPassedRequest_WhenRequestIsArithmeticOperation_ThenWillSumAllSectionsOfRequestIntoDouble(){
+	void givenPassedRequest_WhenRequestIsArithmeticOperation_ThenWillSumAllArithmeticSectionsOfRequestIntoBigDecimal(){
 		ArithmeticStrategy strategy = new ArithmeticStrategy();
-		Request request = new Request(TestHelper.SINGLE_VALUE.input());
-		double answer = 0;
-
-		for (Operations op : arithmeticOperations()){
-			request.setSection(op, new double[]{2});
-			answer += 2;
+		Request request = new Request("2.0");
+		BigDecimal answer = BigDecimal.ZERO;
+		BigDecimal[] value = {BigDecimal.valueOf(2.0)};
+		for (Operations op : Operations.arithmeticOps()){
+			request.setSection(op, value);
+			answer = answer.add(value[0]);
 		}
 		assertThat(strategy.execute(request), is(answer));
 	}
 
-	private Operations[] arithmeticOperations(){
-		return Arrays.stream(Operations.values())
-				.filter(op -> op != Operations.SINGLE_VALUE)
-				.filter(op -> op != Operations.PERCENTAGE)
-				.toArray(Operations[]::new);
-	}
 }

@@ -1,25 +1,25 @@
 package org.calculator.common;
 
-import java.util.Arrays;
+
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 public class Request extends Calculation {
-	private HashMap<Operations, double[]> sectionType = new HashMap<>();
+	private HashMap<Operations, BigDecimal[]> sectionType = new HashMap<>();
 
 	public Request(String request) {
 		super(request);
 	}
-	public void setSection(Operations type, double[] values){
-		boolean typeIsFunctionOperation = Arrays.stream(Operations.functionOps()).anyMatch(op -> op == type);
-		if (typeIsFunctionOperation) {
-			double[] value = {Double.parseDouble(this.toString())};
-			sectionType.put(type,value);
-		}
+	public void setSection(Operations type, BigDecimal[] values){
 		sectionType.put(type,values);
 	}
 
-	public double[] getSection(Operations type){
-		return sectionType.get(type);
+	public BigDecimal[] getSection(Operations type){
+		BigDecimal[] section = sectionType.get(type);
+		if (section == null){
+			section = new BigDecimal[]{BigDecimal.ZERO};
+		}
+		return section;
 	}
 
 }

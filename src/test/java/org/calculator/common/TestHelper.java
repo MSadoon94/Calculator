@@ -1,20 +1,22 @@
 package org.calculator.common;
 
+import java.math.BigDecimal;
+
 public enum TestHelper {
-	SINGLE_VALUE("2.0", new double[]{2.0}, "2.0"),
-	ADDITION("2+2", new double[]{2.0, 2.0}, "4.0"),
-	SUBTRACTION("4-2", new double[]{4.0, 2.0}, "2.0"),
-	MULTIPLICATION("2*2", new double[]{2.0, 2.0}, "4.0"),
-	DIVISION("4/2", new double[]{4.0, 2.0}, "2.0"),
-	PERCENTAGE("0.5", new double[]{0.5}, "50%");
+	SINGLE_VALUE("2.0", new BigDecimal[]{BigDecimal.valueOf(2.0)}, "2.00"),
+	ADDITION("2+2", new BigDecimal[]{BigDecimal.valueOf(2), BigDecimal.valueOf(2)}, "4.00"),
+	SUBTRACTION("4-2", new BigDecimal[]{BigDecimal.valueOf(4), BigDecimal.valueOf(2)}, "2.00"),
+	MULTIPLICATION("2*2", new BigDecimal[]{BigDecimal.valueOf(2), BigDecimal.valueOf(2)}, "4.00"),
+	DIVISION("4/2", new BigDecimal[]{BigDecimal.valueOf(4), BigDecimal.valueOf(2)}, "2.00"),
+	PERCENTAGE("0.5%", new BigDecimal[]{BigDecimal.valueOf(0.5)}, "50.00%");
 
 	private final String input;
-	private final double[] doubles;
+	private final BigDecimal[] extracted;
 	private final String answer;
 
-	TestHelper(String input, double[] doubles, String answer) {
+	TestHelper(String input, BigDecimal[] extracted, String answer) {
 		this.input = input;
-		this.doubles = doubles;
+		this.extracted = extracted;
 		this.answer = answer;
 	}
 
@@ -24,5 +26,5 @@ public enum TestHelper {
 	public String answer(){
 		return answer;
 	}
-	public double[] doubles(){return doubles;}
+	public BigDecimal[] extracted(){return extracted;}
 }
