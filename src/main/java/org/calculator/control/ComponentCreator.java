@@ -15,12 +15,10 @@ public class ComponentCreator {
 	private AnswerServices ansServices;
 	private RequestServices reqServices;
 	private ProcessorActions processor;
-
 	private RequestBoundary requestController = new RequestController();
 	private ProcessorBoundary processorBoundary = new ProcessorController();
 
 	public ComponentCreator(){
-
 		createServices();
 		UiActions ui = createGui();
 		processor = processorBoundary.processorActions(ui,ansServices);
@@ -34,7 +32,9 @@ public class ComponentCreator {
 		Gui gui = new Gui(frame, reqServices);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
+		frame.setSize(300,400);
 		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
 		return gui;
 	}
 

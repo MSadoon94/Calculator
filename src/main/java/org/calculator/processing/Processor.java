@@ -6,7 +6,6 @@ import org.calculator.answer.AnswerServices;
 import org.calculator.common.Operations;
 import org.calculator.common.Request;
 import org.calculator.user.UiActions;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -25,10 +24,10 @@ class Processor implements ProcessorActions {
 	}
 
 	public void processRequest(Request request){
-		BigDecimal calculated = calculate(request);
-		Answer answer = builder.answer(symbol(request), calculated);
+		Answer answer = builder.answer(symbol(request), calculate(request));
 		sendAnswer(answer);
 	}
+
 	private String symbol(Request request){
 		String symbol = "";
 		if (request.toString().contains(Operations.PERCENTAGE.symbol())){

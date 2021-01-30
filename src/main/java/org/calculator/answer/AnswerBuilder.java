@@ -1,7 +1,6 @@
 package org.calculator.answer;
 
 import org.calculator.common.Answer;
-
 import java.math.BigDecimal;
 
 public class AnswerBuilder {

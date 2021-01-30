@@ -20,7 +20,7 @@ public class AcceptanceTests {
 
 	private JFrameOperator frameOperator;
 	private JTextAreaOperator textAreaOperator;
-	private JButtonOperator equalsButton, percentageButton;
+	private JButtonOperator equalsButton;
 
 	private String input = "0";
 
@@ -38,7 +38,8 @@ public class AcceptanceTests {
 			"WhenUserRequestsSubtraction_ThenInputtedValuesAreSubtracted, 4-2",
 			"WhenUserRequestsMultiplication_ThenInputtedValuesAreMultiplied, 2*2",
 			"WhenUserRequestsDivision_ThenInputtedValuesAreDivided, 4/2",
-			"WhenUserRequestsPercentage_ThenInputtedValuesAreTurnedIntoPercentages, 0.5%"
+			"WhenUserRequestsPercentage_ThenInputtedValueIsTurnedIntoPercentages, 0.5%",
+			"WhenUserRequestsMixedArithmetic_ThenOperationsAreAppliedToGroupedInputs, (2-1+1*2)/(10/5)"
 	})
 	void testingFixture(String test, String aInput){
 		//Although unused, test variable is needed so test name isn't assigned to input.

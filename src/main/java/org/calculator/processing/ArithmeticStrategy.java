@@ -2,19 +2,17 @@ package org.calculator.processing;
 
 import org.calculator.common.Operations;
 import org.calculator.common.Request;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.math.RoundingMode;
 import java.util.Arrays;
 
 
 class ArithmeticStrategy implements OperationStrategy {
 	private Request request;
+
 	public BigDecimal execute(Request request) {
 		this.request = request;
 		BigDecimal[] calculations = {division(), multiplication(), subtract(), addition()};
-
 		return Arrays.stream(calculations)
 				.reduce(BigDecimal.ZERO, BigDecimal::add);
 

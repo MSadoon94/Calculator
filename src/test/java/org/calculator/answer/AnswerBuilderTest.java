@@ -19,7 +19,8 @@ public class AnswerBuilderTest {
 	@Test
 	void shouldBuildAnswerFromGivenDouble(){
 		String empty = "";
-		BigDecimal value = TestHelper.SINGLE_VALUE.extracted()[0].setScale(2, RoundingMode.HALF_UP);
+		BigDecimal value =
+				TestHelper.SINGLE_VALUE.extracted()[0].setScale(2, RoundingMode.HALF_UP);
 		assertThat(builder.answer(empty, value).toString(), is(TestHelper.SINGLE_VALUE.answer()));
 	}
 	@Test

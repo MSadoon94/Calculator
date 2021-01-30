@@ -3,12 +3,13 @@ package org.calculator.common;
 import java.math.BigDecimal;
 
 public enum TestHelper {
-	SINGLE_VALUE("2.0", new BigDecimal[]{BigDecimal.valueOf(2.0)}, "2.00"),
-	ADDITION("2+2", new BigDecimal[]{BigDecimal.valueOf(2), BigDecimal.valueOf(2)}, "4.00"),
-	SUBTRACTION("4-2", new BigDecimal[]{BigDecimal.valueOf(4), BigDecimal.valueOf(2)}, "2.00"),
-	MULTIPLICATION("2*2", new BigDecimal[]{BigDecimal.valueOf(2), BigDecimal.valueOf(2)}, "4.00"),
-	DIVISION("4/2", new BigDecimal[]{BigDecimal.valueOf(4), BigDecimal.valueOf(2)}, "2.00"),
-	PERCENTAGE("0.5%", new BigDecimal[]{BigDecimal.valueOf(0.5)}, "50.00%");
+	SINGLE_VALUE("2.0", bigDecimals(2.0), "2.00"),
+	ADDITION("2+2", bigDecimals(2, 2), "4.00"),
+	SUBTRACTION("4-2", bigDecimals(4, 2), "2.00"),
+	MULTIPLICATION("2*2", bigDecimals(2, 2), "4.00"),
+	DIVISION("4/2", bigDecimals(4, 2), "2.00"),
+	PERCENTAGE("0.5%", bigDecimals(0.5), "50.00%"),
+	MIXED("(2-1+1*2)/(10/5)", bigDecimals(2, 1, 1, 2, 10, 5),"1.5");
 
 	private final String input;
 	private final BigDecimal[] extracted;
@@ -27,4 +28,11 @@ public enum TestHelper {
 		return answer;
 	}
 	public BigDecimal[] extracted(){return extracted;}
+	public static BigDecimal[] bigDecimals(double... values){
+		BigDecimal[] decimals = new BigDecimal[values.length];
+		for (int i = 0; i < values.length; i++){
+			decimals[i] = BigDecimal.valueOf(values[i]);
+		}
+		return decimals;
+	}
 }

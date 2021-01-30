@@ -7,6 +7,7 @@ import org.calculator.request.RequestServices;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 
 public class Gui implements ActionListener, UiActions {

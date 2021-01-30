@@ -13,7 +13,6 @@ class RequestAnalyzer implements Analyzer {
 	private Builder builder;
 	private RequestFormatter formatter;
 	public RequestAnalyzer(ProcessorActions processorActions, Builder builder){
-
 		this.processorActions = processorActions;
 		this.builder = builder;
 		formatter = new RequestFormatter();
@@ -38,9 +37,8 @@ class RequestAnalyzer implements Analyzer {
 		String filteredInput = filterSingleValues(input);
 		Arrays.stream(Operations.values()).forEach(op -> {
 			if (filteredInput.contains(op.symbol())) {
-				BigDecimal[] formattedInput =
-						formatStringsToBigDecimal(filteredInput.split("[" + op.symbol() + "]"));
-				builder.buildSection(op, formattedInput);
+				String[] splitInput = filteredInput.split("[" + op.symbol() + "]");
+				builder.buildSection(op, formatStringsToBigDecimal(splitInput));
 			}
 		});
 	}

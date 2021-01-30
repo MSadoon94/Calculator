@@ -1,6 +1,5 @@
 package org.calculator.common;
 
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 
