@@ -1,5 +1,7 @@
 package org.calculator.request;
 
+import org.calculator.common.Request;
+
 public interface Observer {
-	void update(String update);
+	String update(Request update);
 }

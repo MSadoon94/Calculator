@@ -1,29 +1,27 @@
 package org.calculator.processing;
 
 import org.calculator.common.Operations;
-import org.calculator.common.Request;
+
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.util.Arrays;
+import java.util.HashMap;
 
 public class FunctionStrategy implements OperationStrategy {
-	private Request request;
+	private HashMap<Operations, BigDecimal> functionConstants = new HashMap<>();
+	private Operations operation;
 
-	public BigDecimal execute(Request request) {
-		this.request = request;
-		BigDecimal[] calculations = {percentage(), singleValue()};
-		return Arrays.stream(calculations)
-				.reduce(BigDecimal.ZERO, BigDecimal::add);
+	public FunctionStrategy(Operations operation) {
+		this.operation = operation;
+		setFunctionConstants();
+	}
+	public BigDecimal execute(BigDecimal[] values){
+		return values[0].multiply(functionConstants.get(operation));
 	}
 
-	private BigDecimal percentage(){
-		BigDecimal[] value = request.getSection(Operations.PERCENTAGE);
-		return value[0].multiply(BigDecimal.valueOf(100), MathContext.DECIMAL32);
+	private void setFunctionConstants() {
+		BigDecimal singleValueMultiplier = BigDecimal.ONE;
+		BigDecimal percentageMultiplier = new BigDecimal("100");
+		functionConstants.put(Operations.SINGLE_VALUE, singleValueMultiplier);
+		functionConstants.put(Operations.PERCENTAGE, percentageMultiplier);
 	}
-
-	private BigDecimal singleValue(){
-		BigDecimal[] value = request.getSection(Operations.SINGLE_VALUE);
-		return value[0];
-	}
-
 }
+

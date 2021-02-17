@@ -1,13 +1,16 @@
 package org.calculator.request;
 
-class RequestObserver implements Observer {
-	private Analyzer analyzer;
+import org.calculator.common.Request;
+import org.calculator.processing.Invoker;
 
-	public RequestObserver(Analyzer analyzer){
-		this.analyzer = analyzer;
+class RequestObserver implements Observer {
+	private Invoker invoker;
+
+	public RequestObserver(Invoker invoker){
+		this.invoker = invoker;
 	}
 
-	public void update(String update) {
-		analyzer.analysis(update);
+	public String update(Request request) {
+		return invoker.answer(request);
 	}
 }

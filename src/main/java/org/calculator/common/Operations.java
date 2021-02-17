@@ -15,9 +15,6 @@ public enum Operations {
 	public String symbol(){
 		return symbol;
 	}
-	public static Operations[] arithmeticOps(){
-		return new Operations[]{ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION};
-	}
 	public static Operations[] functionOps(){
 		return new Operations[]{SINGLE_VALUE, PERCENTAGE};
 	}

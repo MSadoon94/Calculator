@@ -67,6 +67,7 @@ public class AcceptanceTests {
 
 	private void startInputtingRequest(){
 		textAreaOperator.enterText(input);
+		System.out.println("StartInputtingRequest: " + textAreaOperator.getText());
 		equalsButton.push();
 
 	}

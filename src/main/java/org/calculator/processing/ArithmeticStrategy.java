@@ -1,59 +1,32 @@
 package org.calculator.processing;
 
 import org.calculator.common.Operations;
-import org.calculator.common.Request;
+
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.function.BiFunction;
 
+public class ArithmeticStrategy implements OperationStrategy {
+	private HashMap<Operations, BiFunction<BigDecimal, BigDecimal, BigDecimal>> bigDecimalOperations = new HashMap<>();
+	private Operations operation;
 
-class ArithmeticStrategy implements OperationStrategy {
-	private Request request;
-
-	public BigDecimal execute(Request request) {
-		this.request = request;
-		BigDecimal[] calculations = {division(), multiplication(), subtract(), addition()};
-		return Arrays.stream(calculations)
-				.reduce(BigDecimal.ZERO, BigDecimal::add);
-
+	public ArithmeticStrategy(Operations operation) {
+		this.operation = operation;
+		setBigDecimalOperations();
 	}
 
-	private BigDecimal division(){
-		BigDecimal[] division = request.getSection(Operations.DIVISION);
-		BigDecimal value = division[0];
-		for (int i = 1; i < division.length; i++){
-			value = value.divide(division[i], MathContext.DECIMAL32) ;
+	public BigDecimal execute(BigDecimal[] values){
+		BigDecimal answer = values[0];
+		for (int i = 1; i < values.length; i++) {
+			answer = bigDecimalOperations.get(operation).apply(answer, values[i]);
 		}
-		return value;
+		return answer;
 	}
 
-	private BigDecimal multiplication(){
-		BigDecimal[] multiplication = request.getSection(Operations.MULTIPLICATION);
-		BigDecimal value = multiplication[0];
-		for (int i = 1; i < multiplication.length; i++){
-			value = value.multiply(multiplication[i], MathContext.DECIMAL32);
-		}
-		return value;
+	private void setBigDecimalOperations(){
+		bigDecimalOperations.put(Operations.ADDITION, BigDecimal::add);
+		bigDecimalOperations.put(Operations.SUBTRACTION, BigDecimal::subtract);
+		bigDecimalOperations.put(Operations.MULTIPLICATION, BigDecimal::multiply);
+		bigDecimalOperations.put(Operations.DIVISION, BigDecimal::divide);
 	}
-
-	private BigDecimal subtract(){
-		BigDecimal[] subtractions = request.getSection(Operations.SUBTRACTION);
-		BigDecimal value = subtractions[0];
-		for (int i = 1; i < subtractions.length; i++){
-			value = value.subtract(subtractions[i], MathContext.DECIMAL32);
-		}
-		return value;
-	}
-
-	private BigDecimal addition(){
-		BigDecimal[] additions = request.getSection(Operations.ADDITION);
-		BigDecimal value = additions[0];
-		for (int i = 1; i < additions.length; i++){
-			value = value.add(additions[i], MathContext.DECIMAL32);
-		}
-		return value;
-	}
-
-
-
 }

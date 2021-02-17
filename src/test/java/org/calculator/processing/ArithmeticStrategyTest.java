@@ -1,7 +1,8 @@
 package org.calculator.processing;
 import org.calculator.common.Operations;
-import org.calculator.common.Request;
-import org.junit.jupiter.api.Test;
+import org.calculator.common.TestHelper;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import java.math.BigDecimal;
 
@@ -10,17 +11,12 @@ import static org.hamcrest.Matchers.*;
 
 public class ArithmeticStrategyTest {
 
-	@Test
-	void shouldSumAllArithmeticSectionsOfRequestIntoSingleBigDecimal(){
-		ArithmeticStrategy strategy = new ArithmeticStrategy();
-		Request request = new Request("2.0");
-		BigDecimal answer = BigDecimal.ZERO;
-		BigDecimal[] value = {BigDecimal.valueOf(2.0)};
-		for (Operations op : Operations.arithmeticOps()){
-			request.setSection(op, value);
-			answer = answer.add(value[0]);
-		}
-		assertThat(strategy.execute(request), is(answer));
-	}
+	@ParameterizedTest(name = "{index} ==> {0}")
+	@EnumSource(mode = EnumSource.Mode.EXCLUDE, names = {"PERCENTAGE", "MIXED"})
+	void shouldCalculateIncomingBigDecimalValuesBasedOnChosenArithmeticOperation(TestHelper helper){
+		ArithmeticStrategy strategy = new ArithmeticStrategy(Operations.valueOf(helper.name()));
+		BigDecimal[] values = helper.extracted();
 
+		assertThat(strategy.execute(values), comparesEqualTo(new BigDecimal(helper.answer())));
+	}
 }

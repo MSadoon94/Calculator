@@ -8,8 +8,8 @@ public enum TestHelper {
 	SUBTRACTION("4-2", bigDecimals(4, 2), "2.00"),
 	MULTIPLICATION("2*2", bigDecimals(2, 2), "4.00"),
 	DIVISION("4/2", bigDecimals(4, 2), "2.00"),
-	PERCENTAGE("0.5%", bigDecimals(0.5), "50.00%"),
-	MIXED("(2-1+1*2)/(10/5)", bigDecimals(2, 1, 1, 2, 10, 5),"1.5");
+	PERCENTAGE("0.5%", bigDecimals(0.5), "50.00"),
+	MIXED("(2-1+1*2)/(10/5)", bigDecimals(2, 1, 1, 2, 10, 5),"1.50");
 
 	private final String input;
 	private final BigDecimal[] extracted;
@@ -27,6 +27,7 @@ public enum TestHelper {
 	public String answer(){
 		return answer;
 	}
+	
 	public BigDecimal[] extracted(){return extracted;}
 	public static BigDecimal[] bigDecimals(double... values){
 		BigDecimal[] decimals = new BigDecimal[values.length];
