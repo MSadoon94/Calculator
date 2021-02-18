@@ -49,7 +49,7 @@ public class AcceptanceTests {
 		startInputtingRequest();
 		hasDisplayedAnswer();
 		frameOperator.getWindow().dispose();
-
+		
 	}
 
 	private void setOperators(){
