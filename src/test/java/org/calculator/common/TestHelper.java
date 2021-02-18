@@ -10,7 +10,7 @@ public enum TestHelper {
 	DIVISION("4/2", bigDecimals(4, 2), "2.00"),
 	PERCENTAGE("0.5%", bigDecimals(0.5), "50.00"),
 	MIXED("(2-1+1*2)/(10/5)", bigDecimals(2, 1, 1, 2, 10, 5),"1.50"),
-	EXPONENT("2^3", bigDecimals(2, 3), "8");
+	EXPONENT("2^3", bigDecimals(2, 3), "8.00");
 
 	private final String input;
 	private final BigDecimal[] extracted;

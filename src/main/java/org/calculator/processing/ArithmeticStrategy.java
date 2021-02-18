@@ -28,5 +28,10 @@ public class ArithmeticStrategy implements OperationStrategy {
 		bigDecimalOperations.put(Operations.SUBTRACTION, BigDecimal::subtract);
 		bigDecimalOperations.put(Operations.MULTIPLICATION, BigDecimal::multiply);
 		bigDecimalOperations.put(Operations.DIVISION, BigDecimal::divide);
+		bigDecimalOperations.put(Operations.EXPONENT, this::exponentiation);
+	}
+
+	private BigDecimal exponentiation(BigDecimal base, BigDecimal exponent){
+		return base.pow(exponent.intValueExact());
 	}
 }
