@@ -16,6 +16,7 @@ public class Gui implements ActionListener, UiActions {
 	private JTextArea mainTextArea;
 	private JButton equalsButton, addButton, subtractButton, divideButton,
 			multiplyButton, percentageButton, clearButton, decimalButton,
+			rightParenthesisButton, leftParenthesisButton, exponentButton,
 			a0Button, a1Button, a2Button, a3Button, a4Button, a5Button,
 			a6Button, a7Button, a8Button, a9Button;
 	private JButton[] numericalButtons = {
@@ -25,7 +26,8 @@ public class Gui implements ActionListener, UiActions {
 	};
 	private JButton[] operationButtons = {
 			equalsButton, addButton, subtractButton, divideButton,
-			multiplyButton, percentageButton, clearButton
+			multiplyButton, percentageButton, clearButton,
+			rightParenthesisButton, leftParenthesisButton, exponentButton
 	};
 	private HashMap<JButton, String> appendingText = new HashMap<>();
 
@@ -57,6 +59,9 @@ public class Gui implements ActionListener, UiActions {
 			equalsButton.doClick();
 			mainTextArea.append("%");
 		}
+		if (e.getSource() == exponentButton){
+			mainTextArea.append("^");
+		}
 	}
 	private void setUpButtons(){
 		for (JButton operationButton : operationButtons) {
@@ -69,7 +74,8 @@ public class Gui implements ActionListener, UiActions {
 	private void setAppendingText(){
 		JButton[] appendingButtons = {
 				addButton, subtractButton, multiplyButton, divideButton,
-				decimalButton, a0Button, a1Button, a2Button, a3Button, a4Button, a5Button,
+				decimalButton, rightParenthesisButton, leftParenthesisButton,
+				a0Button, a1Button, a2Button, a3Button, a4Button, a5Button,
 						a6Button, a7Button, a8Button, a9Button
 		};
 		for (int i = 0; i < appendingButtons.length; i++){
