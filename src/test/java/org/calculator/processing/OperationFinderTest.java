@@ -19,4 +19,11 @@ public class OperationFinderTest {
 		assertThat(finder.targetOperation("2-1+10+2"), is(Operations.SUBTRACTION));
 		assertThat(finder.targetOperation("2*1/10*2"), is(Operations.MULTIPLICATION));
 	}
+	@Test
+	void shouldPrioritizeExponentOperationsOverDivisionAndMultiplication(){
+		OperationFinder finder = new OperationFinder();
+
+		assertThat(finder.targetOperation("8/2^3"), is(Operations.EXPONENT));
+		assertThat(finder.targetOperation("8*2^3"), is(Operations.EXPONENT));
+	}
 }
