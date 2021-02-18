@@ -34,7 +34,6 @@ public class Gui implements ActionListener, UiActions {
 		setAppendingText();
 		frame.add(mainPanel);
 		frame.setContentPane(mainPanel);
-
 	}
 
 	public void attachObserver(Observer observer) {

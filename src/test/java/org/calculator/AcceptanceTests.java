@@ -39,7 +39,8 @@ public class AcceptanceTests {
 			"WhenUserRequestsMultiplication_ThenInputtedValuesAreMultiplied, 2*2",
 			"WhenUserRequestsDivision_ThenInputtedValuesAreDivided, 4/2",
 			"WhenUserRequestsPercentage_ThenInputtedValueIsTurnedIntoPercentages, 0.5%",
-			"WhenUserRequestsMixedArithmetic_ThenOperationsAreAppliedToGroupedInputs, (2-1+1*2)/(10/5)"
+			"WhenUserRequestsMixedArithmetic_ThenOperationsAreAppliedToGroupedInputs, (2-1+1*2)/(10/5)",
+			"WhenUserRequestsHaveExponents_ThenTheExponentWillSpecifyTheAmountOfTimesToUseTheBaseValueInMultiplication, 2^3"
 	})
 	void testingFixture(String test, String aInput){
 		//Although unused, test variable is needed so test name isn't assigned to input.

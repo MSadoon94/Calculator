@@ -9,7 +9,8 @@ public enum TestHelper {
 	MULTIPLICATION("2*2", bigDecimals(2, 2), "4.00"),
 	DIVISION("4/2", bigDecimals(4, 2), "2.00"),
 	PERCENTAGE("0.5%", bigDecimals(0.5), "50.00"),
-	MIXED("(2-1+1*2)/(10/5)", bigDecimals(2, 1, 1, 2, 10, 5),"1.50");
+	MIXED("(2-1+1*2)/(10/5)", bigDecimals(2, 1, 1, 2, 10, 5),"1.50"),
+	EXPONENT("2^3", bigDecimals(2, 3), "8");
 
 	private final String input;
 	private final BigDecimal[] extracted;
