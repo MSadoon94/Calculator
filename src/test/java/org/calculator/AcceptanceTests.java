@@ -40,7 +40,8 @@ public class AcceptanceTests {
 			"WhenUserRequestsDivision_ThenInputtedValuesAreDivided, 4/2",
 			"WhenUserRequestsPercentage_ThenInputtedValueIsTurnedIntoPercentages, 0.5%",
 			"WhenUserRequestsMixedArithmetic_ThenOperationsAreAppliedToGroupedInputs, (2-1+1*2)/(10/5)",
-			"WhenUserRequestsHaveExponents_ThenTheExponentWillSpecifyTheAmountOfTimesToUseTheBaseValueInMultiplication, 2^3"
+			"WhenUserRequestsHaveExponents_ThenTheValuesWillBeUsedInExponentiation, 2^3",
+			"WhenUserRequestsHaveSquareRoot_ThenTheValueWillBeSquareRooted, √4"
 	})
 	void testingFixture(String test, String aInput){
 		//Although unused, test variable is needed so test name isn't assigned to input.
@@ -72,7 +73,6 @@ public class AcceptanceTests {
 		equalsButton.push();
 
 	}
-
 
 	private void hasDisplayedAnswer() {
 		assertThat(textAreaOperator.getText().trim(), is(equalTo(answers.get(input))));

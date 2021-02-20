@@ -7,7 +7,8 @@ public enum Operations {
 	MULTIPLICATION("*"),
 	DIVISION("/"),
 	PERCENTAGE("%"),
-	EXPONENT("^");
+	EXPONENT("^"),
+	SQUARE_ROOT("√");
 
 	private final String symbol;
 	Operations(String symbol) {
