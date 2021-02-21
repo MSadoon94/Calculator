@@ -9,12 +9,12 @@ import java.math.BigDecimal;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class ArithmeticStrategyTest {
+public class MultipleValueStrategyTest {
 
 	@ParameterizedTest(name = "{index} ==> {0}")
-	@EnumSource(mode = EnumSource.Mode.EXCLUDE, names = {"PERCENTAGE", "MIXED"})
+	@EnumSource(mode = EnumSource.Mode.EXCLUDE, names = {"PERCENTAGE", "MIXED", "SQUARE_ROOT"})
 	void shouldCalculateIncomingBigDecimalValuesBasedOnChosenArithmeticOperation(TestHelper helper){
-		ArithmeticStrategy strategy = new ArithmeticStrategy(Operations.valueOf(helper.name()));
+		MultipleValueStrategy strategy = new MultipleValueStrategy(Operations.valueOf(helper.name()));
 		BigDecimal[] values = helper.extracted();
 
 		assertThat(strategy.execute(values), comparesEqualTo(new BigDecimal(helper.answer())));

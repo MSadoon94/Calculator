@@ -52,7 +52,7 @@ class Processor implements ProcessorActions {
 		if(isFunctionOperation()){
 			context.setStrategy(new FunctionStrategy(request.getOperation()));
 		} else {
-			context.setStrategy(new ArithmeticStrategy(request.getOperation()));
+			context.setStrategy(new MultipleValueStrategy(request.getOperation()));
 		}
 		answer = context.executeStrategy(request);
 		return answer;
