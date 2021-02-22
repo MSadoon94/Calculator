@@ -217,6 +217,14 @@
           <text value="&lt;html&gt;x&lt;sup&gt;y&lt;/sup&gt;&lt;/html&gt;"/>
         </properties>
       </component>
+      <component id="b690d" class="javax.swing.JButton" binding="squareRootButton">
+        <constraints>
+          <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="√"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
