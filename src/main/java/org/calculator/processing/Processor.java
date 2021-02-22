@@ -50,7 +50,7 @@ class Processor implements ProcessorActions {
 		BigDecimal answer;
 		request.setOperation(operatorForRequest().get(0));
 		if(isFunctionOperation()){
-			context.setStrategy(new FunctionStrategy(request.getOperation()));
+			context.setStrategy(new UnaryValueStrategy(request.getOperation()));
 		} else {
 			context.setStrategy(new MultipleValueStrategy(request.getOperation()));
 		}

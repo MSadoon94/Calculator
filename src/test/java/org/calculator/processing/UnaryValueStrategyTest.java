@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.*;
 public class UnaryValueStrategyTest {
 
 	@ParameterizedTest(name = "{index} ==> {0}")
-	@EnumSource(names = {"SQUARE_ROOT"})
+	@EnumSource(names = {"SINGLE_VALUE","PERCENTAGE","SQUARE_ROOT"})
 	void shouldCalculateIncomingBigDecimalValuesBasedOnChosenArithmeticOperation(TestHelper helper){
 		UnaryValueStrategy strategy = new UnaryValueStrategy(Operations.valueOf(helper.name()));
 		BigDecimal[] values = helper.extracted();
