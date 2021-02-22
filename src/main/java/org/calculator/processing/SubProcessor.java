@@ -23,7 +23,7 @@ class SubProcessor{
 	}
 
 	private BigDecimal answer(){
-		context.setStrategy(new ArithmeticStrategy(targetOperation));
+		context.setStrategy(new MultipleValueStrategy(targetOperation));
 		return context.executeStrategy(request);
 	}
 

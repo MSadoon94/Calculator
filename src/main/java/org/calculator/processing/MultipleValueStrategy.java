@@ -6,11 +6,11 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.function.BiFunction;
 
-public class ArithmeticStrategy implements OperationStrategy {
+public class MultipleValueStrategy implements OperationStrategy {
 	private HashMap<Operations, BiFunction<BigDecimal, BigDecimal, BigDecimal>> bigDecimalOperations = new HashMap<>();
 	private Operations operation;
 
-	public ArithmeticStrategy(Operations operation) {
+	public MultipleValueStrategy(Operations operation) {
 		this.operation = operation;
 		setBigDecimalOperations();
 	}
@@ -30,7 +30,6 @@ public class ArithmeticStrategy implements OperationStrategy {
 		bigDecimalOperations.put(Operations.DIVISION, BigDecimal::divide);
 		bigDecimalOperations.put(Operations.EXPONENT, this::exponentiation);
 	}
-
 	private BigDecimal exponentiation(BigDecimal base, BigDecimal exponent){
 		return base.pow(exponent.intValueExact());
 	}

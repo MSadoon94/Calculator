@@ -11,8 +11,13 @@ public class OperationFinder {
 
 		if (amountOfOperators(section) <= 1){
 			target = operator;
-		} else if(section.contains(Operations.EXPONENT.symbol())){
-			target = Operations.EXPONENT;
+		} else if (section.contains(Operations.SQUARE_ROOT.symbol())
+				&& section.contains(Operations.EXPONENT.symbol())){
+			target = closestToStartOfSection(section, Operations.SQUARE_ROOT, Operations.EXPONENT);
+		} else if (section.contains(Operations.SQUARE_ROOT.symbol())
+				|| section.contains(Operations.EXPONENT.symbol())){
+			target = section.contains(Operations.SQUARE_ROOT.symbol())
+					? Operations.SQUARE_ROOT : Operations.EXPONENT;
 		} else if (section.contains(Operations.DIVISION.symbol())
 				&& section.contains(Operations.MULTIPLICATION.symbol())){
 			target = closestToStartOfSection(section, Operations.DIVISION, Operations.MULTIPLICATION);
