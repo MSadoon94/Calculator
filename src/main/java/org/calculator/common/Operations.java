@@ -17,7 +17,7 @@ public enum Operations {
 	public String symbol(){
 		return symbol;
 	}
-	public static Operations[] functionOps(){
-		return new Operations[]{SINGLE_VALUE, PERCENTAGE};
+	public static Operations[] unaryOps(){
+		return new Operations[]{SINGLE_VALUE, PERCENTAGE, SQUARE_ROOT};
 	}
 }

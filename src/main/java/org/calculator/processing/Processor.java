@@ -49,7 +49,7 @@ class Processor implements ProcessorActions {
 	private BigDecimal answer(){
 		BigDecimal answer;
 		request.setOperation(operatorForRequest().get(0));
-		if(isFunctionOperation()){
+		if(isUnaryOperation()){
 			context.setStrategy(new UnaryValueStrategy(request.getOperation()));
 		} else {
 			context.setStrategy(new MultipleValueStrategy(request.getOperation()));
@@ -64,9 +64,9 @@ class Processor implements ProcessorActions {
 				.count();
 	}
 
-	private boolean isFunctionOperation(){
-		return Arrays.stream(Operations.functionOps())
-				.anyMatch(operation -> request.getOperation() == operation);
+	private boolean isUnaryOperation(){
+		return Arrays.asList(Operations.unaryOps())
+				.contains(request.getOperation());
 	}
 
 	private ArrayList<Operations> operatorForRequest(){

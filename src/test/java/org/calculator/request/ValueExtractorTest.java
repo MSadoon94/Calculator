@@ -1,6 +1,7 @@
 package org.calculator.request;
 import org.calculator.common.Operations;
 import org.calculator.common.Request;
+import org.calculator.common.TestHelper;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -10,17 +11,23 @@ import static org.hamcrest.Matchers.*;
 
 public class ValueExtractorTest {
 
-	private Operations targetOperation = Operations.ADDITION;
-
 	@Test
 	void shouldExtractValuesBasedOnTargetOperation(){
 		ValueExtractor extractor = new ValueExtractor();
-		Request request = new Request("2+2");
+		Request request = new Request(TestHelper.ADDITION.input());
 
-		request.setOperation(targetOperation);
-		String[] values = extractor.extraction(request);
+		request.setOperation(Operations.ADDITION);
 
-		assertThat(values, is(arrayContaining("2", "2")));
+		assertThat(extractor.extraction(request), is(arrayContaining("2", "2")));
+	}
+	@Test
+	void shouldRemoveVoidValuesFromCreatedStringArray(){
+		ValueExtractor extractor = new ValueExtractor();
+		Request request = new Request(TestHelper.SQUARE_ROOT.input());
+
+		request.setOperation(Operations.SQUARE_ROOT);
+
+		assertThat(extractor.extraction(request), is(arrayContaining("4")));
 	}
 
 }

@@ -13,7 +13,7 @@ public class SubProcessorTest {
 
 
 	@ParameterizedTest(name = "{index} ==> {0}")
-	@EnumSource(mode = EnumSource.Mode.EXCLUDE, names = {"SINGLE_VALUE", "PERCENTAGE", "MIXED"})
+	@EnumSource(mode = EnumSource.Mode.EXCLUDE, names = {"SINGLE_VALUE", "PERCENTAGE", "MIXED", "SQUARE_ROOT"})
 	void shouldCalculateSingleArithmeticOperationAnswers(TestHelper helper){
 		SubProcessor processor = new SubProcessor(helper.input());
 		assertThat(new BigDecimal(processor.subSection(Operations.valueOf(helper.name()))),
