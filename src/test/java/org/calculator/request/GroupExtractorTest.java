@@ -26,6 +26,4 @@ public class GroupExtractorTest {
 
 		assertThat(extractor.amountOfGroups(request), is(equalTo(2)));
 	}
-
-
 }

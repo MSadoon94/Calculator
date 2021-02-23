@@ -20,6 +20,4 @@ public class Request {
 	public Operations getOperation(){
 		return operation;
 	}
-
-
 }
