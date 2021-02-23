@@ -1,5 +1,6 @@
 package org.calculator.processing;
 
+import org.calculator.common.Operations;
 import org.calculator.common.Request;
 import org.calculator.request.ValueExtractor;
 
@@ -19,7 +20,11 @@ class ProcessorContext {
 		String[] values = extractor.extraction(request);
 		BigDecimal[] bigDecimals = new BigDecimal[values.length];
 		for (int i = 0; i < values.length; i++){
-			bigDecimals[i] = new BigDecimal(values[i]);
+			if(values[i].equals(Operations.SUBTRACTION.symbol())){
+				bigDecimals[i] = new BigDecimal(values[i++]).negate();
+			} else {
+				bigDecimals[i] = new BigDecimal(values[i]);
+			}
 		}
 		return bigDecimals;
 	}

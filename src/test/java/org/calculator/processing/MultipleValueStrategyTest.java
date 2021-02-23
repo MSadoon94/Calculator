@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.*;
 public class MultipleValueStrategyTest {
 
 	@ParameterizedTest(name = "{index} ==> {0}")
-	@EnumSource(mode = EnumSource.Mode.EXCLUDE, names = {"PERCENTAGE", "MIXED", "SQUARE_ROOT"})
+	@EnumSource(mode = EnumSource.Mode.EXCLUDE, names = {"PERCENTAGE", "MIXED", "SQUARE_ROOT", "NEGATIVE"})
 	void shouldCalculateIncomingBigDecimalValuesBasedOnChosenArithmeticOperation(TestHelper helper){
 		MultipleValueStrategy strategy = new MultipleValueStrategy(Operations.valueOf(helper.name()));
 		BigDecimal[] values = helper.extracted();
