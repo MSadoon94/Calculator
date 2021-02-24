@@ -31,12 +31,15 @@ public class Gui implements ActionListener, UiActions {
 			squareRootButton
 	};
 	private HashMap<JButton, String> appendingText = new HashMap<>();
+	private JFrame frame;
 
 	public Gui(JFrame frame){
 		setUpButtons();
 		setAppendingText();
+		this.frame = frame;
 		frame.add(mainPanel);
 		frame.setContentPane(mainPanel);
+
 	}
 
 	public void attachObserver(Observer observer) {
@@ -48,8 +51,7 @@ public class Gui implements ActionListener, UiActions {
 			mainTextArea.setText("");
 		}
 		if (e.getSource() == equalsButton){
-			String userInput = mainTextArea.getText().strip();
-			Request request = new Request(userInput);
+			Request request = new Request(validatedInput());
 			respond(request);
 		}
 		if (appendingText.containsKey(e.getSource())){
@@ -84,7 +86,23 @@ public class Gui implements ActionListener, UiActions {
 		}
 	}
 	private void respond(Request request){
-		mainTextArea.setText(reqObserver.update(request));
+		if(!request.value().contains("Input Error")) {
+			mainTextArea.setText(reqObserver.update(request));
+		}
+	}
+	private String validatedInput(){
+		String validated = mainTextArea.getText().strip();
+		if(!new InputValidator().isValid(mainTextArea.getText())){
+			JOptionPane.showMessageDialog
+					(
+							frame,
+							"Cannot compute user request, please try again.",
+							"User Input Error",
+							JOptionPane.ERROR_MESSAGE
+					);
+			validated = "Input Error";
+		}
+		return validated;
 	}
 
 

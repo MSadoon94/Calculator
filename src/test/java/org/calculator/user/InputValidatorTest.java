@@ -9,6 +9,7 @@ public class InputValidatorTest {
 	void shouldReturnInvalidIfInputContainsAlphabeticValue(){
 		InputValidator validator = new InputValidator();
 		assertThat(validator.isValid("A"), is(false));
+		assertThat(validator.isValid("a"), is(false));
 	}
 
 }
