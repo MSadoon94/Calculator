@@ -13,6 +13,12 @@ public class InputValidatorTest {
 	}
 
 	@Test
+	void shouldReturnInvalidIfInputHasDivisionByZero(){
+		InputValidator validator = new InputValidator();
+		assertThat(validator.isValid("1/0"), is(false));
+	}
+
+	@Test
 	void shouldReturnInputThatIsInvalid(){
 		InputValidator validator = new InputValidator();
 		validator.isValid("A");
