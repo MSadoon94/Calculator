@@ -92,11 +92,12 @@ public class Gui implements ActionListener, UiActions {
 	}
 	private String validatedInput(){
 		String validated = mainTextArea.getText().strip();
-		if(!new InputValidator().isValid(mainTextArea.getText())){
+		InputValidator validator = new InputValidator();
+		if(!validator.isValid(mainTextArea.getText())){
 			JOptionPane.showMessageDialog
 					(
 							frame,
-							"Cannot compute user request, please try again.",
+							"Cannot compute user request: " + "\"" + validator.invalidInput() + "\"",
 							"User Input Error",
 							JOptionPane.ERROR_MESSAGE
 					);
