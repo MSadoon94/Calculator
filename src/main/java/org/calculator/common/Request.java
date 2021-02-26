@@ -2,15 +2,17 @@ package org.calculator.common;
 
 public class Request {
 
-	private final String value;
+	private final String input;
 	private Operations operation;
+	private String[] values;
+	private String innerGroup;
 
 	public Request(String request) {
-		this.value = request;
+		this.input = request;
 	}
 
-	public String value(){
-		return value;
+	public String input(){
+		return input;
 	}
 
 	public void setOperation(Operations operation){
@@ -19,5 +21,21 @@ public class Request {
 
 	public Operations getOperation(){
 		return operation;
+	}
+
+	public void setValues(String[] values){
+		this.values = values;
+	}
+
+	public String[] getValues(){
+		return values;
+	}
+
+	public void setInnerGroup(String innerGroup){
+		this.innerGroup = innerGroup;
+	}
+
+	public String getInnerGroup(){
+		return innerGroup;
 	}
 }

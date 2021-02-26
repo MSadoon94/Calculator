@@ -87,7 +87,7 @@ public class Gui implements ActionListener, UiActions {
 		}
 	}
 	private void respond(Request request){
-		if(!request.value().contains("Input Error")) {
+		if(!request.input().contains("Input Error")) {
 			textArea.setText(reqObserver.update(request));
 		}
 	}

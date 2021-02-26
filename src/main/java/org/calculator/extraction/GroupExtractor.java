@@ -1,4 +1,4 @@
-package org.calculator.request;
+package org.calculator.extraction;
 
 
 import org.calculator.common.Request;
@@ -6,7 +6,7 @@ import org.calculator.common.Request;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GroupExtractor {
+class GroupExtractor implements Extractor, Utilities{
 	private Pattern groupPattern = Pattern.compile("\\((.+?)\\)",Pattern.DOTALL);
 
 	public int amountOfGroups(Request request){
@@ -18,20 +18,24 @@ public class GroupExtractor {
 		return groupAmount;
 	}
 
-	public String[] extraction(Request request){
+	public Request extraction(Request request){
 		Matcher groupMatcher = groupPattern.matcher(request.input());
-		String[] extracted;
+		Request extracted;
 		if (groupMatcher.find()) {
-			extracted = extractedGroups(request, groupMatcher);
+			extracted = extractedGroup(request, groupMatcher);
 		} else {
-			extracted = new String[]{request.input(), request.input()};
+			extracted = new Request(request.input());
+			extracted.setInnerGroup(request.input());
 		}
+
 		return extracted;
 	}
-	private String[] extractedGroups(Request request, Matcher matcher){
+	private Request extractedGroup(Request request, Matcher matcher){
 		String group = matcher.group().replaceAll("[()]", "");
 		String appendedRequest = request.input().replaceAll("\\Q" + matcher.group() + "\\E", group);
-		return new String[]{group, appendedRequest};
+		Request extracted = new Request(appendedRequest);
+		extracted.setInnerGroup(group);
+		return extracted;
 	}
 
 }

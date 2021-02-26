@@ -42,7 +42,7 @@ class Processor implements ProcessorActions {
 	private void processMultipleOperationSections(){
 		OperationSequencer sequencer = new OperationSequencer();
 		while (amountOfOperators() > 1){
-			this.request = new Request(sequencer.answer(request.value()));
+			this.request = new Request(sequencer.answer(request.input()));
 		}
 	}
 
@@ -60,7 +60,7 @@ class Processor implements ProcessorActions {
 
 	private long amountOfOperators(){
 		return Arrays.stream(Operations.values())
-				.filter(operation -> request.value().contains(operation.symbol()))
+				.filter(operation -> request.input().contains(operation.symbol()))
 				.count();
 	}
 
@@ -73,7 +73,7 @@ class Processor implements ProcessorActions {
 		ArrayList<Operations> operators = new ArrayList<>();
 		for (int i = 0; i < Operations.values().length; i++) {
 			Operations operation = Operations.values()[i];
-			if (request.value().contains(operation.symbol())){
+			if (request.input().contains(operation.symbol())){
 				operators.add(operation);
 			}
 		}
@@ -84,7 +84,7 @@ class Processor implements ProcessorActions {
 	}
 
 	private void createSingleValueOperation(ArrayList<Operations> operators){
-		request = new Request(request.value() + Operations.SINGLE_VALUE.symbol());
+		request = new Request(request.input() + Operations.SINGLE_VALUE.symbol());
 		operators.add(0, Operations.SINGLE_VALUE);
 		request.setOperation(Operations.SINGLE_VALUE);
 	}

@@ -11,6 +11,6 @@ public class NegativeFormatterTest {
 		NegativeFormatter formatter = new NegativeFormatter();
 		Request taggedRequest = formatter.findDoubleNegatives(new Request("2--2"));
 
-		assertThat(taggedRequest.value(), is("2+2"));
+		assertThat(taggedRequest.input(), is("2+2"));
 	}
 }
