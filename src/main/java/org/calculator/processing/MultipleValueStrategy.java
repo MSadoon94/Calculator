@@ -31,6 +31,6 @@ public class MultipleValueStrategy implements OperationStrategy {
 		bigDecimalOperations.put(Operations.EXPONENT, this::exponentiation);
 	}
 	private BigDecimal exponentiation(BigDecimal base, BigDecimal exponent){
-		return base.pow(exponent.intValueExact());
+		return base.pow(exponent.intValue());
 	}
 }

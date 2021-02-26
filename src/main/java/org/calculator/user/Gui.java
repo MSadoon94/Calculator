@@ -13,7 +13,7 @@ public class Gui implements ActionListener, UiActions {
 
 	private Observer reqObserver;
 	private JPanel mainPanel;
-	private JTextArea mainTextArea;
+	private JTextArea textArea;
 	private JButton equalsButton, addButton, subtractButton, divideButton,
 			multiplyButton, percentageButton, clearButton, decimalButton,
 			rightParenthesisButton, leftParenthesisButton, exponentButton,
@@ -31,12 +31,16 @@ public class Gui implements ActionListener, UiActions {
 			squareRootButton
 	};
 	private HashMap<JButton, String> appendingText = new HashMap<>();
+	private JFrame frame;
 
 	public Gui(JFrame frame){
 		setUpButtons();
 		setAppendingText();
+		textArea.setLineWrap(true);
+		this.frame = frame;
 		frame.add(mainPanel);
 		frame.setContentPane(mainPanel);
+
 	}
 
 	public void attachObserver(Observer observer) {
@@ -45,23 +49,22 @@ public class Gui implements ActionListener, UiActions {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == clearButton){
-			mainTextArea.setText("");
+			textArea.setText("");
 		}
 		if (e.getSource() == equalsButton){
-			String userInput = mainTextArea.getText().strip();
-			Request request = new Request(userInput);
+			Request request = new Request(validatedInput());
 			respond(request);
 		}
 		if (appendingText.containsKey(e.getSource())){
-			mainTextArea.append(appendingText.get(e.getSource()));
+			textArea.append(appendingText.get(e.getSource()));
 		}
 		if (e.getSource() == percentageButton){
-			mainTextArea.append("%");
+			textArea.append("%");
 			equalsButton.doClick();
-			mainTextArea.append("%");
+			textArea.append("%");
 		}
 		if (e.getSource() == exponentButton){
-			mainTextArea.append("^");
+			textArea.append("^");
 		}
 	}
 	private void setUpButtons(){
@@ -84,7 +87,24 @@ public class Gui implements ActionListener, UiActions {
 		}
 	}
 	private void respond(Request request){
-		mainTextArea.setText(reqObserver.update(request));
+		if(!request.value().contains("Input Error")) {
+			textArea.setText(reqObserver.update(request));
+		}
+	}
+	private String validatedInput(){
+		String validated = textArea.getText().strip();
+		InputValidator validator = new InputValidator();
+		if(!validator.isValid(textArea.getText())){
+			JOptionPane.showMessageDialog
+					(
+							frame,
+							"Cannot compute user request: " + "\"" + validator.invalidInput() + "\"",
+							"User Input Error",
+							JOptionPane.ERROR_MESSAGE
+					);
+			validated = "Input Error";
+		}
+		return validated;
 	}
 
 
