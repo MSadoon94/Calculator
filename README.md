@@ -20,3 +20,4 @@
   2. Click the "Assets" title of the latest release to preview the downloadable files.
   3. The executable file is titled "Calculator.jar" and should automatically download the program once clicked.
   4. Once fully downloaded, double click or open the file to start the program.
+     - If you are using a mac and the error message "Calculator.jar cannot be opened because it is from an unidentified developer" appears, use control-click on the file, click "Open" in the options window, and click "Open" again in the next window.
