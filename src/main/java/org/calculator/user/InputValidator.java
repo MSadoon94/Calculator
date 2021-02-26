@@ -6,11 +6,11 @@ import java.util.regex.Pattern;
 public class InputValidator {
 	private Matcher matcher;
 	public boolean isValid(String input) {
-		String letters = "[A-Za-z]";
+
 		String divisionByZero = "[\\d]+/0";
-		this.matcher = Pattern.compile(letters + "|" + divisionByZero).matcher(input);
-		boolean isValid = !matcher.find();
-		return isValid;
+		String validCharacters = "[^\\d\\s+\\-*/%().^√]+";
+		this.matcher = Pattern.compile(divisionByZero + "|" + validCharacters).matcher(input);
+		return !matcher.find();
 	}
 
 	public String invalidInput() {
