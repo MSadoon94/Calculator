@@ -6,7 +6,7 @@ import org.calculator.common.Request;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class GroupExtractor implements Extractor, Utilities{
+class GroupExtractor implements ExtractorUtilities {
 	private Pattern groupPattern = Pattern.compile("\\((.+?)\\)",Pattern.DOTALL);
 
 	public int amountOfGroups(Request request){

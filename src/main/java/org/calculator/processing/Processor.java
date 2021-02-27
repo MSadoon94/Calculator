@@ -2,7 +2,8 @@ package org.calculator.processing;
 
 import org.calculator.common.Operations;
 import org.calculator.common.Request;
-import org.calculator.request.GroupExtractor;
+import org.calculator.extraction.ExtractionController;
+import org.calculator.extraction.ExtractorUtilities;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -11,10 +12,13 @@ import java.util.Arrays;
 
 class Processor implements ProcessorActions {
 	private Request request;
-	private ProcessorContext context = new ProcessorContext();
+	private ExtractorUtilities extractor;
+	private ProcessorContext context;
 
-	public Processor(Request request){
+	public Processor(Request request, ExtractorUtilities extractor){
 		this.request = request;
+		this.extractor = extractor;
+		this.context = new ProcessorContext(new ExtractionController().valueExtractor());
 	}
 
 	public BigDecimal processedAnswer(){
@@ -23,24 +27,23 @@ class Processor implements ProcessorActions {
 		return answer().setScale(2, RoundingMode.HALF_UP);
 	}
 	private void processGroupedSections(){
-		int groupAmount = new GroupExtractor().amountOfGroups(request);
-		GroupProcessor groupProcessor = new GroupProcessor();
+		GroupProcessor groupProcessor = new GroupProcessor(extractor);
 		String processedGroup, modifiedSection;
-		String[] extractedGroup;
-		extractedGroup = new GroupExtractor().extraction(request);
-		if (groupAmount > 0){
-			processedGroup = groupProcessor.answer(extractedGroup[0]);
-			modifiedSection = extractedGroup[1].replace( extractedGroup[0], processedGroup);
+		Request extractedGroup;
+		extractedGroup = extractor.extraction(request);
+		if (extractor.amountOfGroups(request) > 0){
+			processedGroup = groupProcessor.answer(extractedGroup.getInnerGroup());
+			modifiedSection = extractedGroup.input().replace( extractedGroup.getInnerGroup(), processedGroup);
 			this.request = new Request(modifiedSection);
 			processGroupedSections();
 		} else {
-			this.request = new Request(extractedGroup[0]);
+			this.request = extractedGroup;
 		}
 
 	}
 
 	private void processMultipleOperationSections(){
-		OperationSequencer sequencer = new OperationSequencer();
+		OperationSequencer sequencer = new OperationSequencer(new ExtractionController().multiOperatorExtractor());
 		while (amountOfOperators() > 1){
 			this.request = new Request(sequencer.answer(request.input()));
 		}

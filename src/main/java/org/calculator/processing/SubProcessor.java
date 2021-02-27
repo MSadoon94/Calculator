@@ -2,6 +2,7 @@ package org.calculator.processing;
 
 import org.calculator.common.Operations;
 import org.calculator.common.Request;
+import org.calculator.extraction.ExtractionController;
 
 import java.math.BigDecimal;
 
@@ -9,7 +10,7 @@ class SubProcessor{
 	private String input;
 	private Request request;
 	private Operations targetOperation;
-	private ProcessorContext context = new ProcessorContext();
+	private ProcessorContext context = new ProcessorContext(new ExtractionController().valueExtractor());
 
 	public SubProcessor(String input) {
 		this.input = input;

@@ -6,7 +6,7 @@ import org.calculator.common.Request;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class MultiOperationExtractor implements Extractor{
+class MultiOperatorExtractor implements Extractor{
 
 	public Request extraction(Request input) {
 		Operations targetOperation = input.getOperation(); //ToDo make sure classes are setting operation before using this extractor

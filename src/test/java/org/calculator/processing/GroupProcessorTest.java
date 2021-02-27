@@ -1,20 +1,19 @@
 package org.calculator.processing;
-import org.calculator.common.Request;
-import org.calculator.common.TestHelper;
-import org.calculator.request.GroupExtractor;
+
+import org.calculator.extraction.ExtractionController;
+import org.calculator.extraction.ExtractorUtilities;
 import org.junit.jupiter.api.Test;
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class GroupProcessorTest {
 
 	@Test
 	void shouldReturnArithmeticAnswerOfTargetGroup(){
-		Request request = new Request(TestHelper.MIXED.input());
-		GroupExtractor extractor = new GroupExtractor();
-		String[] groups = extractor.extraction(request);
-		GroupProcessor processor = new GroupProcessor();
+		ExtractorUtilities extractor = new ExtractionController().groupExtractor();
+		GroupProcessor processor = new GroupProcessor(extractor);
 
-		assertThat(processor.answer(groups[0]), is("3"));
+		assertThat(processor.answer("2-1+1*2"), is("3"));
 	}
 }

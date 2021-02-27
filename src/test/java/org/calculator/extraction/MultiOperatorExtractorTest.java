@@ -9,11 +9,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-public class MultiOperationExtractorTest {
+public class MultiOperatorExtractorTest {
 
 	@Test
 	void shouldReturnArithmeticSectionWithSingleOperation(){
-		MultiOperationExtractor extractor = new MultiOperationExtractor();
+		MultiOperatorExtractor extractor = new MultiOperatorExtractor();
 
 		String inputString = TestHelper.MIXED.input().replaceAll("[()]", "");
 		Request input = new Request(inputString);

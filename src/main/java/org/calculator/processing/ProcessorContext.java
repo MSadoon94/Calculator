@@ -2,22 +2,24 @@ package org.calculator.processing;
 
 import org.calculator.common.Operations;
 import org.calculator.common.Request;
-import org.calculator.request.ValueExtractor;
+import org.calculator.extraction.Extractor;
 
 import java.math.BigDecimal;
 
 class ProcessorContext {
 	private OperationStrategy strategy;
-	private ValueExtractor extractor;
+	private Extractor extractor;
 	public void setStrategy(OperationStrategy strategy){
 		this.strategy = strategy;
 	}
+	public ProcessorContext(Extractor valueExtractor){
+		this.extractor = valueExtractor;
+	}
 	public BigDecimal executeStrategy(Request request){
-		extractor = new ValueExtractor();
 		return strategy.execute(formattedValues(request));
 	}
 	private BigDecimal[] formattedValues(Request request){
-		String[] values = extractor.extraction(request);
+		String[] values = extractor.extraction(request).getValues();
 		BigDecimal[] bigDecimals = new BigDecimal[values.length];
 		for (int i = 0; i < values.length; i++){
 			if(values[i].equals(Operations.SUBTRACTION.symbol())){
