@@ -2,8 +2,8 @@ package org.calculator.common;
 
 public class Request {
 
-	private final String input;
-	private Operations operation;
+	protected final String input;
+	protected Operations operation;
 	private String[] values;
 	private String innerGroup;
 
