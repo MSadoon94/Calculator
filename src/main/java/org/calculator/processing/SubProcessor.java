@@ -10,7 +10,7 @@ class SubProcessor{
 	private String input;
 	private Request request;
 	private Operations targetOperation;
-	private ProcessorContext context = new ProcessorContext(new ExtractionController().valueExtractor());
+	private ProcessorContext context = new ProcessorContext();
 
 	public SubProcessor(String input) {
 		this.input = input;

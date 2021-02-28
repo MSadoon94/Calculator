@@ -9,8 +9,4 @@ public class ExtractionController implements ExtractionBoundary{
 	public Extractor multiOperatorExtractor() {
 		return new MultiOperatorExtractor();
 	}
-
-	public Extractor valueExtractor() {
-		return new ValueExtractor();
-	}
 }

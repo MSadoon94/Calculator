@@ -18,7 +18,7 @@ class Processor implements ProcessorActions {
 	public Processor(Request request, ExtractorUtilities extractor){
 		this.request = request;
 		this.extractor = extractor;
-		this.context = new ProcessorContext(new ExtractionController().valueExtractor());
+		this.context = new ProcessorContext();
 	}
 
 	public BigDecimal processedAnswer(){
