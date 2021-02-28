@@ -44,7 +44,7 @@ class Processor implements ProcessorActions {
 
 	private void processMultipleOperationSections(){
 		OperationSequencer sequencer = new OperationSequencer(new ExtractionController().multiOperatorExtractor());
-		while (amountOfOperators() > 1){
+		while (this.request.operators() > 1){
 			this.request = new Request(sequencer.answer(request.input()));
 		}
 	}
@@ -59,12 +59,6 @@ class Processor implements ProcessorActions {
 		}
 		answer = context.executeStrategy(request);
 		return answer;
-	}
-
-	private long amountOfOperators(){
-		return Arrays.stream(Operations.values())
-				.filter(operation -> request.input().contains(operation.symbol()))
-				.count();
 	}
 
 	private boolean isUnaryOperation(){

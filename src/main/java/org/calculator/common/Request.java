@@ -33,7 +33,12 @@ public class Request extends RequestUtility{
 		return innerGroup;
 	}
 
+	public long operators(){
+		return amountOfOperators(this);
+	}
+
 	public BigDecimal[] bigDecimals(){
 		return bigDecimalValues(this);
 	}
+
 }
