@@ -12,6 +12,6 @@ class RequestObserver implements Observer {
 	}
 
 	public String update(Request request) {
-		return invoker.answer(request, new ExtractionController().groupExtractor());
+		return invoker.answer(request);
 	}
 }

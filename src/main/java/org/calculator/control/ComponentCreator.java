@@ -1,5 +1,7 @@
 package org.calculator.control;
 
+import org.calculator.extraction.ExtractionBoundary;
+import org.calculator.extraction.ExtractionController;
 import org.calculator.processing.Invoker;
 import org.calculator.processing.ProcessorBoundary;
 import org.calculator.processing.ProcessorController;
@@ -12,11 +14,12 @@ import javax.swing.*;
 public class ComponentCreator {
 	private RequestBoundary requestController = new RequestController();
 	private ProcessorBoundary processorBoundary = new ProcessorController();
+	private ExtractionBoundary extractionBoundary = new ExtractionController();
 
 	public ComponentCreator(){
 		UiActions ui = createGui();
 
-		Invoker invoker = processorBoundary.answerInvoker();
+		Invoker invoker = processorBoundary.answerInvoker(extractionBoundary.groupExtractor());
 		Observer reqObserver = requestController.requestObserver(invoker);
 		ui.attachObserver(reqObserver);
 	}

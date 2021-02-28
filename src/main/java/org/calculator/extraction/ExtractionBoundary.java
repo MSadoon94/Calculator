@@ -1,7 +1,7 @@
 package org.calculator.extraction;
 
 public interface ExtractionBoundary {
-	Extractor groupExtractor();
+	ExtractorUtilities groupExtractor();
 	Extractor multiOperatorExtractor();
 	Extractor valueExtractor();
 }

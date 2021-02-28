@@ -4,9 +4,13 @@ import org.calculator.common.Request;
 import org.calculator.extraction.ExtractorUtilities;
 
 class AnswerInvoker implements Invoker {
-	public String answer(Request request, ExtractorUtilities extractorUtilities) {
+	private ExtractorUtilities extractor;
+	public AnswerInvoker(ExtractorUtilities extractorUtilities){
+		extractor = extractorUtilities;
+	}
+	public String answer(Request request) {
 		Request formatted = new NegativeFormatter().findDoubleNegatives(request);
-		ProcessorActions processor = new Processor(formatted, extractorUtilities);
+		ProcessorActions processor = new Processor(formatted, extractor);
 		return processor.processedAnswer().toString();
 	}
 }
