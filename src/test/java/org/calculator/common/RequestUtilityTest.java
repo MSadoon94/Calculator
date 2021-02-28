@@ -27,4 +27,12 @@ public class RequestUtilityTest {
 		assertThat(utility.bigDecimalValues(request),
 				is(arrayContaining(new BigDecimal("4"))));
 	}
+
+	@Test
+	void shouldReturnAmountOfOperationsInRequest(){
+		Request request = new Request(TestHelper.MIXED.input());
+		RequestUtility utility = new RequestUtility();
+
+		assertThat(utility.amountOfOperators(request), is(4L));
+	}
 }

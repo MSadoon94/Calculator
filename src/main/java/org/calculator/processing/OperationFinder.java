@@ -10,6 +10,7 @@ public class OperationFinder {
 		Operations target;
 
 		if (amountOfOperators(section) <= 1){
+			//amountOfOperators also maps the sections operation to operator
 			target = operator;
 		} else if (section.contains(Operations.SQUARE_ROOT.symbol())
 				&& section.contains(Operations.EXPONENT.symbol())){

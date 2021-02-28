@@ -6,7 +6,6 @@ public class Request extends RequestUtility{
 
 	protected final String input;
 	protected Operations operation;
-	private String[] values;
 	private String innerGroup;
 
 	public Request(String request) {
@@ -24,14 +23,6 @@ public class Request extends RequestUtility{
 
 	public Operations getOperation(){
 		return operation;
-	}
-
-	public void setValues(String[] values){
-		this.values = values;
-	}
-
-	public String[] getValues(){
-		return values;
 	}
 
 	public void setInnerGroup(String innerGroup){

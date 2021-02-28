@@ -8,6 +8,11 @@ class RequestUtility {
 	protected BigDecimal[] bigDecimalValues(Request request) {
 		return convertedToBigDecimals(new BigDecimal[splitInput(request).length], splitInput(request));
 	}
+	protected long amountOfOperators(Request request){
+		return Arrays.stream(Operations.values())
+				.filter(operation -> request.input.contains(operation.symbol()))
+				.count();
+	}
 	private String[] splitInput(Request request){
 		return Arrays.stream(request.input.split(Pattern.quote(request.operation.symbol())))
 				.filter(value -> (value != null && value.length() > 0))
