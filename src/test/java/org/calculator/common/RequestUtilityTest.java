@@ -17,4 +17,14 @@ public class RequestUtilityTest {
 		assertThat(utility.bigDecimalValues(),
 				is(arrayContaining(new BigDecimal("2"), new BigDecimal("2"))));
 	}
+
+	@Test
+	void shouldRemoveVoidValues(){
+		Request request = new Request(TestHelper.SQUARE_ROOT.input());
+		request.setOperation(Operations.SQUARE_ROOT);
+		RequestUtility utility = new RequestUtility(request);
+
+		assertThat(utility.bigDecimalValues(),
+				is(arrayContaining(new BigDecimal("4"))));
+	}
 }
