@@ -12,9 +12,9 @@ public class RequestUtilityTest {
 	void shouldConvertInputValuesIntoBigDecimals(){
 		Request request = new Request(TestHelper.ADDITION.input());
 		request.setOperation(Operations.ADDITION);
-		RequestUtility utility = new RequestUtility(request);
+		RequestUtility utility = new RequestUtility();
 
-		assertThat(utility.bigDecimalValues(),
+		assertThat(utility.bigDecimalValues(request),
 				is(arrayContaining(new BigDecimal("2"), new BigDecimal("2"))));
 	}
 
@@ -22,9 +22,9 @@ public class RequestUtilityTest {
 	void shouldRemoveVoidValues(){
 		Request request = new Request(TestHelper.SQUARE_ROOT.input());
 		request.setOperation(Operations.SQUARE_ROOT);
-		RequestUtility utility = new RequestUtility(request);
+		RequestUtility utility = new RequestUtility();
 
-		assertThat(utility.bigDecimalValues(),
+		assertThat(utility.bigDecimalValues(request),
 				is(arrayContaining(new BigDecimal("4"))));
 	}
 }

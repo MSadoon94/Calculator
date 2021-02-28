@@ -16,6 +16,7 @@ class ProcessorContext {
 		this.extractor = valueExtractor;
 	}
 	public BigDecimal executeStrategy(Request request){
+
 		return strategy.execute(formattedValues(request));
 	}
 	private BigDecimal[] formattedValues(Request request){

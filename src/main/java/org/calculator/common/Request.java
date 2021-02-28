@@ -1,6 +1,8 @@
 package org.calculator.common;
 
-public class Request {
+import java.math.BigDecimal;
+
+public class Request extends RequestUtility{
 
 	protected final String input;
 	protected Operations operation;
@@ -8,6 +10,7 @@ public class Request {
 	private String innerGroup;
 
 	public Request(String request) {
+		super();
 		this.input = request;
 	}
 
@@ -37,5 +40,9 @@ public class Request {
 
 	public String getInnerGroup(){
 		return innerGroup;
+	}
+
+	public BigDecimal[] bigDecimals(){
+		return bigDecimalValues(this);
 	}
 }
