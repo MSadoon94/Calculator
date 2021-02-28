@@ -16,19 +16,6 @@ class ProcessorContext {
 		this.extractor = valueExtractor;
 	}
 	public BigDecimal executeStrategy(Request request){
-
-		return strategy.execute(formattedValues(request));
-	}
-	private BigDecimal[] formattedValues(Request request){
-		String[] values = extractor.extraction(request).getValues();
-		BigDecimal[] bigDecimals = new BigDecimal[values.length];
-		for (int i = 0; i < values.length; i++){
-			if(values[i].equals(Operations.SUBTRACTION.symbol())){
-				bigDecimals[i] = new BigDecimal(values[i++]).negate();
-			} else {
-				bigDecimals[i] = new BigDecimal(values[i]);
-			}
-		}
-		return bigDecimals;
+		return strategy.execute(request.bigDecimals());
 	}
 }
