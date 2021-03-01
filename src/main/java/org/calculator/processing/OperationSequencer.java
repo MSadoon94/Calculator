@@ -1,23 +1,31 @@
 package org.calculator.processing;
 
 import org.calculator.common.Operations;
+import org.calculator.common.Request;
+import org.calculator.extraction.Extractor;
 
 import java.util.Arrays;
 
 public class OperationSequencer {
+	private Extractor multiOpExtractor;
+	public OperationSequencer(Extractor multiOpExtractor){
+		this.multiOpExtractor = multiOpExtractor;
+	}
 	public String answer(String input) {
 		String targetSection = input;
-		String singleOperation;
-		MultiOperationExtractor multiOpExtractor = new MultiOperationExtractor();
+		Request results = new Request(targetSection);
+
 		OperationFinder finder = new OperationFinder();
 		for (int i = 0; i < amountOfOperators(input); i++) {
-			Operations targetOperation = finder.targetOperation(targetSection);
-			singleOperation =multiOpExtractor.extraction(targetSection, targetOperation);
+			Request inputRequest = new Request(targetSection);
+			inputRequest.setOperation(finder.targetOperation(targetSection));
+			Request partialResults =multiOpExtractor.extraction(inputRequest);
 			String partialAnswer =
-					new SubProcessor(singleOperation).subSection(targetOperation);
-			targetSection = targetSection.replace(singleOperation, partialAnswer);
+					new SubProcessor(partialResults.input()).subSection(inputRequest.getOperation());
+			targetSection = targetSection.replace(partialResults.input(), partialAnswer);
+			results = new Request(targetSection);
 		}
-		return targetSection;
+		return results.input();
 	}
 	private long amountOfOperators (String input){
 		return Arrays.stream(Operations.values())

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class NegativeFormatter {
 	public Request findDoubleNegatives(Request request) {
 		Pattern negativePattern = Pattern.compile("(--)");
-		Matcher negativeMatcher = negativePattern.matcher(request.value());
+		Matcher negativeMatcher = negativePattern.matcher(request.input());
 		Request tagged = request;
 		while (negativeMatcher.find()){
 			tagged = doubleNegative(tagged, negativeMatcher.group());
@@ -16,6 +16,6 @@ public class NegativeFormatter {
 		return tagged;
 	}
 	private Request doubleNegative(Request request, String section){
-		return new Request(request.value().replace(section, "+"));
+		return new Request(request.input().replace(section, "+"));
 	}
 }

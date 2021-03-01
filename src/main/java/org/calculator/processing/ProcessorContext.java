@@ -1,31 +1,20 @@
 package org.calculator.processing;
 
-import org.calculator.common.Operations;
+
 import org.calculator.common.Request;
-import org.calculator.request.ValueExtractor;
+
 
 import java.math.BigDecimal;
 
 class ProcessorContext {
 	private OperationStrategy strategy;
-	private ValueExtractor extractor;
+
 	public void setStrategy(OperationStrategy strategy){
 		this.strategy = strategy;
 	}
-	public BigDecimal executeStrategy(Request request){
-		extractor = new ValueExtractor();
-		return strategy.execute(formattedValues(request));
+	public ProcessorContext(){
 	}
-	private BigDecimal[] formattedValues(Request request){
-		String[] values = extractor.extraction(request);
-		BigDecimal[] bigDecimals = new BigDecimal[values.length];
-		for (int i = 0; i < values.length; i++){
-			if(values[i].equals(Operations.SUBTRACTION.symbol())){
-				bigDecimals[i] = new BigDecimal(values[i++]).negate();
-			} else {
-				bigDecimals[i] = new BigDecimal(values[i]);
-			}
-		}
-		return bigDecimals;
+	public BigDecimal executeStrategy(Request request){
+		return strategy.execute(request.bigDecimals());
 	}
 }
