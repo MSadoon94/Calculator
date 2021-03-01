@@ -1,6 +1,7 @@
 package org.calculator.common;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Request extends RequestUtility{
 
@@ -39,6 +40,10 @@ public class Request extends RequestUtility{
 
 	public BigDecimal[] bigDecimals(){
 		return bigDecimalValues(this);
+	}
+
+	public List<Operations> operators(){
+		return operatorList(this);
 	}
 
 }

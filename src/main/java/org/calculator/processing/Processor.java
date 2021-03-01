@@ -7,8 +7,8 @@ import org.calculator.extraction.ExtractorUtilities;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 class Processor implements ProcessorActions {
 	private Request request;
@@ -66,21 +66,15 @@ class Processor implements ProcessorActions {
 				.contains(request.getOperation());
 	}
 
-	private ArrayList<Operations> operatorForRequest(){
-		ArrayList<Operations> operators = new ArrayList<>();
-		for (int i = 0; i < Operations.values().length; i++) {
-			Operations operation = Operations.values()[i];
-			if (request.input().contains(operation.symbol())){
-				operators.add(operation);
-			}
-		}
+	private List<Operations> operatorForRequest(){
+		List<Operations> operators = request.operators();
 		if (operators.size() == 0){
 			createSingleValueOperation(operators);
 		}
 		return operators;
 	}
 
-	private void createSingleValueOperation(ArrayList<Operations> operators){
+	private void createSingleValueOperation(List<Operations> operators){
 		request = new Request(request.input() + Operations.SINGLE_VALUE.symbol());
 		operators.add(0, Operations.SINGLE_VALUE);
 		request.setOperation(Operations.SINGLE_VALUE);
