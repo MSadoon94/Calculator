@@ -33,7 +33,7 @@ public class Request extends RequestUtility{
 		return innerGroup;
 	}
 
-	public long operators(){
+	public long operatorAmount(){
 		return amountOfOperators(this);
 	}
 

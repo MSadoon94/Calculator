@@ -44,7 +44,7 @@ class Processor implements ProcessorActions {
 
 	private void processMultipleOperationSections(){
 		OperationSequencer sequencer = new OperationSequencer(new ExtractionController().multiOperatorExtractor());
-		while (this.request.operators() > 1){
+		while (this.request.operatorAmount() > 1){
 			this.request = new Request(sequencer.answer(request.input()));
 		}
 	}
