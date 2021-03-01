@@ -1,16 +1,21 @@
 package org.calculator.common;
 
-public class Request {
+import java.math.BigDecimal;
+import java.util.List;
 
-	private final String value;
-	private Operations operation;
+public class Request extends RequestUtility{
+
+	protected final String input;
+	protected Operations operation;
+	private String innerGroup;
 
 	public Request(String request) {
-		this.value = request;
+		super();
+		this.input = request;
 	}
 
-	public String value(){
-		return value;
+	public String input(){
+		return input;
 	}
 
 	public void setOperation(Operations operation){
@@ -20,4 +25,25 @@ public class Request {
 	public Operations getOperation(){
 		return operation;
 	}
+
+	public void setInnerGroup(String innerGroup){
+		this.innerGroup = innerGroup;
+	}
+
+	public String getInnerGroup(){
+		return innerGroup;
+	}
+
+	public long operatorAmount(){
+		return amountOfOperators(this);
+	}
+
+	public BigDecimal[] bigDecimals(){
+		return bigDecimalValues(this);
+	}
+
+	public List<Operations> operators(){
+		return operatorList(this);
+	}
+
 }
