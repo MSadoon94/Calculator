@@ -12,7 +12,8 @@ public enum TestHelper {
 	MIXED("(2-1+1*2)/(10/5)", bigDecimals(2, 1, 1, 2, 10, 5),"1.50"),
 	EXPONENT("2^3", bigDecimals(2, 3), "8.00"),
 	SQUARE_ROOT("√4", bigDecimals(4), "2.00"),
-	NEGATIVE("4+-2", bigDecimals(4, -2), "2.00");
+	NEGATIVE("4+-2", bigDecimals(4, -2), "2.00"),
+	DECIMAL("4.5234*5.4325", bigDecimals(4.5234, 5.4325), "24.573");
 
 	private final String input;
 	private final BigDecimal[] extracted;
