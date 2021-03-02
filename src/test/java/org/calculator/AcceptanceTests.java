@@ -72,7 +72,16 @@ public class AcceptanceTests {
 	private void startInputtingRequest(){
 		textAreaOperator.enterText(input);
 		equalsButton.push();
+	}
 
+	private int decimalPosition(String input){
+		int position;
+		if(input.equals(TestHelper.DECIMAL.input())){
+			position = 3;
+		} else {
+			position = 2;
+		}
+		return position;
 	}
 
 	private void hasDisplayedAnswer() {
