@@ -18,7 +18,8 @@ public class Gui implements ActionListener, UiActions {
 			multiplyButton, percentageButton, clearButton, decimalButton,
 			rightParenthesisButton, leftParenthesisButton, exponentButton,
 			a0Button, a1Button, a2Button, a3Button, a4Button, a5Button,
-			a6Button, a7Button, a8Button, a9Button, squareRootButton;
+			a6Button, a7Button, a8Button, a9Button, squareRootButton,
+			decimalPositionButton;
 	private JButton[] numericalButtons = {
 			a0Button, a1Button, a2Button, a3Button, a4Button,
 			a5Button, a6Button, a7Button, a8Button, a9Button,
@@ -28,10 +29,11 @@ public class Gui implements ActionListener, UiActions {
 			equalsButton, addButton, subtractButton, divideButton,
 			multiplyButton, percentageButton, clearButton,
 			rightParenthesisButton, leftParenthesisButton, exponentButton,
-			squareRootButton
+			squareRootButton, decimalPositionButton
 	};
 	private HashMap<JButton, String> appendingText = new HashMap<>();
 	private JFrame frame;
+	private int decimalPosition = 2;
 
 	public Gui(JFrame frame){
 		setUpButtons();
@@ -53,6 +55,7 @@ public class Gui implements ActionListener, UiActions {
 		}
 		if (e.getSource() == equalsButton){
 			Request request = new Request(validatedInput());
+			request.setDecimalPosition(decimalPosition);
 			respond(request);
 		}
 		if (appendingText.containsKey(e.getSource())){
@@ -65,6 +68,10 @@ public class Gui implements ActionListener, UiActions {
 		}
 		if (e.getSource() == exponentButton){
 			textArea.append("^");
+		}
+		if(e.getSource() == decimalPositionButton){
+			decimalPosition = Integer.parseInt(textArea.getText());
+			clearButton.doClick();
 		}
 	}
 	private void setUpButtons(){

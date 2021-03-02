@@ -1,13 +1,10 @@
 package org.calculator.common;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 class RequestUtility {
 	protected BigDecimal[] bigDecimalValues(Request request) {

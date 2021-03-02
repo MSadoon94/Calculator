@@ -20,7 +20,7 @@ public class AcceptanceTests {
 
 	private JFrameOperator frameOperator;
 	private JTextAreaOperator textAreaOperator;
-	private JButtonOperator equalsButton;
+	private JButtonOperator equalsButton, decimalPositionButton;
 
 	private String input = "0";
 
@@ -59,6 +59,7 @@ public class AcceptanceTests {
 		frameOperator = new JFrameOperator("Gui");
 		textAreaOperator = new JTextAreaOperator(frameOperator, 0);
 		equalsButton = new JButtonOperator(frameOperator, "=");
+		decimalPositionButton = new JButtonOperator(frameOperator, "Decimal Position");
 	}
 
 	private void setAnswers(){
@@ -70,16 +71,16 @@ public class AcceptanceTests {
 	}
 
 	private void startInputtingRequest(){
+		textAreaOperator.enterText(String.valueOf(decimalPosition()));
+		decimalPositionButton.push();
 		textAreaOperator.enterText(input);
 		equalsButton.push();
 	}
 
-	private int decimalPosition(String input){
-		int position;
+	private int decimalPosition(){
+		int position = 2;
 		if(input.equals(TestHelper.DECIMAL.input())){
 			position = 3;
-		} else {
-			position = 2;
 		}
 		return position;
 	}
