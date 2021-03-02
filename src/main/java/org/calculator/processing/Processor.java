@@ -23,10 +23,10 @@ class Processor implements ProcessorActions {
 		this.context = new ProcessorContext();
 	}
 
-	public BigDecimal processedAnswer(){
+	public Request processedAnswer(){
 		Request groupsProcessed = requestAfterProcessingGroups(request);
 		Request multiOpProcessed = requestAfterProcessingMultiOperatorSections(groupsProcessed);
-		return answer(multiOpProcessed).setScale(decimalPosition, RoundingMode.HALF_UP);
+		return answer(multiOpProcessed);
 	}
 	private Request requestAfterProcessingGroups(Request aRequest){
 		while(extractor.amountOfGroups(aRequest) > 0){
@@ -50,7 +50,7 @@ class Processor implements ProcessorActions {
 		return aRequest;
 	}
 
-	private BigDecimal answer(Request aRequest){
+	private Request answer(Request aRequest){
 		BigDecimal answer;
 		aRequest.setOperation(operatorForRequest(aRequest).get(0));
 		if(isUnaryOperation(aRequest)){
@@ -58,8 +58,8 @@ class Processor implements ProcessorActions {
 		} else {
 			context.setStrategy(new MultipleValueStrategy(aRequest.getOperation()));
 		}
-		answer = context.executeStrategy(aRequest);
-		return answer;
+		answer = context.executeStrategy(aRequest).setScale(decimalPosition, RoundingMode.HALF_UP);
+		return new Request(answer.toString());
 	}
 
 	private boolean isUnaryOperation(Request aRequest){

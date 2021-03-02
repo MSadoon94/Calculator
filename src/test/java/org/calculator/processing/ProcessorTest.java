@@ -22,8 +22,9 @@ public class ProcessorTest {
 	void shouldCalculateAnswerForSpecificOperationWhenRequestIsReceived(TestHelper helper){
 		Request request = new Request(helper.input());
 		Processor processor = new Processor(request, extractor);
+		Request result = processor.processedAnswer();
 
-		assertThat(processor.processedAnswer(), comparesEqualTo(new BigDecimal(helper.answer())));
+		assertThat(result.input(), comparesEqualTo(helper.answer()));
 	}
 
 
@@ -31,15 +32,18 @@ public class ProcessorTest {
 	void shouldProcessInnerGroupCalculationsBeforeOuterGroupCalculations(){
 		Request request = new Request("(2+2)+(4-2)");
 		Processor processor = new Processor(request, extractor);
-		assertThat(processor.processedAnswer(), comparesEqualTo(new BigDecimal("6")));
+		Request result = processor.processedAnswer();
+
+		assertThat(result.input(), comparesEqualTo("6.00"));
 	}
 
 	@Test
 	void shouldCalculateMultipleOperationInput(){
 		Request request = new Request("2+2-2");
 		Processor processor = new Processor(request, extractor);
+		Request result = processor.processedAnswer();
 
-		assertThat(processor.processedAnswer(), comparesEqualTo(new BigDecimal("2.00")));
+		assertThat(result.input(), comparesEqualTo("2.00"));
 	}
 }
 
