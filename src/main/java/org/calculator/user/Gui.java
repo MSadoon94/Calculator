@@ -70,7 +70,7 @@ public class Gui implements ActionListener, UiActions {
 			textArea.append("^");
 		}
 		if(e.getSource() == decimalPositionButton){
-			decimalPosition = Integer.parseInt(textArea.getText());
+			decimalPosition = Integer.parseInt(textArea.getText().strip());
 			clearButton.doClick();
 		}
 	}

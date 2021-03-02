@@ -1,7 +1,7 @@
 package org.calculator.processing;
 
-import java.math.BigDecimal;
+import org.calculator.common.Request;
 
 public interface ProcessorActions {
-	BigDecimal processedAnswer();
+	Request processedAnswer();
 }
