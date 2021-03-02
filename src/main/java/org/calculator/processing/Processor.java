@@ -24,37 +24,25 @@ class Processor implements ProcessorActions {
 	}
 
 	public BigDecimal processedAnswer(){
-		Request processed = processMultipleOperationSections(requestAfterProcessingGroups(request));
-		return answer(processed).setScale(decimalPosition, RoundingMode.HALF_UP);
+		Request groupsProcessed = requestAfterProcessingGroups(request);
+		Request multiOpProcessed = requestAfterProcessingMultiOperatorSections(groupsProcessed);
+		return answer(multiOpProcessed).setScale(decimalPosition, RoundingMode.HALF_UP);
 	}
 	private Request requestAfterProcessingGroups(Request aRequest){
 		while(extractor.amountOfGroups(aRequest) > 0){
-			aRequest = processGroupedSections(aRequest);
+			aRequest = groupSectionToProcess(aRequest);
 		}
 		return aRequest;
 	}
 
-	private Request processGroupedSections(Request aRequest){
-		GroupProcessor groupProcessor = new GroupProcessor(extractor);
-		Request extractedGroup, result;
-		extractedGroup = extractor.extraction(aRequest);
-		System.out.println("ExtractedGroup: " + extractedGroup.input());
-		if (extractor.amountOfGroups(aRequest) > 0){
-			System.out.println("AmountOfGroups: " + extractor.amountOfGroups(aRequest));
-			String processedGroup = groupProcessor.answer(extractedGroup.getInnerGroup());
-			String modifiedSection = extractedGroup.input().replace(extractedGroup.getInnerGroup(), processedGroup);
-			result = new Request(modifiedSection);
-			System.out.println("ProcessedGroupResult: " + result.input());
-		} else {
-			result = extractedGroup;
-		}
-		System.out.println(result.input());
-		return result;
+	private Request groupSectionToProcess(Request aRequest){
+		Request extractedGroup = extractor.extraction(aRequest);
+		String processedGroup = new GroupProcessor(extractor).answer(extractedGroup.getInnerGroup());
+		String modifiedSection = extractedGroup.input().replace(extractedGroup.getInnerGroup(), processedGroup);
+		return new Request(modifiedSection);
 	}
 
-
-
-	private Request processMultipleOperationSections(Request aRequest){
+	private Request requestAfterProcessingMultiOperatorSections(Request aRequest){
 		OperationSequencer sequencer = new OperationSequencer(new ExtractionController().multiOperatorExtractor());
 		while (aRequest.operatorAmount() > 1){
 			aRequest = new Request(sequencer.answer(aRequest.input()));
