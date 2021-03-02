@@ -13,18 +13,26 @@ public class InputValidatorTest {
 	}
 	@Test
 	void shouldReturnInvalidIfInputHasDivisionByZero(){
-		assertThat(validator.isValid("1/0"), is(false));
+		assertThat(validator.isValidInput("1/0"), is(false));
 	}
 	@Test
 	void shouldReturnInvalidIfInputIsNonOperationCharacter(){
-		assertThat(validator.isValid("#"), is(false));
-		assertThat(validator.isValid("`"), is(false));
-		assertThat(validator.isValid("?"), is(false));
+		assertThat(validator.isValidInput("#"), is(false));
+		assertThat(validator.isValidInput("`"), is(false));
+		assertThat(validator.isValidInput("?"), is(false));
+		assertThat(validator.isValidInput("4t"), is(false));
 	}
 	@Test
 	void shouldReturnInputThatIsInvalid(){
-		validator.isValid("A");
+		validator.isValidInput("A");
 		assertThat(validator.invalidInput(), is(equalTo("A")));
+	}
+	@Test
+	void shouldReturnInvalidIfDecimalPositionIsNotInteger(){
+		assertThat(validator.isValidDecimalPosition("A"), is(false));
+		assertThat(validator.isValidDecimalPosition("3.1"), is(false));
+		assertThat(validator.isValidDecimalPosition("4t"), is(false));
+		assertThat(validator.isValidDecimalPosition("+"), is(false));
 	}
 
 
