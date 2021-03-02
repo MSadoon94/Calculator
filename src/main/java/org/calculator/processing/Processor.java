@@ -12,62 +12,75 @@ import java.util.List;
 
 class Processor implements ProcessorActions {
 	private Request request;
+	private int decimalPosition;
 	private ExtractorUtilities extractor;
 	private ProcessorContext context;
 
 	public Processor(Request request, ExtractorUtilities extractor){
 		this.request = request;
+		decimalPosition = request.decimalPosition();
 		this.extractor = extractor;
 		this.context = new ProcessorContext();
 	}
 
 	public BigDecimal processedAnswer(){
-		processGroupedSections();
-		processMultipleOperationSections();
-		return answer().setScale(2, RoundingMode.HALF_UP);
+		Request processed = processMultipleOperationSections(requestAfterProcessingGroups(request));
+		return answer(processed).setScale(decimalPosition, RoundingMode.HALF_UP);
 	}
-	private void processGroupedSections(){
+	private Request requestAfterProcessingGroups(Request aRequest){
+		while(extractor.amountOfGroups(aRequest) > 0){
+			aRequest = processGroupedSections(aRequest);
+		}
+		return aRequest;
+	}
+
+	private Request processGroupedSections(Request aRequest){
 		GroupProcessor groupProcessor = new GroupProcessor(extractor);
-		String processedGroup, modifiedSection;
-		Request extractedGroup;
-		extractedGroup = extractor.extraction(request);
-		if (extractor.amountOfGroups(request) > 0){
-			processedGroup = groupProcessor.answer(extractedGroup.getInnerGroup());
-			modifiedSection = extractedGroup.input().replace( extractedGroup.getInnerGroup(), processedGroup);
-			this.request = new Request(modifiedSection);
-			processGroupedSections();
+		Request extractedGroup, result;
+		extractedGroup = extractor.extraction(aRequest);
+		System.out.println("ExtractedGroup: " + extractedGroup.input());
+		if (extractor.amountOfGroups(aRequest) > 0){
+			System.out.println("AmountOfGroups: " + extractor.amountOfGroups(aRequest));
+			String processedGroup = groupProcessor.answer(extractedGroup.getInnerGroup());
+			String modifiedSection = extractedGroup.input().replace(extractedGroup.getInnerGroup(), processedGroup);
+			result = new Request(modifiedSection);
+			System.out.println("ProcessedGroupResult: " + result.input());
 		} else {
-			this.request = extractedGroup;
+			result = extractedGroup;
 		}
-
+		System.out.println(result.input());
+		return result;
 	}
 
-	private void processMultipleOperationSections(){
+
+
+	private Request processMultipleOperationSections(Request aRequest){
 		OperationSequencer sequencer = new OperationSequencer(new ExtractionController().multiOperatorExtractor());
-		while (this.request.operatorAmount() > 1){
-			this.request = new Request(sequencer.answer(request.input()));
+		while (aRequest.operatorAmount() > 1){
+			aRequest = new Request(sequencer.answer(aRequest.input()));
 		}
+		return aRequest;
 	}
 
-	private BigDecimal answer(){
+	private BigDecimal answer(Request aRequest){
 		BigDecimal answer;
-		request.setOperation(operatorForRequest().get(0));
-		if(isUnaryOperation()){
-			context.setStrategy(new UnaryValueStrategy(request.getOperation()));
+		aRequest.setOperation(operatorForRequest(aRequest).get(0));
+		if(isUnaryOperation(aRequest)){
+			context.setStrategy(new UnaryValueStrategy(aRequest.getOperation()));
 		} else {
-			context.setStrategy(new MultipleValueStrategy(request.getOperation()));
+			context.setStrategy(new MultipleValueStrategy(aRequest.getOperation()));
 		}
-		answer = context.executeStrategy(request);
+		answer = context.executeStrategy(aRequest);
 		return answer;
 	}
 
-	private boolean isUnaryOperation(){
+	private boolean isUnaryOperation(Request aRequest){
 		return Arrays.asList(Operations.unaryOps())
-				.contains(request.getOperation());
+				.contains(aRequest.getOperation());
 	}
 
-	private List<Operations> operatorForRequest(){
-		List<Operations> operators = request.operators();
+	private List<Operations> operatorForRequest(Request aRequest){
+		List<Operations> operators = aRequest.operators();
 		if (operators.size() == 0){
 			createSingleValueOperation(operators);
 		}
