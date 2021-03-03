@@ -5,8 +5,7 @@ import java.util.regex.Pattern;
 
 public class InputValidator {
 	private Matcher matcher;
-	public boolean isValid(String input) {
-
+	public boolean isValidInput(String input) {
 		String divisionByZero = "[\\d]+/0";
 		String validCharacters = "[^\\d\\s+\\-*/%().^√]+";
 		this.matcher = Pattern.compile(divisionByZero + "|" + validCharacters).matcher(input);
@@ -15,5 +14,10 @@ public class InputValidator {
 
 	public String invalidInput() {
 		return matcher.group();
+	}
+
+	public boolean isValidDecimalPosition(String position){
+		Matcher integerMatcher = Pattern.compile("[^\\d\\s]+").matcher(position);
+		return !integerMatcher.find();
 	}
 }
