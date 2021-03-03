@@ -70,7 +70,7 @@ public class Gui implements ActionListener, UiActions {
 			textArea.append("^");
 		}
 		if(e.getSource() == decimalPositionButton){
-			decimalPosition = Integer.parseInt(textArea.getText().strip());
+			changeDecimalPosition(textArea.getText().strip());
 			clearButton.doClick();
 		}
 	}
@@ -103,15 +103,31 @@ public class Gui implements ActionListener, UiActions {
 		InputValidator validator = new InputValidator();
 		if(!validator.isValidInput(textArea.getText())){
 			JOptionPane.showMessageDialog
-					(
-							frame,
-							"Cannot compute user request: " + "\"" + validator.invalidInput() + "\"",
-							"User Input Error",
-							JOptionPane.ERROR_MESSAGE
-					);
+				(
+						frame,
+						"Cannot compute user request: " + "\"" + validator.invalidInput() + "\"",
+						"User Input Error",
+						JOptionPane.ERROR_MESSAGE
+				);
 			validated = "Input Error";
 		}
 		return validated;
+	}
+
+	private void changeDecimalPosition(String position){
+		InputValidator validator = new InputValidator();
+		if(!validator.isValidDecimalPosition(position)){
+			JOptionPane.showMessageDialog
+			(
+					frame,
+					"Decimal position can only be whole number.",
+					"Decimal Position Error",
+					JOptionPane.ERROR_MESSAGE
+			);
+		} else {
+			decimalPosition = Integer.parseInt(position);
+		}
+
 	}
 
 

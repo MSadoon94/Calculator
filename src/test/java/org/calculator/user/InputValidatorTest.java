@@ -30,7 +30,7 @@ public class InputValidatorTest {
 	@Test
 	void shouldReturnInvalidIfDecimalPositionIsNotInteger(){
 		assertThat(validator.isValidDecimalPosition("A"), is(false));
-		assertThat(validator.isValidDecimalPosition("."), is(false));
+		assertThat(validator.isValidDecimalPosition("3.1"), is(false));
 		assertThat(validator.isValidDecimalPosition("4t"), is(false));
 		assertThat(validator.isValidDecimalPosition("+"), is(false));
 	}
