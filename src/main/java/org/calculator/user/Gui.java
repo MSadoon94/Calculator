@@ -101,7 +101,7 @@ public class Gui implements ActionListener, UiActions {
 	private String validatedInput(){
 		String validated = textArea.getText().strip();
 		InputValidator validator = new InputValidator();
-		if(!validator.isValid(textArea.getText())){
+		if(!validator.isValidInput(textArea.getText())){
 			JOptionPane.showMessageDialog
 					(
 							frame,
