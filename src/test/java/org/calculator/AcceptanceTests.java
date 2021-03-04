@@ -20,7 +20,7 @@ public class AcceptanceTests {
 
 	private JFrameOperator frameOperator;
 	private JTextAreaOperator textAreaOperator;
-	private JButtonOperator equalsButton;
+	private JButtonOperator equalsButton, decimalPositionButton;
 
 	private String input = "0";
 
@@ -42,7 +42,8 @@ public class AcceptanceTests {
 			"WhenUserRequestsMixedArithmetic_ThenOperationsAreAppliedToGroupedInputs, (2-1+1*2)/(10/5)",
 			"WhenUserRequestsHaveExponents_ThenTheValuesWillBeUsedInExponentiation, 2^3",
 			"WhenUserRequestsHaveSquareRoot_ThenTheValueWillBeSquareRooted, √4",
-			"WhenUserRequestsHaveNegativeNumbers_ThenProcessingWillTakeIntoAccountTheNegative, 4+-2"
+			"WhenUserRequestsHaveNegativeNumbers_ThenProcessingWillTakeIntoAccountTheNegative, 4+-2",
+			"WhenUserSpecifiesDecimalPosition_ThenResultWillHaveDecimalInSpecifiedPosition, 4.5234*5.4325"
 	})
 	void testingFixture(String test, String aInput){
 		//Although unused, test variable is needed so test name isn't assigned to input.
@@ -58,6 +59,7 @@ public class AcceptanceTests {
 		frameOperator = new JFrameOperator("Gui");
 		textAreaOperator = new JTextAreaOperator(frameOperator, 0);
 		equalsButton = new JButtonOperator(frameOperator, "=");
+		decimalPositionButton = new JButtonOperator(frameOperator, "Decimal Position");
 	}
 
 	private void setAnswers(){
@@ -69,10 +71,18 @@ public class AcceptanceTests {
 	}
 
 	private void startInputtingRequest(){
+		textAreaOperator.enterText(String.valueOf(decimalPosition()));
+		decimalPositionButton.push();
 		textAreaOperator.enterText(input);
-		System.out.println("StartInputtingRequest: " + textAreaOperator.getText());
 		equalsButton.push();
+	}
 
+	private int decimalPosition(){
+		int position = 2;
+		if(input.equals(TestHelper.DECIMAL.input())){
+			position = 3;
+		}
+		return position;
 	}
 
 	private void hasDisplayedAnswer() {

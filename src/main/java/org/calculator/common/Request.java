@@ -8,6 +8,7 @@ public class Request extends RequestUtility{
 	protected final String input;
 	protected Operations operation;
 	private String innerGroup;
+	private int decimalPosition = 2;
 
 	public Request(String request) {
 		super();
@@ -20,6 +21,12 @@ public class Request extends RequestUtility{
 
 	public void setOperation(Operations operation){
 		this.operation = operation;
+	}
+	public void setDecimalPosition(int position){
+		decimalPosition = position;
+	}
+	public int decimalPosition(){
+		return decimalPosition;
 	}
 
 	public Operations getOperation(){
