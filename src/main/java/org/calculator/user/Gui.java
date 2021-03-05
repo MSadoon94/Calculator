@@ -20,6 +20,14 @@ public class Gui implements ActionListener, UiActions {
 			a0Button, a1Button, a2Button, a3Button, a4Button, a5Button,
 			a6Button, a7Button, a8Button, a9Button, squareRootButton,
 			decimalPositionButton;
+	private JTextField textField1;
+	private JTextField inputHistoryTextField;
+	private JLabel inputHistoryLabel;
+	private JLabel lastAnswerLabel;
+	private JButton historyBackButton;
+	private JButton historyNextButton;
+	private JButton answerBackButton;
+	private JButton answerNextButton;
 	private JButton[] numericalButtons = {
 			a0Button, a1Button, a2Button, a3Button, a4Button,
 			a5Button, a6Button, a7Button, a8Button, a9Button,

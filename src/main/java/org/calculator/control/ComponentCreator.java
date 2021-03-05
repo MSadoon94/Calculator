@@ -29,7 +29,7 @@ public class ComponentCreator {
 		Gui gui = new Gui(frame);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
-		frame.setSize(300,400);
+		frame.setSize(400,500);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		return gui;
