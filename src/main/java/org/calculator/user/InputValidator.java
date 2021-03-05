@@ -3,7 +3,7 @@ package org.calculator.user;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class InputValidator {
+class InputValidator {
 	private Matcher matcher;
 	public boolean isValidInput(String input) {
 		String divisionByZero = "[\\d]+/0";

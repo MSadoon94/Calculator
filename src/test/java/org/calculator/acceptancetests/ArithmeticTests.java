@@ -1,4 +1,4 @@
-package org.calculator;
+package org.calculator.acceptancetests;
 
 import org.calculator.common.TestHelper;
 import org.calculator.control.ComponentCreator;
@@ -14,13 +14,13 @@ import java.util.HashMap;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class AcceptanceTests {
+public class ArithmeticTests {
 
 	private static HashMap<String, String> answers = new HashMap<>();
 
-	private JFrameOperator frameOperator;
-	private JTextAreaOperator textAreaOperator;
-	private JButtonOperator equalsButton, decimalPositionButton;
+	protected JFrameOperator frame;
+	protected JTextAreaOperator textArea;
+	protected JButtonOperator equalsButton, decimalPositionButton;
 
 	private String input = "0";
 
@@ -30,7 +30,7 @@ public class AcceptanceTests {
 		setAnswers();
 	}
 
-	@DisplayName("TestResults")
+	@DisplayName("Arithmetic Tests")
 	@ParameterizedTest(name = "{index} ==> {0}")
 	@CsvSource({
 			"WhenNumberIsEntered_ThenThatSameNumberWillBeReturned, 2.0",
@@ -46,20 +46,19 @@ public class AcceptanceTests {
 			"WhenUserSpecifiesDecimalPosition_ThenResultWillHaveDecimalInSpecifiedPosition, 4.5234*5.4325"
 	})
 	void testingFixture(String test, String aInput){
-		//Although unused, test variable is needed so test name isn't assigned to input.
+		//Test variable is used to report name in test results
 		input = aInput;
 		setOperators();
 		startInputtingRequest();
 		hasDisplayedAnswer();
-		frameOperator.getWindow().dispose();
-		
+		frame.getWindow().dispose();
 	}
 
 	private void setOperators(){
-		frameOperator = new JFrameOperator("Gui");
-		textAreaOperator = new JTextAreaOperator(frameOperator, 0);
-		equalsButton = new JButtonOperator(frameOperator, "=");
-		decimalPositionButton = new JButtonOperator(frameOperator, "Decimal Position");
+		frame = new JFrameOperator();
+		textArea = new JTextAreaOperator(frame);
+		equalsButton = new JButtonOperator(frame, "=");
+		decimalPositionButton = new JButtonOperator(frame, "Decimal Position");
 	}
 
 	private void setAnswers(){
@@ -70,12 +69,13 @@ public class AcceptanceTests {
 
 	}
 
-	private void startInputtingRequest(){
-		textAreaOperator.enterText(String.valueOf(decimalPosition()));
+	protected void startInputtingRequest(){
+		textArea.enterText(String.valueOf(decimalPosition()));
 		decimalPositionButton.push();
-		textAreaOperator.enterText(input);
+		textArea.enterText(input);
 		equalsButton.push();
 	}
+
 
 	private int decimalPosition(){
 		int position = 2;
@@ -86,6 +86,6 @@ public class AcceptanceTests {
 	}
 
 	private void hasDisplayedAnswer() {
-		assertThat(textAreaOperator.getText().trim(), is(equalTo(answers.get(input))));
+		assertThat(textArea.getText().trim(), is(equalTo(answers.get(input))));
 	}
 }
