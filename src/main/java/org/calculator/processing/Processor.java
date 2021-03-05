@@ -37,15 +37,16 @@ class Processor implements ProcessorActions {
 
 	private Request groupSectionToProcess(Request aRequest){
 		Request extractedGroup = extractor.extraction(aRequest);
-		String processedGroup = new GroupProcessor(extractor).answer(extractedGroup.getInnerGroup());
-		String modifiedSection = extractedGroup.input().replace(extractedGroup.getInnerGroup(), processedGroup);
+		Request processedGroup = new GroupProcessor(extractor).answer(new Request(extractedGroup.getInnerGroup()));
+		String modifiedSection =
+				extractedGroup.input().replace(extractedGroup.getInnerGroup(), processedGroup.input());
 		return new Request(modifiedSection);
 	}
 
 	private Request requestAfterProcessingMultiOperatorSections(Request aRequest){
 		OperationSequencer sequencer = new OperationSequencer(new ExtractionController().multiOperatorExtractor());
 		while (aRequest.operatorAmount() > 1){
-			aRequest = new Request(sequencer.answer(aRequest.input()));
+			aRequest = sequencer.answer(aRequest);
 		}
 		return aRequest;
 	}

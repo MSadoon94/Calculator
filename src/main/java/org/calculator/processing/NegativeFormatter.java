@@ -9,11 +9,10 @@ public class NegativeFormatter {
 	public Request findDoubleNegatives(Request request) {
 		Pattern negativePattern = Pattern.compile("(--)");
 		Matcher negativeMatcher = negativePattern.matcher(request.input());
-		Request tagged = request;
 		while (negativeMatcher.find()){
-			tagged = doubleNegative(tagged, negativeMatcher.group());
+			request = doubleNegative(request, negativeMatcher.group());
 		}
-		return tagged;
+		return request;
 	}
 	private Request doubleNegative(Request request, String section){
 		return new Request(request.input().replace(section, "+"));
