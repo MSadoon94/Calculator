@@ -1,4 +1,4 @@
-package org.calculator;
+package org.calculator.acceptancetests;
 
 import org.calculator.common.TestHelper;
 import org.calculator.control.ComponentCreator;
@@ -18,9 +18,9 @@ public class AcceptanceTests {
 
 	private static HashMap<String, String> answers = new HashMap<>();
 
-	private JFrameOperator frameOperator;
-	private JTextAreaOperator textAreaOperator;
-	private JButtonOperator equalsButton, decimalPositionButton;
+	protected JFrameOperator frameOperator;
+	protected JTextAreaOperator textAreaOperator;
+	protected JButtonOperator equalsButton, decimalPositionButton;
 
 	private String input = "0";
 
@@ -55,7 +55,7 @@ public class AcceptanceTests {
 		
 	}
 
-	private void setOperators(){
+	protected void setOperators(){
 		frameOperator = new JFrameOperator("Gui");
 		textAreaOperator = new JTextAreaOperator(frameOperator, 0);
 		equalsButton = new JButtonOperator(frameOperator, "=");
@@ -76,6 +76,7 @@ public class AcceptanceTests {
 		textAreaOperator.enterText(input);
 		equalsButton.push();
 	}
+
 
 	private int decimalPosition(){
 		int position = 2;
