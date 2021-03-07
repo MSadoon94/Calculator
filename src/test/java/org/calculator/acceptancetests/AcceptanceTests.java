@@ -52,7 +52,6 @@ public class AcceptanceTests {
 		startInputtingRequest();
 		hasDisplayedAnswer();
 		frameOperator.getWindow().dispose();
-		
 	}
 
 	protected void setOperators(){

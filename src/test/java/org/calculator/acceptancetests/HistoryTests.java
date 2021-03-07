@@ -6,21 +6,25 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.netbeans.jemmy.operators.JButtonOperator;
+import org.netbeans.jemmy.operators.JFrameOperator;
+import org.netbeans.jemmy.operators.JTextAreaOperator;
 import org.netbeans.jemmy.operators.JTextFieldOperator;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class HistoryTests extends AcceptanceTests{
+public class HistoryTests extends AcceptanceTestFixture {
+	private JFrameOperator frame;
+	private JTextAreaOperator textArea;
+	private JButtonOperator equalsButton, decimalPositionButton,
+			historyBackButton, historyNextButton;
 	private JTextFieldOperator inputTextFieldOperator;
-	private JButtonOperator historyBackButton, historyNextButton;
 
-	/*@BeforeEach
-void setUp(){
-	new ComponentCreator();
-	setAnswers();
-}
- */
+	@BeforeEach
+	void setUp(){
+		new ComponentCreator();
+	}
+
 	@DisplayName("HistoryTests")
 	@ParameterizedTest(name = "{index} ==> {0}")
 	@CsvSource({
@@ -28,28 +32,31 @@ void setUp(){
 	})
 	void historyTestingFixture(){
 		setOperators();
-		startInputtingHistoryRequests();
+		startInputtingRequest();
 		hasDisplayedHistory();
-		frameOperator.getWindow().dispose();
+		frame.getWindow().dispose();
 	}
 
 	protected void setOperators() {
-		super.setOperators();
-		inputTextFieldOperator = new JTextFieldOperator(frameOperator, "inputHistoryTextField");
-		historyBackButton = new JButtonOperator(frameOperator, "Back", 0);
-		historyNextButton = new JButtonOperator(frameOperator, "Next", 0);
+		frame = jFrameOperator();
+		textArea = jTextAreaOperator(frame);
+		equalsButton = jButtonOperator(frame, "=");
+		decimalPositionButton = jButtonOperator(frame, "Decimal Position");
+		inputTextFieldOperator = new JTextFieldOperator(frame, 1);
+		historyBackButton = new JButtonOperator(frame, "Back", 0);
+		historyNextButton = new JButtonOperator(frame, "Next", 0);
 	}
 
-	private void startInputtingHistoryRequests(){
+	protected void startInputtingRequest(){
 		for (int i = 0; i < 2; i++) {
-			textAreaOperator.enterText(i + "+1");
+			textArea.enterText(i + "+1");
 			equalsButton.push();
 		}
 	}
 
 	private void hasDisplayedHistory(){
 		for (int i = 0; i < 2; i++) {
-			assertThat(inputTextFieldOperator.getText().trim(), is(equalTo(i+"i")));
+			assertThat(inputTextFieldOperator.getText().trim(), is(equalTo(i+"+1")));
 		}
 	}
 }
