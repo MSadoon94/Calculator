@@ -14,12 +14,12 @@ import java.util.HashMap;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class AcceptanceTests {
+public class ArithmeticTests extends AcceptanceTestFixture {
 
 	private static HashMap<String, String> answers = new HashMap<>();
 
-	protected JFrameOperator frameOperator;
-	protected JTextAreaOperator textAreaOperator;
+	protected JFrameOperator frame;
+	protected JTextAreaOperator textArea;
 	protected JButtonOperator equalsButton, decimalPositionButton;
 
 	private String input = "0";
@@ -51,14 +51,14 @@ public class AcceptanceTests {
 		setOperators();
 		startInputtingRequest();
 		hasDisplayedAnswer();
-		frameOperator.getWindow().dispose();
+		frame.getWindow().dispose();
 	}
 
-	protected void setOperators(){
-		frameOperator = new JFrameOperator("Gui");
-		textAreaOperator = new JTextAreaOperator(frameOperator, 0);
-		equalsButton = new JButtonOperator(frameOperator, "=");
-		decimalPositionButton = new JButtonOperator(frameOperator, "Decimal Position");
+	private void setOperators(){
+		frame = jFrameOperator();
+		textArea = jTextAreaOperator(frame);
+		equalsButton = jButtonOperator(frame, "=");
+		decimalPositionButton = jButtonOperator(frame, "Decimal Position");
 	}
 
 	private void setAnswers(){
@@ -69,10 +69,10 @@ public class AcceptanceTests {
 
 	}
 
-	private void startInputtingRequest(){
-		textAreaOperator.enterText(String.valueOf(decimalPosition()));
+	protected void startInputtingRequest(){
+		textArea.enterText(String.valueOf(decimalPosition()));
 		decimalPositionButton.push();
-		textAreaOperator.enterText(input);
+		textArea.enterText(input);
 		equalsButton.push();
 	}
 
@@ -86,6 +86,6 @@ public class AcceptanceTests {
 	}
 
 	private void hasDisplayedAnswer() {
-		assertThat(textAreaOperator.getText().trim(), is(equalTo(answers.get(input))));
+		assertThat(textArea.getText().trim(), is(equalTo(answers.get(input))));
 	}
 }

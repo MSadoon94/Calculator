@@ -37,7 +37,7 @@ public class HistoryTests extends AcceptanceTestFixture {
 		frame.getWindow().dispose();
 	}
 
-	protected void setOperators() {
+	private void setOperators() {
 		frame = jFrameOperator();
 		textArea = jTextAreaOperator(frame);
 		equalsButton = jButtonOperator(frame, "=");
