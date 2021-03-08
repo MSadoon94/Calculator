@@ -4,7 +4,7 @@ import org.calculator.common.Request;
 
 import java.util.HashMap;
 
-public class InputCache {
+public class InputCache implements UserCache{
 	private HashMap<Integer, Request> requests = new HashMap<>();
 	public Request getRequest(int hashCode) {
 		return requests.get(hashCode);

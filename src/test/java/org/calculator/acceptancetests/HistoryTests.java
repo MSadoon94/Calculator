@@ -32,8 +32,10 @@ public class HistoryTests extends AcceptanceTestFixture {
 	})
 	void historyTestingFixture(){
 		setOperators();
-		startInputtingRequest();
-		hasDisplayedHistory();
+		for (int i = 0; i < 2; i++){
+			startInputtingRequest(i + "+1");
+			hasDisplayedHistory(i + "+1");
+		}
 		frame.getWindow().dispose();
 	}
 
@@ -42,21 +44,17 @@ public class HistoryTests extends AcceptanceTestFixture {
 		textArea = jTextAreaOperator(frame);
 		equalsButton = jButtonOperator(frame, "=");
 		decimalPositionButton = jButtonOperator(frame, "Decimal Position");
-		inputTextFieldOperator = new JTextFieldOperator(frame, 1);
+		inputTextFieldOperator = new JTextFieldOperator(frame, 0);
 		historyBackButton = new JButtonOperator(frame, "Back", 0);
 		historyNextButton = new JButtonOperator(frame, "Next", 0);
 	}
 
-	protected void startInputtingRequest(){
-		for (int i = 0; i < 2; i++) {
-			textArea.enterText(i + "+1");
+	protected void startInputtingRequest(String input){
+			textArea.enterText(input);
 			equalsButton.push();
-		}
 	}
 
-	private void hasDisplayedHistory(){
-		for (int i = 0; i < 2; i++) {
-			assertThat(inputTextFieldOperator.getText().trim(), is(equalTo(i+"+1")));
-		}
+	private void hasDisplayedHistory(String input){
+			assertThat(inputTextFieldOperator.getText().trim(), is(equalTo(input)));
 	}
 }

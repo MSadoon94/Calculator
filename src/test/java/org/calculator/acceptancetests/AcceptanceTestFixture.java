@@ -5,7 +5,6 @@ import org.netbeans.jemmy.operators.JFrameOperator;
 import org.netbeans.jemmy.operators.JTextAreaOperator;
 
 public abstract class AcceptanceTestFixture {
-	protected abstract void startInputtingRequest();
 
 	protected JFrameOperator jFrameOperator(){
 		return new JFrameOperator("Gui");

@@ -12,6 +12,7 @@ import java.util.HashMap;
 public class Gui implements ActionListener, UiActions {
 
 	private Observer reqObserver;
+	private UserCache inputCache;
 	private JPanel mainPanel;
 	private JTextArea textArea;
 	private JButton equalsButton, addButton, subtractButton, divideButton,
@@ -19,15 +20,10 @@ public class Gui implements ActionListener, UiActions {
 			rightParenthesisButton, leftParenthesisButton, exponentButton,
 			a0Button, a1Button, a2Button, a3Button, a4Button, a5Button,
 			a6Button, a7Button, a8Button, a9Button, squareRootButton,
-			decimalPositionButton;
-	private JTextField textField1;
-	private JTextField inputHistoryTextField;
-	private JLabel inputHistoryLabel;
-	private JLabel lastAnswerLabel;
-	private JButton historyBackButton;
-	private JButton historyNextButton;
-	private JButton answerBackButton;
-	private JButton answerNextButton;
+			decimalPositionButton, inputBackButton, inputNextButton,
+			answerBackButton, answerNextButton;
+	private JTextField answerHistoryTextField, inputHistoryTextField;
+	private JLabel inputHistoryLabel, lastAnswerLabel;
 	private JButton[] numericalButtons = {
 			a0Button, a1Button, a2Button, a3Button, a4Button,
 			a5Button, a6Button, a7Button, a8Button, a9Button,
@@ -50,11 +46,14 @@ public class Gui implements ActionListener, UiActions {
 		this.frame = frame;
 		frame.add(mainPanel);
 		frame.setContentPane(mainPanel);
-
 	}
 
 	public void attachObserver(Observer observer) {
 		reqObserver = observer;
+	}
+
+	public void addInputCache(UserCache userCache){
+		this.inputCache = userCache;
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -64,6 +63,7 @@ public class Gui implements ActionListener, UiActions {
 		if (e.getSource() == equalsButton){
 			Request request = new Request(validatedInput());
 			request.setDecimalPosition(decimalPosition);
+			doInputCacheActions(request);
 			respond(request);
 		}
 		if (appendingText.containsKey(e.getSource())){
@@ -101,6 +101,12 @@ public class Gui implements ActionListener, UiActions {
 			appendingText.put(appendingButtons[i], appendingButtons[i].getText());
 		}
 	}
+
+	private void doInputCacheActions(Request request){
+		inputCache.addRequest(request);
+		inputHistoryTextField.setText(request.input());
+	}
+
 	private void respond(Request request){
 		if(!request.input().contains("Input Error")) {
 			textArea.setText(reqObserver.update(request));

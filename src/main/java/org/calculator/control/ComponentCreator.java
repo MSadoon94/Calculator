@@ -7,6 +7,7 @@ import org.calculator.processing.ProcessorBoundary;
 import org.calculator.processing.ProcessorController;
 import org.calculator.request.*;
 import org.calculator.user.Gui;
+import org.calculator.user.InputCache;
 import org.calculator.user.UiActions;
 
 import javax.swing.*;
@@ -27,12 +28,17 @@ public class ComponentCreator {
 	private Gui createGui() {
 		JFrame frame = new JFrame("Gui");
 		Gui gui = new Gui(frame);
+		addGuiDependencies(gui);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setSize(400,500);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		return gui;
+	}
+
+	private void addGuiDependencies(Gui gui){
+		gui.addInputCache(new InputCache());
 	}
 
 }
