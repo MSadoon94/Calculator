@@ -18,7 +18,7 @@ public class HistoryTests extends AcceptanceTestFixture {
 	private JTextAreaOperator textArea;
 	private JButtonOperator equalsButton, decimalPositionButton,
 			historyBackButton, historyNextButton;
-	private JTextFieldOperator inputTextFieldOperator;
+	private JTextFieldOperator inputHistoryTextField;
 
 	@BeforeEach
 	void setUp(){
@@ -32,9 +32,11 @@ public class HistoryTests extends AcceptanceTestFixture {
 	})
 	void historyTestingFixture(){
 		setOperators();
-		for (int i = 0; i < 2; i++){
+		startInputtingRequest("0+1");
+		for (int i = 1; i < 5; i++){
+			int offset = i-1;
 			startInputtingRequest(i + "+1");
-			hasDisplayedHistory(i + "+1");
+			hasDisplayedHistory(offset  + "+1");
 		}
 		frame.getWindow().dispose();
 	}
@@ -44,17 +46,18 @@ public class HistoryTests extends AcceptanceTestFixture {
 		textArea = jTextAreaOperator(frame);
 		equalsButton = jButtonOperator(frame, "=");
 		decimalPositionButton = jButtonOperator(frame, "Decimal Position");
-		inputTextFieldOperator = new JTextFieldOperator(frame, 0);
+		inputHistoryTextField = new JTextFieldOperator(frame, 0);
 		historyBackButton = new JButtonOperator(frame, "Back", 0);
 		historyNextButton = new JButtonOperator(frame, "Next", 0);
 	}
 
-	protected void startInputtingRequest(String input){
+	private void startInputtingRequest(String input){
 			textArea.enterText(input);
 			equalsButton.push();
+			historyBackButton.push();
 	}
 
 	private void hasDisplayedHistory(String input){
-			assertThat(inputTextFieldOperator.getText().trim(), is(equalTo(input)));
+		assertThat(inputHistoryTextField.getText().trim(), is(equalTo(input)));
 	}
 }

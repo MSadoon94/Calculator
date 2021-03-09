@@ -6,7 +6,7 @@ import org.calculator.request.Observer;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
+import java.util.*;
 
 
 public class Gui implements ActionListener, UiActions {
@@ -33,9 +33,11 @@ public class Gui implements ActionListener, UiActions {
 			equalsButton, addButton, subtractButton, divideButton,
 			multiplyButton, percentageButton, clearButton,
 			rightParenthesisButton, leftParenthesisButton, exponentButton,
-			squareRootButton, decimalPositionButton
+			squareRootButton, decimalPositionButton, inputBackButton, inputNextButton,
+			answerBackButton, answerNextButton
 	};
 	private HashMap<JButton, String> appendingText = new HashMap<>();
+
 	private JFrame frame;
 	private int decimalPosition = 2;
 
@@ -77,9 +79,20 @@ public class Gui implements ActionListener, UiActions {
 		if (e.getSource() == exponentButton){
 			textArea.append("^");
 		}
-		if(e.getSource() == decimalPositionButton){
+		if (e.getSource() == decimalPositionButton){
 			changeDecimalPosition(textArea.getText().strip());
 			clearButton.doClick();
+		}
+		if (e.getSource() == inputNextButton){
+			if (inputCache.hasNext()){
+				inputHistoryTextField.setText(inputCache.next().input());
+			}
+
+		}
+		if (e.getSource() == inputBackButton){
+			if(inputCache.hasPrevious()){
+				inputHistoryTextField.setText(inputCache.previous().input());
+			}
 		}
 	}
 	private void setUpButtons(){
@@ -104,7 +117,7 @@ public class Gui implements ActionListener, UiActions {
 
 	private void doInputCacheActions(Request request){
 		inputCache.addRequest(request);
-		inputHistoryTextField.setText(request.input());
+		inputHistoryTextField.setText(inputCache.previous().input());
 	}
 
 	private void respond(Request request){

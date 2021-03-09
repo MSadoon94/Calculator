@@ -11,7 +11,7 @@ public class InputCacheTest {
 		InputCache cache = new InputCache();
 		Request request = new Request("2");
 		cache.addRequest(request);
-		assertThat(cache.getRequest(request.hashCode()).hashCode(), is(equalTo(request.hashCode())));
+		assertThat(cache.previous().hashCode(), is(equalTo(request.hashCode())));
 	}
 
 }
