@@ -7,6 +7,7 @@ import org.calculator.processing.ProcessorBoundary;
 import org.calculator.processing.ProcessorController;
 import org.calculator.request.*;
 import org.calculator.user.Gui;
+import org.calculator.user.HistoryPanel;
 import org.calculator.user.InputCache;
 import org.calculator.user.UiActions;
 
@@ -39,6 +40,8 @@ public class ComponentCreator {
 
 	private void addGuiDependencies(Gui gui){
 		gui.addInputCache(new InputCache());
+		gui.addInputHistoryPanel(new HistoryPanel(new JLabel("Input History")));
+		gui.addAnswerHistoryPanel(new HistoryPanel(new JLabel("Answer History")));
 	}
 
 }

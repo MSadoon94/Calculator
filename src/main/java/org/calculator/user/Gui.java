@@ -22,8 +22,9 @@ public class Gui implements ActionListener, UiActions {
 			a6Button, a7Button, a8Button, a9Button, squareRootButton,
 			decimalPositionButton, inputBackButton, inputNextButton,
 			answerBackButton, answerNextButton;
-	private JTextField answerHistoryTextField, inputHistoryTextField;
-	private JLabel inputHistoryLabel, lastAnswerLabel;
+	private JTextField inputHistoryTextField, answerHistoryTextField;
+	private JPanel inputHistoryPanel;
+	private JPanel answerHistoryPanel;
 	private JButton[] numericalButtons = {
 			a0Button, a1Button, a2Button, a3Button, a4Button,
 			a5Button, a6Button, a7Button, a8Button, a9Button,
@@ -33,8 +34,7 @@ public class Gui implements ActionListener, UiActions {
 			equalsButton, addButton, subtractButton, divideButton,
 			multiplyButton, percentageButton, clearButton,
 			rightParenthesisButton, leftParenthesisButton, exponentButton,
-			squareRootButton, decimalPositionButton, inputBackButton, inputNextButton,
-			answerBackButton, answerNextButton
+			squareRootButton, decimalPositionButton
 	};
 	private HashMap<JButton, String> appendingText = new HashMap<>();
 
@@ -56,6 +56,22 @@ public class Gui implements ActionListener, UiActions {
 
 	public void addInputCache(UserCache userCache){
 		this.inputCache = userCache;
+	}
+
+	public void addInputHistoryPanel(Panel panel){
+		inputHistoryPanel = panel.getPanel();
+		inputBackButton = panel.button("Back");
+		inputNextButton = panel.button("Next");
+		inputHistoryTextField = panel.textField();
+		mainPanel.add(inputHistoryPanel);
+	}
+
+	public void addAnswerHistoryPanel(Panel panel){
+		answerHistoryPanel = panel.getPanel();
+		answerBackButton = panel.button("Back");
+		answerNextButton = panel.button("Next");
+		answerHistoryTextField = panel.textField();
+		mainPanel.add(answerHistoryPanel);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -158,6 +174,8 @@ public class Gui implements ActionListener, UiActions {
 	}
 
 
-
+	private void createUIComponents() {
+		// TODO: place custom component creation code here
+	}
 }
 
