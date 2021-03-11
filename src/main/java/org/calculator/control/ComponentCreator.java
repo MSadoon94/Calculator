@@ -6,10 +6,7 @@ import org.calculator.processing.Invoker;
 import org.calculator.processing.ProcessorBoundary;
 import org.calculator.processing.ProcessorController;
 import org.calculator.request.*;
-import org.calculator.user.Gui;
-import org.calculator.user.HistoryPanel;
-import org.calculator.user.InputCache;
-import org.calculator.user.UiActions;
+import org.calculator.user.*;
 
 import javax.swing.*;
 
@@ -17,6 +14,7 @@ public class ComponentCreator {
 	private RequestBoundary requestController = new RequestController();
 	private ProcessorBoundary processorBoundary = new ProcessorController();
 	private ExtractionBoundary extractionBoundary = new ExtractionController();
+	private UserBoundary userBoundary = new UserController();
 
 	public ComponentCreator(){
 		UiActions ui = createGui();
@@ -39,9 +37,12 @@ public class ComponentCreator {
 	}
 
 	private void addGuiDependencies(Gui gui){
+		InputCache inputCache = new InputCache();
 		gui.addInputCache(new InputCache());
-		gui.addInputHistoryPanel(new HistoryPanel(new JLabel("Input History")));
-		gui.addAnswerHistoryPanel(new HistoryPanel(new JLabel("Answer History")));
+		gui.addInputHistoryPanel(
+				userBoundary.historyPanel(new JLabel("Input History"), inputCache));
+		gui.addAnswerHistoryPanel(
+				userBoundary.historyPanel(new JLabel("Answer History"), inputCache)); //ToDo create answerCache and replace this input cache
 	}
 
 }

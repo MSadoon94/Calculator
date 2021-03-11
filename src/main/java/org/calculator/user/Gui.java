@@ -13,7 +13,7 @@ public class Gui implements ActionListener, UiActions {
 
 	private Observer reqObserver;
 	private UserCache inputCache;
-	private JPanel mainPanel;
+	private JPanel mainPanel, inputHistoryPanel, answerHistoryPanel;
 	private JTextArea textArea;
 	private JButton equalsButton, addButton, subtractButton, divideButton,
 			multiplyButton, percentageButton, clearButton, decimalButton,
@@ -23,8 +23,6 @@ public class Gui implements ActionListener, UiActions {
 			decimalPositionButton, inputBackButton, inputNextButton,
 			answerBackButton, answerNextButton;
 	private JTextField inputHistoryTextField, answerHistoryTextField;
-	private JPanel inputHistoryPanel;
-	private JPanel answerHistoryPanel;
 	private JButton[] numericalButtons = {
 			a0Button, a1Button, a2Button, a3Button, a4Button,
 			a5Button, a6Button, a7Button, a8Button, a9Button,
@@ -46,6 +44,7 @@ public class Gui implements ActionListener, UiActions {
 		setAppendingText();
 		textArea.setLineWrap(true);
 		this.frame = frame;
+		mainPanel = new JPanel();
 		frame.add(mainPanel);
 		frame.setContentPane(mainPanel);
 	}
@@ -173,9 +172,5 @@ public class Gui implements ActionListener, UiActions {
 
 	}
 
-
-	private void createUIComponents() {
-		// TODO: place custom component creation code here
-	}
 }
 

@@ -6,4 +6,5 @@ public interface Panel {
 	JPanel getPanel();
 	JTextField textField();
 	JButton button(String name);
+	ActionSet actions();
 }
