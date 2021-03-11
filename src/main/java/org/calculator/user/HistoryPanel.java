@@ -3,7 +3,6 @@ package org.calculator.user;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.lang.reflect.Method;
 import java.util.function.Consumer;
 
 class HistoryPanel extends JPanel implements Panel {
@@ -20,15 +19,18 @@ class HistoryPanel extends JPanel implements Panel {
 		thisPanel = this;
 		this.label = label;
 		this.cache = cache;
+		createPanel();
 	}
 
-	public JPanel getPanel() {
+	public HistoryPanel getPanel() {
+		return thisPanel;
+	}
+	private void createPanel(){
 		textField = new JTextField();
 		setButtons();
 		thisPanel.setLayout(new BorderLayout());
 		panelWithComponentsAdded(thisPanel);
 		setActionListener(thisPanel);
-		return thisPanel;
 	}
 
 	public JTextField textField() {

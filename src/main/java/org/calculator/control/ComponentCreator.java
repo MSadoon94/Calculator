@@ -37,12 +37,15 @@ public class ComponentCreator {
 	}
 
 	private void addGuiDependencies(Gui gui){
-		InputCache inputCache = new InputCache();
-		gui.addInputCache(new InputCache());
+		HistoryCache historyCache = new HistoryCache();
+		gui.addInputCache(new HistoryCache());
 		gui.addInputHistoryPanel(
-				userBoundary.historyPanel(new JLabel("Input History"), inputCache));
+				userBoundary.historyPanel(new JLabel("Input History"), historyCache));
 		gui.addAnswerHistoryPanel(
-				userBoundary.historyPanel(new JLabel("Answer History"), inputCache)); //ToDo create answerCache and replace this input cache
+				userBoundary.historyPanel(new JLabel("Answer History"), historyCache));
+		gui.addTextAppendingPanel(
+				userBoundary.textAppendingPanel(new JTextArea()));
+
 	}
 
 }

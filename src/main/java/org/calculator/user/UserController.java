@@ -7,4 +7,8 @@ public class UserController implements UserBoundary {
 	public HistoryPanel historyPanel(JLabel label, UserCache cache) {
 		return new HistoryPanel(label, cache);
 	}
+
+	public TextAppendingPanel textAppendingPanel(JTextArea textArea){
+		return new TextAppendingPanel(textArea);
+	}
 }

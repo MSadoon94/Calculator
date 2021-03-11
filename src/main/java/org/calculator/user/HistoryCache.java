@@ -4,7 +4,7 @@ import org.calculator.common.Request;
 
 import java.util.*;
 
-public class InputCache implements UserCache{
+public class HistoryCache implements UserCache{
 	private ArrayList<Integer> inputOrder = new ArrayList<>();
 	private ListIterator<Integer> iterator;
 	private HashMap<Integer, Request> requests = new HashMap<>();

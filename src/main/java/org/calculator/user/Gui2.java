@@ -6,10 +6,10 @@ import org.calculator.request.Observer;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.HashMap;
 
 
-public class Gui implements ActionListener, UiActions {
+public class Gui2 implements ActionListener, UiActions {
 
 	private Observer reqObserver;
 	private UserCache inputCache;
@@ -39,7 +39,7 @@ public class Gui implements ActionListener, UiActions {
 	private JFrame frame;
 	private int decimalPosition = 2;
 
-	public Gui(JFrame frame){
+	public Gui2(JFrame frame){
 		setUpButtons();
 		setAppendingText();
 		textArea.setLineWrap(true);
@@ -57,16 +57,20 @@ public class Gui implements ActionListener, UiActions {
 		this.inputCache = userCache;
 	}
 
-	public void addInputHistoryPanel(HistoryPanel panel){
-		mainPanel.add(panel);
+	public void addInputHistoryPanel(Panel panel){
+		inputHistoryPanel = panel.getPanel();
+		inputBackButton = panel.button("Back");
+		inputNextButton = panel.button("Next");
+		inputHistoryTextField = panel.textField();
+		mainPanel.add(inputHistoryPanel);
 	}
 
-	public void addAnswerHistoryPanel(HistoryPanel panel){
-		mainPanel.add(panel);
-	}
-
-	public void addTextAppendingPanel(TextAppendingPanel panel){
-		mainPanel.add(panel);
+	public void addAnswerHistoryPanel(Panel panel){
+		answerHistoryPanel = panel.getPanel();
+		answerBackButton = panel.button("Back");
+		answerNextButton = panel.button("Next");
+		answerHistoryTextField = panel.textField();
+		mainPanel.add(answerHistoryPanel);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -93,17 +97,6 @@ public class Gui implements ActionListener, UiActions {
 		if (e.getSource() == decimalPositionButton){
 			changeDecimalPosition(textArea.getText().strip());
 			clearButton.doClick();
-		}
-		if (e.getSource() == inputNextButton){
-			if (inputCache.hasNext()){
-				inputHistoryTextField.setText(inputCache.next().input());
-			}
-
-		}
-		if (e.getSource() == inputBackButton){
-			if(inputCache.hasPrevious()){
-				inputHistoryTextField.setText(inputCache.previous().input());
-			}
 		}
 	}
 	private void setUpButtons(){

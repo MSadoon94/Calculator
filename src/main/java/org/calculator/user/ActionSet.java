@@ -1,7 +1,6 @@
 package org.calculator.user;
 
 import java.awt.event.ActionEvent;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
