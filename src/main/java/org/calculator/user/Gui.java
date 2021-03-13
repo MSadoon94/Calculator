@@ -57,6 +57,15 @@ public class Gui implements ActionListener, UiActions {
 		this.inputCache = userCache;
 	}
 
+	public UserCache getInputCache(){
+		return inputCache;
+	}
+
+	public void doInputCacheActions(Request request){
+		inputCache.addRequest(request);
+		inputHistoryTextField.setText(inputCache.previous().input());
+	}
+
 	public void addInputHistoryPanel(HistoryPanel panel){
 		mainPanel.add(panel);
 	}
@@ -64,9 +73,33 @@ public class Gui implements ActionListener, UiActions {
 	public void addAnswerHistoryPanel(HistoryPanel panel){
 		mainPanel.add(panel);
 	}
+	public JTextArea textArea(){
+		return textArea;
+	}
+	public void inputErrorMessage(String invalidInput){
+		JOptionPane.showMessageDialog
+				(
+						frame,
+						"Cannot compute user request: " + "\"" + invalidInput + "\"",
+						"User Input Error",
+						JOptionPane.ERROR_MESSAGE
+				);
+	}
+
+	public void decimalPositionError(){
+		JOptionPane.showMessageDialog(
+				frame,
+				"Decimal position can only be whole number.",
+				"Decimal Position Error",
+				JOptionPane.ERROR_MESSAGE
+		);
+	}
 
 	public void addTextAppendingPanel(TextAppendingPanel panel){
 		mainPanel.add(panel);
+	}
+
+	public void addTextFunctionPanel(TextFunctionPanel panel){mainPanel.add(panel);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -126,11 +159,6 @@ public class Gui implements ActionListener, UiActions {
 		}
 	}
 
-	private void doInputCacheActions(Request request){
-		inputCache.addRequest(request);
-		inputHistoryTextField.setText(inputCache.previous().input());
-	}
-
 	private void respond(Request request){
 		if(!request.input().contains("Input Error")) {
 			textArea.setText(reqObserver.update(request));
@@ -141,12 +169,13 @@ public class Gui implements ActionListener, UiActions {
 		InputValidator validator = new InputValidator();
 		if(!validator.isValidInput(textArea.getText())){
 			JOptionPane.showMessageDialog
-				(
-						frame,
-						"Cannot compute user request: " + "\"" + validator.invalidInput() + "\"",
-						"User Input Error",
-						JOptionPane.ERROR_MESSAGE
-				);
+					(
+							frame,
+							"Cannot compute user request: " + "\"" + validator.invalidInput() + "\"",
+							"User Input Error",
+							JOptionPane.ERROR_MESSAGE
+					);
+
 			validated = "Input Error";
 		}
 		return validated;

@@ -1,5 +1,7 @@
 package org.calculator.user;
 
+import org.calculator.request.Observer;
+
 import javax.swing.*;
 
 public class UserController implements UserBoundary {
@@ -10,5 +12,9 @@ public class UserController implements UserBoundary {
 
 	public TextAppendingPanel textAppendingPanel(JTextArea textArea){
 		return new TextAppendingPanel(textArea);
+	}
+
+	public TextFunctionPanel textFunctionPanel(Gui gui, Observer observer) {
+		return new TextFunctionPanel(gui, observer);
 	}
 }

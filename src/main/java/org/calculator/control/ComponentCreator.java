@@ -15,12 +15,12 @@ public class ComponentCreator {
 	private ProcessorBoundary processorBoundary = new ProcessorController();
 	private ExtractionBoundary extractionBoundary = new ExtractionController();
 	private UserBoundary userBoundary = new UserController();
+	private Observer reqObserver;
 
 	public ComponentCreator(){
-		UiActions ui = createGui();
-
 		Invoker invoker = processorBoundary.answerInvoker(extractionBoundary.groupExtractor());
 		Observer reqObserver = requestController.requestObserver(invoker);
+		UiActions ui = createGui();
 		ui.attachObserver(reqObserver);
 	}
 
@@ -45,6 +45,9 @@ public class ComponentCreator {
 				userBoundary.historyPanel(new JLabel("Answer History"), historyCache));
 		gui.addTextAppendingPanel(
 				userBoundary.textAppendingPanel(new JTextArea()));
+		gui.addTextFunctionPanel(
+				userBoundary.textFunctionPanel(gui, reqObserver)
+		);
 
 	}
 

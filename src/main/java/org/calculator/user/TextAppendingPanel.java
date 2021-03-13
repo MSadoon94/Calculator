@@ -20,18 +20,6 @@ class TextAppendingPanel extends JPanel implements Panel {
 		createPanel();
 	}
 
-	public TextAppendingPanel getPanel() {
-		return thisPanel;
-	}
-
-	public JTextField textField() {
-		return null;
-	}
-
-	public JButton button(String name) {
-		return null;
-	}
-
 	public ActionSet actions() {
 		ActionSet set = new ActionSet();
 		buttons.getElements().asIterator().forEachRemaining(button -> {
@@ -56,6 +44,7 @@ class TextAppendingPanel extends JPanel implements Panel {
 			buttons.add(numericalButtons[i]);
 		}
 	}
+
 	private void setSymbolButtons(){
 		String[] symbols = {"+", "-", "*", "/", ".", "(", ")", "^", "√"};
 		symbolButtons = new JButton[symbols.length];
@@ -64,6 +53,7 @@ class TextAppendingPanel extends JPanel implements Panel {
 			buttons.add(symbolButtons[i]);
 		}
 	}
+
 	private JPanel panelWithComponentsAdded(JPanel panel){
 		panel.add(textArea, BorderLayout.CENTER);
 		buttons.getElements().asIterator().forEachRemaining(

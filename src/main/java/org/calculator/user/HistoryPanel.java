@@ -22,51 +22,6 @@ class HistoryPanel extends JPanel implements Panel {
 		createPanel();
 	}
 
-	public HistoryPanel getPanel() {
-		return thisPanel;
-	}
-	private void createPanel(){
-		textField = new JTextField();
-		setButtons();
-		thisPanel.setLayout(new BorderLayout());
-		panelWithComponentsAdded(thisPanel);
-		setActionListener(thisPanel);
-	}
-
-	public JTextField textField() {
-		return textField;
-	}
-
-	public JButton button(String name) {
-		JButton result = null;
-		for (JButton button : buttons) {
-			if (button.getName().equals(name)){
-				result = button;
-			}
-		}
-		return result;
-	}
-	private void setButtons(){
-		back = new JButton("<");
-		back.setName("Back");
-		next = new JButton(">");
-		next.setName("Next");
-		buttons = new JButton[]{back, next};
-	}
-	private void setActionListener(Panel panel){
-		ButtonListener listener = new ButtonListener(panel);
-		for (JButton button : buttons) {
-			button.addActionListener(listener);
-		}
-	}
-	private JPanel panelWithComponentsAdded(JPanel panel){
-		panel.add(label, BorderLayout.NORTH);
-		panel.add(textField, BorderLayout.CENTER);
-		panel.add(back, BorderLayout.WEST);
-		panel.add(next, BorderLayout.EAST);
-		return panel;
-	}
-
 	public ActionSet actions(){
 		ActionSet set = new ActionSet();
 		ActionEvent backAction =
@@ -77,6 +32,38 @@ class HistoryPanel extends JPanel implements Panel {
 		set.addConsumerAction(nextAction, setTextFieldToNextEntry(cache));
 		return set;
 	}
+
+	private void createPanel(){
+		textField = new JTextField();
+		setButtons();
+		thisPanel.setLayout(new BorderLayout());
+		panelWithComponentsAdded(thisPanel);
+		setActionListener(thisPanel);
+	}
+
+	private void setButtons(){
+		back = new JButton("<");
+		back.setName("Back");
+		next = new JButton(">");
+		next.setName("Next");
+		buttons = new JButton[]{back, next};
+	}
+
+	private void setActionListener(Panel panel){
+		ButtonListener listener = new ButtonListener(panel);
+		for (JButton button : buttons) {
+			button.addActionListener(listener);
+		}
+	}
+
+	private JPanel panelWithComponentsAdded(JPanel panel){
+		panel.add(label, BorderLayout.NORTH);
+		panel.add(textField, BorderLayout.CENTER);
+		panel.add(back, BorderLayout.WEST);
+		panel.add(next, BorderLayout.EAST);
+		return panel;
+	}
+
 
 	private Consumer<Object> setTextFieldToPreviousEntry(UserCache cache){
 		return consumer -> {
