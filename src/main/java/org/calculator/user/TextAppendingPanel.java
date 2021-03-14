@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.function.Consumer;
 
-
 class TextAppendingPanel extends JPanel implements Panel {
 	private TextAppendingPanel thisPanel;
 	private JTextArea textArea;
@@ -13,13 +12,15 @@ class TextAppendingPanel extends JPanel implements Panel {
 	private JButton[] numericalButtons = new JButton[10];
 	private JButton[] symbolButtons;
 
-	public TextAppendingPanel(JTextArea textArea){
+	public TextAppendingPanel(){
 		super();
 		thisPanel = this;
-		this.textArea = textArea;
 		createPanel();
 	}
 
+	public void attachTextArea(JTextArea textArea){
+		this.textArea = textArea;
+	}
 	public ActionSet actions() {
 		ActionSet set = new ActionSet();
 		buttons.getElements().asIterator().forEachRemaining(button -> {
@@ -55,7 +56,6 @@ class TextAppendingPanel extends JPanel implements Panel {
 	}
 
 	private JPanel panelWithComponentsAdded(JPanel panel){
-		panel.add(textArea, BorderLayout.CENTER);
 		buttons.getElements().asIterator().forEachRemaining(
 				button -> panel.add(button, BorderLayout.CENTER)
 		);

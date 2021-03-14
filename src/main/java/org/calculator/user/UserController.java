@@ -10,8 +10,8 @@ public class UserController implements UserBoundary {
 		return new HistoryPanel(label, cache);
 	}
 
-	public TextAppendingPanel textAppendingPanel(JTextArea textArea){
-		return new TextAppendingPanel(textArea);
+	public TextAppendingPanel textAppendingPanel(){
+		return new TextAppendingPanel();
 	}
 
 	public TextFunctionPanel textFunctionPanel(Gui gui, Observer observer) {

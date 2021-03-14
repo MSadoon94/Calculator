@@ -22,6 +22,10 @@ class HistoryPanel extends JPanel implements Panel {
 		createPanel();
 	}
 
+	public void setTextToMostRecentInput(){
+		textField.setText(cache.previous().input());
+	}
+
 	public ActionSet actions(){
 		ActionSet set = new ActionSet();
 		ActionEvent backAction =

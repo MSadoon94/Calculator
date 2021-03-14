@@ -6,6 +6,6 @@ import javax.swing.*;
 
 public interface UserBoundary {
 	HistoryPanel historyPanel(JLabel label, UserCache cache);
-	TextAppendingPanel textAppendingPanel(JTextArea textArea);
+	TextAppendingPanel textAppendingPanel();
 	TextFunctionPanel textFunctionPanel(Gui gui, Observer observer);
 }
