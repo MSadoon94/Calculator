@@ -5,8 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.function.Consumer;
 
-class TextAppendingPanel extends JPanel implements Panel {
-	private TextAppendingPanel thisPanel;
+class TextAppendingPanel extends Panel {
 	private JTextArea textArea;
 	private ButtonGroup buttons = new ButtonGroup();
 	private JButton[] numericalButtons = new JButton[10];
@@ -14,13 +13,9 @@ class TextAppendingPanel extends JPanel implements Panel {
 
 	public TextAppendingPanel(){
 		super();
-		thisPanel = this;
 		createPanel();
 	}
 
-	public void attachTextArea(JTextArea textArea){
-		this.textArea = textArea;
-	}
 	public ActionSet actions() {
 		ActionSet set = new ActionSet();
 		buttons.getElements().asIterator().forEachRemaining(button -> {
@@ -32,11 +27,11 @@ class TextAppendingPanel extends JPanel implements Panel {
 	}
 
 	private void createPanel(){
-		setNumericalButtons();
 		setSymbolButtons();
-		thisPanel.setLayout(new BorderLayout());
-		panelWithComponentsAdded(thisPanel);
-		setActionListener(thisPanel);
+		setNumericalButtons();
+		this.setLayout(new GridLayout(0,4));
+		panelWithComponentsAdded(this);
+		setActionListener(this);
 	}
 
 	private void setNumericalButtons(){
@@ -57,7 +52,7 @@ class TextAppendingPanel extends JPanel implements Panel {
 
 	private JPanel panelWithComponentsAdded(JPanel panel){
 		buttons.getElements().asIterator().forEachRemaining(
-				button -> panel.add(button, BorderLayout.CENTER)
+				button -> panel.add(button)
 		);
 		return panel;
 	}
@@ -67,6 +62,13 @@ class TextAppendingPanel extends JPanel implements Panel {
 		buttons.getElements()
 				.asIterator()
 				.forEachRemaining(button -> button.addActionListener(listener));
+		buttons.getElements()
+				.asIterator()
+				.forEachRemaining(button -> button.addActionListener(e -> appendTextArea2(button)));
+	}
+
+	private void appendTextArea2(AbstractButton button){
+		textArea.append(button.getText());
 	}
 
 	private Consumer<Object> appendTextArea(AbstractButton button){

@@ -9,6 +9,7 @@ import org.calculator.request.*;
 import org.calculator.user.*;
 
 import javax.swing.*;
+import java.util.stream.Stream;
 
 public class ComponentCreator {
 	private RequestBoundary requestController = new RequestController();
@@ -16,6 +17,7 @@ public class ComponentCreator {
 	private ExtractionBoundary extractionBoundary = new ExtractionController();
 	private UserBoundary userBoundary = new UserController();
 	private Observer reqObserver;
+
 
 	public ComponentCreator(){
 		Invoker invoker = processorBoundary.answerInvoker(extractionBoundary.groupExtractor());
@@ -29,25 +31,29 @@ public class ComponentCreator {
 		addGuiDependencies(gui);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
-		frame.setSize(400,500);
+		frame.setSize(500,600);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		return gui;
 	}
 
+
 	private void addGuiDependencies(Gui gui){
 		HistoryCache historyCache = new HistoryCache();
-		gui.addInputCache(new HistoryCache());
-		gui.addInputHistoryPanel(
-				userBoundary.historyPanel(new JLabel("Input History"), historyCache));
-		gui.addAnswerHistoryPanel(
-				userBoundary.historyPanel(new JLabel("Answer History"), historyCache));
-		gui.addTextAppendingPanel(
-				userBoundary.textAppendingPanel());
-		gui.addTextFunctionPanel(
-				userBoundary.textFunctionPanel(gui, reqObserver)
-		);
-
+		gui.addInputCache(historyCache);
+		panelStream(historyCache, gui).forEach(gui::setPanels);
+		gui.addPanelsToMainPanel();
 	}
 
+	private Stream<Panel> panelStream(HistoryCache historyCache, Gui gui){
+		Panel inputHistory = userBoundary.historyPanel(new JLabel("Input History"), historyCache);
+		Panel answerHistory = userBoundary.historyPanel(new JLabel("Answer History"), historyCache);
+		Panel textAppending = userBoundary.textAppendingPanel();
+		Panel textFunction = userBoundary.textFunctionPanel(gui, reqObserver);
+		inputHistory.setName("InputHistory");
+		answerHistory.setName("AnswerHistory");
+		textAppending.setName("TextAppending");
+		textFunction.setName("TextFunction");
+		return Stream.of(inputHistory, answerHistory, textAppending, textFunction);
+	}
 }

@@ -1,5 +1,7 @@
 package org.calculator.user;
 
-public interface Panel {
-	ActionSet actions();
+import javax.swing.*;
+
+public abstract class Panel extends JPanel {
+	public abstract ActionSet actions();
 }

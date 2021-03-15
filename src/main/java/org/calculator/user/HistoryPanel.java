@@ -5,9 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.function.Consumer;
 
-class HistoryPanel extends JPanel implements Panel {
+class HistoryPanel extends Panel {
 
-	private HistoryPanel thisPanel;
 	private JTextField textField;
 	private JButton back, next;
 	private JButton[] buttons;
@@ -16,17 +15,13 @@ class HistoryPanel extends JPanel implements Panel {
 
 	public HistoryPanel(JLabel label, UserCache cache){
 		super();
-		thisPanel = this;
 		this.label = label;
 		this.cache = cache;
 		createPanel();
 	}
 
-	public void setTextToMostRecentInput(){
-		textField.setText(cache.previous().input());
-	}
-
 	public ActionSet actions(){
+
 		ActionSet set = new ActionSet();
 		ActionEvent backAction =
 				new ActionEvent(back,ActionEvent.ACTION_FIRST, "PreviousEntry");
@@ -40,9 +35,9 @@ class HistoryPanel extends JPanel implements Panel {
 	private void createPanel(){
 		textField = new JTextField();
 		setButtons();
-		thisPanel.setLayout(new BorderLayout());
-		panelWithComponentsAdded(thisPanel);
-		setActionListener(thisPanel);
+		this.setLayout(new BorderLayout());
+		panelWithComponentsAdded(this);
+		setActionListener(this);
 	}
 
 	private void setButtons(){
@@ -57,6 +52,20 @@ class HistoryPanel extends JPanel implements Panel {
 		ButtonListener listener = new ButtonListener(panel);
 		for (JButton button : buttons) {
 			button.addActionListener(listener);
+		}
+		back.addActionListener(e -> setTextFieldToPreviousEntry());
+		next.addActionListener(e -> setTextFieldToNextEntry());
+	}
+
+	private void setTextFieldToPreviousEntry(){
+		if (cache.hasPrevious()) {
+			textField.setText(cache.previous().input());
+		}
+	}
+
+	private void setTextFieldToNextEntry(){
+		if (cache.hasNext()) {
+			textField.setText(cache.next().input());
 		}
 	}
 

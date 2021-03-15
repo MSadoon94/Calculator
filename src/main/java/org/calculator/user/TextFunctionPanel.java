@@ -8,8 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.function.Consumer;
 
-public class TextFunctionPanel extends JPanel implements Panel{
-	private TextFunctionPanel thisPanel;
+public class TextFunctionPanel extends Panel{
 	private Observer observer;
 	private Gui gui;
 	private ActionEvent clear, calculate, percentage, decimalPosition;
@@ -21,7 +20,6 @@ public class TextFunctionPanel extends JPanel implements Panel{
 
 	public TextFunctionPanel(Gui gui, Observer observer){
 		super();
-		thisPanel = this;
 		this.gui = gui;
 		this.textArea = gui.textArea();
 		this.observer = observer;
@@ -48,9 +46,9 @@ public class TextFunctionPanel extends JPanel implements Panel{
 	private void createPanel(){
 		setButtons();
 		setButtonArray();
-		thisPanel.setLayout(new BorderLayout());
-		panelWithComponentsAdded(thisPanel);
-		setActionListener(thisPanel);
+		this.setLayout(new GridLayout(0, 2));
+		panelWithComponentsAdded(this);
+		setActionListener(this);
 		createActionEvents();
 	}
 
@@ -63,14 +61,14 @@ public class TextFunctionPanel extends JPanel implements Panel{
 
 	private void setButtonArray(){
 		buttons = new JButton[]{
-				clearButton, equalsButton,
-				percentageButton, decimalPositionButton
+				decimalPositionButton, clearButton,
+				percentageButton, equalsButton
 				};
 	}
 
 	private JPanel panelWithComponentsAdded(JPanel panel){
 		for (JButton button : buttons) {
-			panel.add(button, BorderLayout.CENTER);
+			panel.add(button);
 		}
 		return panel;
 	}
@@ -80,10 +78,24 @@ public class TextFunctionPanel extends JPanel implements Panel{
 		for (JButton button : buttons) {
 			button.addActionListener(listener);
 		}
+		clearButton.addActionListener(e -> clearAll2());
+		equalsButton.addActionListener(e -> calculate2());
+		percentageButton.addActionListener(e -> percentage2());
+		decimalPositionButton.addActionListener(e -> decimal2());
+	}
+
+	private void clearAll2(){
+		textArea.setText("");
 	}
 
 	private Consumer<Object> clearAll(){
 		return consumer -> textArea.setText("");
+	}
+
+	private void calculate2(){
+			Request request = request();
+			gui.doInputCacheActions(request);
+			validateRequest(request);
 	}
 
 	private Consumer<Object> calculate(){
@@ -94,12 +106,29 @@ public class TextFunctionPanel extends JPanel implements Panel{
 		};
 	}
 
+	private void percentage2(){
+			textArea.append("%");
+			equalsButton.doClick();
+			textArea.append("%");
+	}
+
 	private Consumer<Object> percentage(){
 		return consumer -> {
 			textArea.append("%");
 			equalsButton.doClick();
 			textArea.append("%");
 		};
+	}
+
+	private void decimal2(){
+			InputValidator validator = new InputValidator();
+			String decimalInput = textArea.getText().strip();
+			if (!validator.isValidDecimalPosition(decimalInput)) {
+				gui.decimalPositionError();
+			} else {
+				position = Integer.parseInt(decimalInput);
+				clearButton.doClick();
+			}
 	}
 
 	private Consumer<Object> decimal(){
