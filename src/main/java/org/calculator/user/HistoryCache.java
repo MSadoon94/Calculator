@@ -4,7 +4,7 @@ import org.calculator.common.Request;
 
 import java.util.*;
 
-public class HistoryCache implements UserCache{
+class HistoryCache implements UserCache{
 	private ArrayList<Integer> inputOrder = new ArrayList<>();
 	private ListIterator<Integer> iterator;
 	private HashMap<Integer, Request> requests = new HashMap<>();
@@ -38,10 +38,10 @@ public class HistoryCache implements UserCache{
 	}
 
 	public Request previous(){
-		int next = iterator.previous();
+		int previous = iterator.previous();
 		if (iterator.previousIndex() == -1){
-			next = iterator.next();
+			previous = iterator.next();
 		}
-		return requests.get(next);
+		return requests.get(previous);
 	}
 }

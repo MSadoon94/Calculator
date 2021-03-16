@@ -47,8 +47,8 @@ public class HistoryTests extends AcceptanceTestFixture {
 		equalsButton = jButtonOperator(frame, "=");
 		decimalPositionButton = jButtonOperator(frame, "Decimal Position");
 		inputHistoryTextField = new JTextFieldOperator(frame, 0);
-		historyBackButton = new JButtonOperator(frame, "Back", 0);
-		historyNextButton = new JButtonOperator(frame, "Next", 0);
+		historyBackButton = new JButtonOperator(frame, "<", 0);
+		historyNextButton = new JButtonOperator(frame, ">", 0);
 	}
 
 	private void startInputtingRequest(String input){

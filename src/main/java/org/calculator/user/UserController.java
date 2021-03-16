@@ -1,20 +1,32 @@
 package org.calculator.user;
 
-import org.calculator.request.Observer;
+import org.calculator.processing.Invoker;
 
 import javax.swing.*;
 
 public class UserController implements UserBoundary {
 
+	public Ui gui(JFrame frame) {
+		return new Gui(frame);
+	}
+
+	public UserCache userCache() {
+		return new HistoryCache();
+	}
+
 	public HistoryPanel historyPanel(JLabel label, UserCache cache) {
 		return new HistoryPanel(label, cache);
 	}
 
-	public TextAppendingPanel textAppendingPanel(){
-		return new TextAppendingPanel();
+	public Observer historyObserver(AccessoryPanel inputHistory, AccessoryPanel answerHistory) {
+		return new HistoryObserver(inputHistory, answerHistory);
 	}
 
-	public TextFunctionPanel textFunctionPanel(Gui gui, Observer observer) {
-		return new TextFunctionPanel(gui, observer);
+	public AppenderPanel textAppendingPanel(Ui gui){
+		return new AppenderPanel(gui);
+	}
+
+	public FunctionsPanel textFunctionPanel(Ui gui, Invoker answerInvoker, Observer observer) {
+		return new FunctionsPanel(gui, answerInvoker, observer);
 	}
 }

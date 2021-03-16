@@ -1,15 +1,11 @@
 package org.calculator.user;
 
-import org.calculator.common.Request;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+class Gui implements Ui {
 
-public class Gui implements UiActions {
-
-	private UserCache inputCache;
 	private JPanel mainPanel;
 	private JTextArea textArea;
 	private JFrame frame;
@@ -21,23 +17,9 @@ public class Gui implements UiActions {
 		this.frame = frame;
 		setLayout();
 		mainPanel = new JPanel(layout);
-		setTextArea();
+		createTextArea();
 		frame.add(mainPanel);
 		frame.setContentPane(mainPanel);
-	}
-
-	public void setTextArea() {
-		textArea = new JTextArea();
-		textArea.setLineWrap(true);
-	}
-
-	public void addInputCache(UserCache userCache){
-		this.inputCache = userCache;
-	}
-
-	public void doInputCacheActions(Request request){
-		inputCache.addRequest(request);
-		setMostRecentHistory();
 	}
 
 	public void setPanels(Panel panel){
@@ -48,13 +30,14 @@ public class Gui implements UiActions {
 		addComponent(panels.get("InputHistory"), 0,0,1,1);
 		addComponent(panels.get("AnswerHistory"), 1,0,1,1);
 		addComponent(textArea, 0,2, 2, 1);
-		addComponent(panels.get("TextAppending"), 0, 3 ,1, 2);
-		addComponent(panels.get("TextFunction"), 1,3,1,2);
+		addComponent(panels.get("Appender"), 0, 3 ,1, 2);
+		addComponent(panels.get("Functions"), 1,3,1,2);
 	}
 
 	public JTextArea textArea(){
 		return textArea;
 	}
+
 	public void inputErrorMessage(String invalidInput){
 		JOptionPane.showMessageDialog(
 				frame,
@@ -71,6 +54,11 @@ public class Gui implements UiActions {
 				"Decimal Position Error",
 				JOptionPane.ERROR_MESSAGE
 		);
+	}
+
+	private void createTextArea() {
+		textArea = new JTextArea();
+		textArea.setLineWrap(true);
 	}
 	
 	private void setLayout(){
@@ -91,11 +79,6 @@ public class Gui implements UiActions {
 
 		layout.setConstraints(component, gbc);
 		mainPanel.add(component);
-	}
-
-	private void setMostRecentHistory(){
-		panels.get("InputHistory").actions().event("NextEntry");
-		panels.get("AnswerHistory").actions().event("NextEntry");
 	}
 }
 

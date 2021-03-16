@@ -1,37 +1,30 @@
 package org.calculator.user;
 
+import org.calculator.common.Request;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.function.Consumer;
 
-class TextAppendingPanel extends Panel {
+class AppenderPanel extends Panel {
 	private JTextArea textArea;
 	private ButtonGroup buttons = new ButtonGroup();
 	private JButton[] numericalButtons = new JButton[10];
 	private JButton[] symbolButtons;
 
-	public TextAppendingPanel(){
+	public AppenderPanel(Ui gui){
 		super();
+		textArea = gui.textArea();
 		createPanel();
-	}
-
-	public ActionSet actions() {
-		ActionSet set = new ActionSet();
-		buttons.getElements().asIterator().forEachRemaining(button -> {
-			ActionEvent event =
-					new ActionEvent(button, ActionEvent.ACTION_FIRST, button.getText());
-			set.addConsumerAction(event, appendTextArea(button));
-				});
-		return set;
 	}
 
 	private void createPanel(){
 		setSymbolButtons();
 		setNumericalButtons();
 		this.setLayout(new GridLayout(0,4));
-		panelWithComponentsAdded(this);
-		setActionListener(this);
+		addComponents();
+		setActionListener();
 	}
 
 	private void setNumericalButtons(){
@@ -50,30 +43,19 @@ class TextAppendingPanel extends Panel {
 		}
 	}
 
-	private JPanel panelWithComponentsAdded(JPanel panel){
+	private void addComponents(){
 		buttons.getElements().asIterator().forEachRemaining(
-				button -> panel.add(button)
+				this::add
 		);
-		return panel;
 	}
 
-	private void setActionListener(Panel panel){
-		ButtonListener listener = new ButtonListener(panel);
+	private void setActionListener(){
 		buttons.getElements()
 				.asIterator()
-				.forEachRemaining(button -> button.addActionListener(listener));
-		buttons.getElements()
-				.asIterator()
-				.forEachRemaining(button -> button.addActionListener(e -> appendTextArea2(button)));
+				.forEachRemaining(button -> button.addActionListener(e -> appendTextArea(button)));
 	}
 
-	private void appendTextArea2(AbstractButton button){
+	private void appendTextArea(AbstractButton button){
 		textArea.append(button.getText());
-	}
-
-	private Consumer<Object> appendTextArea(AbstractButton button){
-		return consumer -> {
-			textArea.append(button.getText());
-		};
 	}
 }
