@@ -14,7 +14,7 @@ import java.util.HashMap;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class ArithmeticTests extends AcceptanceTestFixture {
+public class ArithmeticTests {
 
 	private static HashMap<String, String> answers = new HashMap<>();
 
@@ -30,7 +30,7 @@ public class ArithmeticTests extends AcceptanceTestFixture {
 		setAnswers();
 	}
 
-	@DisplayName("TestResults")
+	@DisplayName("Arithmetic Tests")
 	@ParameterizedTest(name = "{index} ==> {0}")
 	@CsvSource({
 			"WhenNumberIsEntered_ThenThatSameNumberWillBeReturned, 2.0",
@@ -46,7 +46,7 @@ public class ArithmeticTests extends AcceptanceTestFixture {
 			"WhenUserSpecifiesDecimalPosition_ThenResultWillHaveDecimalInSpecifiedPosition, 4.5234*5.4325"
 	})
 	void testingFixture(String test, String aInput){
-		//Although unused, test variable is needed so test name isn't assigned to input.
+		//Test variable is used to report name in test results
 		input = aInput;
 		setOperators();
 		startInputtingRequest();
@@ -55,10 +55,10 @@ public class ArithmeticTests extends AcceptanceTestFixture {
 	}
 
 	private void setOperators(){
-		frame = jFrameOperator();
-		textArea = jTextAreaOperator(frame);
-		equalsButton = jButtonOperator(frame, "=");
-		decimalPositionButton = jButtonOperator(frame, "Decimal Position");
+		frame = new JFrameOperator();
+		textArea = new JTextAreaOperator(frame);
+		equalsButton = new JButtonOperator(frame, "=");
+		decimalPositionButton = new JButtonOperator(frame, "Decimal Position");
 	}
 
 	private void setAnswers(){
