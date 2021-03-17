@@ -1,5 +1,6 @@
 package org.calculator.processing;
 
+import org.calculator.common.Request;
 import org.calculator.extraction.ExtractionController;
 import org.calculator.extraction.Extractor;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,6 @@ public class OperationSequencerTest {
 		String input = "2-1+1*2" ;
 		OperationSequencer sequencer = new OperationSequencer(extractor);
 
-		assertThat(sequencer.answer(input), is("3"));
+		assertThat(sequencer.answer(new Request(input)).input(), is("3"));
 	}
 }

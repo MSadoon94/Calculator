@@ -8,9 +8,12 @@ class AnswerInvoker implements Invoker {
 	public AnswerInvoker(ExtractorUtilities extractorUtilities){
 		extractor = extractorUtilities;
 	}
-	public String answer(Request request) {
+
+	public Request answer(Request request) {
 		Request formatted = new NegativeFormatter().findDoubleNegatives(request);
 		ProcessorActions processor = new Processor(formatted, extractor);
-		return processor.processedAnswer().input();
+		return processor.processedAnswer();
 	}
+
+
 }

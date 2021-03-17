@@ -1,136 +1,84 @@
 package org.calculator.user;
 
-import org.calculator.common.Request;
-import org.calculator.request.Observer;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.util.HashMap;
 
+class Gui implements Ui {
 
-public class Gui implements ActionListener, UiActions {
-
-	private Observer reqObserver;
 	private JPanel mainPanel;
 	private JTextArea textArea;
-	private JButton equalsButton, addButton, subtractButton, divideButton,
-			multiplyButton, percentageButton, clearButton, decimalButton,
-			rightParenthesisButton, leftParenthesisButton, exponentButton,
-			a0Button, a1Button, a2Button, a3Button, a4Button, a5Button,
-			a6Button, a7Button, a8Button, a9Button, squareRootButton,
-			decimalPositionButton;
-	private JButton[] numericalButtons = {
-			a0Button, a1Button, a2Button, a3Button, a4Button,
-			a5Button, a6Button, a7Button, a8Button, a9Button,
-			decimalButton
-	};
-	private JButton[] operationButtons = {
-			equalsButton, addButton, subtractButton, divideButton,
-			multiplyButton, percentageButton, clearButton,
-			rightParenthesisButton, leftParenthesisButton, exponentButton,
-			squareRootButton, decimalPositionButton
-	};
-	private HashMap<JButton, String> appendingText = new HashMap<>();
 	private JFrame frame;
-	private int decimalPosition = 2;
+	private GridBagLayout layout;
+	private GridBagConstraints gbc;
+	private HashMap<String, Panel> panels = new HashMap<>();
 
 	public Gui(JFrame frame){
-		setUpButtons();
-		setAppendingText();
-		textArea.setLineWrap(true);
 		this.frame = frame;
+		setLayout();
+		mainPanel = new JPanel(layout);
+		createTextArea();
 		frame.add(mainPanel);
 		frame.setContentPane(mainPanel);
-
 	}
 
-	public void attachObserver(Observer observer) {
-		reqObserver = observer;
+	public void setPanels(Panel panel){
+		panels.put(panel.getName(), panel);
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == clearButton){
-			textArea.setText("");
-		}
-		if (e.getSource() == equalsButton){
-			Request request = new Request(validatedInput());
-			request.setDecimalPosition(decimalPosition);
-			respond(request);
-		}
-		if (appendingText.containsKey(e.getSource())){
-			textArea.append(appendingText.get(e.getSource()));
-		}
-		if (e.getSource() == percentageButton){
-			textArea.append("%");
-			equalsButton.doClick();
-			textArea.append("%");
-		}
-		if (e.getSource() == exponentButton){
-			textArea.append("^");
-		}
-		if(e.getSource() == decimalPositionButton){
-			changeDecimalPosition(textArea.getText().strip());
-			clearButton.doClick();
-		}
-	}
-	private void setUpButtons(){
-		for (JButton operationButton : operationButtons) {
-			operationButton.addActionListener(this);
-		}
-		for (JButton numericalButton : numericalButtons){
-			numericalButton.addActionListener(this);
-		}
-	}
-	private void setAppendingText(){
-		JButton[] appendingButtons = {
-				addButton, subtractButton, multiplyButton, divideButton,
-				decimalButton, rightParenthesisButton, leftParenthesisButton,
-				a0Button, a1Button, a2Button, a3Button, a4Button, a5Button,
-				a6Button, a7Button, a8Button, a9Button, squareRootButton
-		};
-		for (int i = 0; i < appendingButtons.length; i++){
-			appendingText.put(appendingButtons[i], appendingButtons[i].getText());
-		}
-	}
-	private void respond(Request request){
-		if(!request.input().contains("Input Error")) {
-			textArea.setText(reqObserver.update(request));
-		}
-	}
-	private String validatedInput(){
-		String validated = textArea.getText().strip();
-		InputValidator validator = new InputValidator();
-		if(!validator.isValidInput(textArea.getText())){
-			JOptionPane.showMessageDialog
-				(
-						frame,
-						"Cannot compute user request: " + "\"" + validator.invalidInput() + "\"",
-						"User Input Error",
-						JOptionPane.ERROR_MESSAGE
-				);
-			validated = "Input Error";
-		}
-		return validated;
+	public void addPanelsToMainPanel(){
+		addComponent(panels.get("InputHistory"), 0,0,1,1);
+		addComponent(panels.get("AnswerHistory"), 1,0,1,1);
+		addComponent(textArea, 0,2, 2, 1);
+		addComponent(panels.get("Appender"), 0, 3 ,1, 2);
+		addComponent(panels.get("Functions"), 1,3,1,2);
 	}
 
-	private void changeDecimalPosition(String position){
-		InputValidator validator = new InputValidator();
-		if(!validator.isValidDecimalPosition(position)){
-			JOptionPane.showMessageDialog
-			(
-					frame,
-					"Decimal position can only be whole number.",
-					"Decimal Position Error",
-					JOptionPane.ERROR_MESSAGE
-			);
-		} else {
-			decimalPosition = Integer.parseInt(position);
-		}
-
+	public JTextArea textArea(){
+		return textArea;
 	}
 
+	public void inputErrorMessage(String invalidInput){
+		JOptionPane.showMessageDialog(
+				frame,
+				"Cannot compute user request: " + "\"" + invalidInput + "\"",
+				"User Input Error",
+				JOptionPane.ERROR_MESSAGE
+		);
+	}
 
+	public void decimalPositionError(){
+		JOptionPane.showMessageDialog(
+				frame,
+				"Decimal position can only be whole number.",
+				"Decimal Position Error",
+				JOptionPane.ERROR_MESSAGE
+		);
+	}
 
+	private void createTextArea() {
+		textArea = new JTextArea();
+		textArea.setLineWrap(true);
+	}
+	
+	private void setLayout(){
+		layout =  new GridBagLayout();
+		gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+	}
+
+	private void addComponent(Component component, int gridX, int gridY, int gridWidth, int gridHeight){
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+
+		gbc.gridx = gridX;
+		gbc.gridy = gridY;
+
+		gbc.gridwidth = gridWidth;
+		gbc.gridheight = gridHeight;
+
+		layout.setConstraints(component, gbc);
+		mainPanel.add(component);
+	}
 }
 

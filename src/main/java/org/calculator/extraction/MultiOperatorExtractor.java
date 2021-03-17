@@ -8,22 +8,22 @@ import java.util.regex.Pattern;
 
 class MultiOperatorExtractor implements Extractor{
 
-	public Request extraction(Request input) {
-		Operations targetOperation = input.getOperation(); //ToDo make sure classes are setting operation before using this extractor
-		Matcher matcher = extractor(input, targetOperation);
+	public Request extraction(Request aRequest) {
+		Operations targetOperation = aRequest.getOperation();
+		Matcher matcher = extractor(aRequest, targetOperation);
 		String extracted;
 		if (matcher.find()){
 			extracted = matcher.group();
 		} else {
-			extracted = input.input();
+			extracted = aRequest.input();
 		}
 		return new Request(extracted);
 	}
 
-	private Matcher extractor(Request input, Operations targetOperation){
+	private Matcher extractor(Request aRequest, Operations targetOperation){
 		String operationValues =  "(\\d+\\.+\\d+|\\d+)";
 		String regex =  operationValues + "[" + targetOperation.symbol() + "]" + operationValues;
 		Pattern pattern = Pattern.compile(regex);
-		return pattern.matcher(input.input());
+		return pattern.matcher(aRequest.input());
 	}
 }

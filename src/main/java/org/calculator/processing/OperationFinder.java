@@ -1,36 +1,35 @@
 package org.calculator.processing;
 
 import org.calculator.common.Operations;
+import org.calculator.common.Request;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class OperationFinder {
-	private Operations operator;
-	public Operations targetOperation(String section) {
-		Operations target;
 
-		if (amountOfOperators(section) <= 1){
-			//amountOfOperators also maps the sections operation to operator
-			target = operator;
-		} else if (section.contains(Operations.SQUARE_ROOT.symbol())
-				&& section.contains(Operations.EXPONENT.symbol())){
-			target = closestToStartOfSection(section, Operations.SQUARE_ROOT, Operations.EXPONENT);
-		} else if (section.contains(Operations.SQUARE_ROOT.symbol())
-				|| section.contains(Operations.EXPONENT.symbol())){
-			target = section.contains(Operations.SQUARE_ROOT.symbol())
-					? Operations.SQUARE_ROOT : Operations.EXPONENT;
-		} else if (section.contains(Operations.DIVISION.symbol())
-				&& section.contains(Operations.MULTIPLICATION.symbol())){
-			target = closestToStartOfSection(section, Operations.DIVISION, Operations.MULTIPLICATION);
-		} else if (section.contains(Operations.DIVISION.symbol())
-				|| section.contains(Operations.MULTIPLICATION.symbol())){
-			target = section.contains(Operations.DIVISION.symbol())
-					? Operations.DIVISION : Operations.MULTIPLICATION;
-		} else {
-			target = closestToStartOfSection(section, Operations.ADDITION, Operations.SUBTRACTION);
+	public Operations targetOperation(Request aRequest){
+		List<Operations[]> operationTiers = Arrays.asList
+				(
+						new Operations[]{Operations.SQUARE_ROOT, Operations.EXPONENT},
+						new Operations[]{Operations.DIVISION, Operations.MULTIPLICATION},
+						new Operations[]{Operations.ADDITION, Operations.SUBTRACTION}
+				);
+		Operations target = null;
+		int count = 0;
+		while (target == null){
+			target = findOperation(aRequest, operationTiers.get(count));
+			count++;
 		}
-
 		return target;
+	}
+
+	private Operations findOperation(Request aRequest, Operations...operation){
+		Operations[] operators =
+				aRequest.operators().stream()
+						.filter(op -> (op.equals(operation[0])) || (op.equals(operation[1])))
+						.toArray(Operations[]::new);
+		return (operators.length == 0) ? null : closestToStartOfSection(aRequest.input(), operators);
 	}
 
 	private Operations closestToStartOfSection(String section, Operations...operations){
@@ -44,12 +43,5 @@ public class OperationFinder {
 			}
 		}
 		return closest;
-	}
-
-	private long amountOfOperators (String input){
-		return Arrays.stream(Operations.values())
-				.filter(operation -> input.contains(operation.symbol()))
-				.map(op -> operator = op)
-				.count();
 	}
 }
