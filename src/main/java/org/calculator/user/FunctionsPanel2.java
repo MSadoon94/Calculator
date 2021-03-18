@@ -23,6 +23,7 @@ class FunctionsPanel2 extends EraserPanel{
 		this.observer = observer;
 		answerInvoker = invoker;
 		createPanel();
+		this.add(super.panel());
 	}
 
 	private void createPanel(){
