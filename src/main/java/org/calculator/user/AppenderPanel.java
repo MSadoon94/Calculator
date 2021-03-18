@@ -1,11 +1,8 @@
 package org.calculator.user;
 
-import org.calculator.common.Request;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.util.function.Consumer;
+
 
 class AppenderPanel extends Panel {
 	private JTextArea textArea;
