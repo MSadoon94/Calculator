@@ -11,7 +11,7 @@ class FunctionsPanel2 extends EraserPanel{
 	private Ui gui;
 	private Invoker answerInvoker;
 	private JTextArea textArea;
-	private JButton clearButton, equalsButton,
+	private JButton equalsButton,
 			percentageButton, decimalPositionButton;
 	private JButton[] buttons;
 	private int position = 2;
@@ -23,7 +23,7 @@ class FunctionsPanel2 extends EraserPanel{
 		this.observer = observer;
 		answerInvoker = invoker;
 		createPanel();
-		this.add(super.panel());
+		super.panel().add(this);
 	}
 
 	private void createPanel(){
@@ -35,7 +35,7 @@ class FunctionsPanel2 extends EraserPanel{
 	}
 
 	private void setButtons(){
-		clearButton = new JButton("C");
+
 		equalsButton = new JButton("=");
 		percentageButton = new JButton("%");
 		decimalPositionButton = new JButton("Decimal Position");
@@ -43,7 +43,7 @@ class FunctionsPanel2 extends EraserPanel{
 
 	private void setButtonArray(){
 		buttons = new JButton[]{
-				decimalPositionButton, clearButton,
+				decimalPositionButton,
 				percentageButton, equalsButton
 				};
 	}
@@ -55,15 +55,12 @@ class FunctionsPanel2 extends EraserPanel{
 	}
 
 	private void setActionListener(){
-		clearButton.addActionListener(e -> clearAll());
 		equalsButton.addActionListener(e -> calculate());
 		percentageButton.addActionListener(e -> percentage());
 		decimalPositionButton.addActionListener(e -> decimal());
 	}
 
-	private void clearAll(){
-		textArea.setText("");
-	}
+
 
 	private void calculate(){
 			Request request = request();
@@ -84,7 +81,7 @@ class FunctionsPanel2 extends EraserPanel{
 				gui.decimalPositionError();
 			} else {
 				position = Integer.parseInt(decimalInput);
-				clearButton.doClick();
+				textArea.setText("");
 			}
 	}
 
