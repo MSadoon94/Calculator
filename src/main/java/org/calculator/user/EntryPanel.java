@@ -6,6 +6,6 @@ class EntryPanel extends FunctionsPanel2{
 
 	public EntryPanel(Ui gui, Invoker invoker, Observer observer) {
 		super(gui, invoker, observer);
-		this.add(super.panel());
+		super.panel().add(this);
 	}
 }

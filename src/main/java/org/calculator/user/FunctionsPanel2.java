@@ -10,16 +10,16 @@ class FunctionsPanel2 extends EraserPanel{
 	private Observer observer;
 	private Ui gui;
 	private Invoker answerInvoker;
-	private JTextArea textArea;
+	protected JTextArea textArea;
 	private JButton equalsButton,
 			percentageButton, decimalPositionButton;
 	private JButton[] buttons;
 	private int position = 2;
 
 	public FunctionsPanel2(Ui gui, Invoker invoker, Observer observer){
-		super(gui);
+		super();
 		this.gui = gui;
-		this.textArea = gui.textArea();
+		this.textArea = super.textArea;
 		this.observer = observer;
 		answerInvoker = invoker;
 		createPanel();

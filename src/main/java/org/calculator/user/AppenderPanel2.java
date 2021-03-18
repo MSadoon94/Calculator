@@ -5,19 +5,22 @@ import java.awt.*;
 
 
 class AppenderPanel2 extends Panel2 {
-	private JTextArea textArea;
+	protected JTextArea textArea;
 	private ButtonGroup buttons = new ButtonGroup();
 	private JButton[] numericalButtons = new JButton[10];
 	private JButton[] symbolButtons;
 
-	public AppenderPanel2(Ui gui){
+	public AppenderPanel2(){
 		super();
-		textArea = gui.textArea();
+		textArea = super.textArea;
 		createPanel();
 	}
 
-	protected Panel2 panel() {
-		return this;
+	protected JPanel panel() {
+		JPanel panel = new JPanel(new FlowLayout());
+		panel.add(textArea);
+		panel.add(this);
+		return panel;
 	}
 
 	private void createPanel(){
