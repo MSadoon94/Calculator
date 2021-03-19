@@ -27,7 +27,7 @@ class FunctionsPanel2 extends EraserPanel{
 	private void createPanel(){
 		setButtons();
 		setButtonArray();
-		this.setLayout(new GridLayout(5, 5));
+		setLayout(new GridLayout(5, 5));
 		addComponents();
 		setActionListener();
 	}

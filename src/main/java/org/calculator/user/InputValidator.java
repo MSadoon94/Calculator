@@ -8,7 +8,7 @@ class InputValidator {
 	public boolean isValidInput(String input) {
 		String divisionByZero = "[\\d]+/0";
 		String validCharacters = "[^\\d\\s+\\-*/%().^√]+";
-		this.matcher = Pattern.compile(divisionByZero + "|" + validCharacters).matcher(input);
+		matcher = Pattern.compile(divisionByZero + "|" + validCharacters).matcher(input);
 		return !matcher.find();
 	}
 
