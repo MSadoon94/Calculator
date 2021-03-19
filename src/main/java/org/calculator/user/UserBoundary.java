@@ -11,4 +11,5 @@ public interface UserBoundary {
 	Observer historyObserver(AccessoryPanel inputHistory, AccessoryPanel answerHistory);
 	AppenderPanel textAppendingPanel(Ui gui);
 	FunctionsPanel textFunctionPanel(Ui gui, Invoker answerInvoker, Observer historyObserver);
+	Panel2 entryPanel(Ui gui, Invoker answerInvoker, Observer historyObserver);
 }

@@ -10,7 +10,6 @@ class FunctionsPanel2 extends EraserPanel{
 	private Observer observer;
 	private Ui gui;
 	private Invoker answerInvoker;
-	protected JTextArea textArea;
 	private JButton equalsButton,
 			percentageButton, decimalPositionButton;
 	private JButton[] buttons;
@@ -19,17 +18,16 @@ class FunctionsPanel2 extends EraserPanel{
 	public FunctionsPanel2(Ui gui, Invoker invoker, Observer observer){
 		super();
 		this.gui = gui;
-		this.textArea = super.textArea;
 		this.observer = observer;
 		answerInvoker = invoker;
 		createPanel();
-		super.panel().add(this);
+		setPanel();
 	}
 
 	private void createPanel(){
 		setButtons();
 		setButtonArray();
-		this.setLayout(new GridLayout(0, 2));
+		this.setLayout(new GridLayout(5, 5));
 		addComponents();
 		setActionListener();
 	}
@@ -50,7 +48,7 @@ class FunctionsPanel2 extends EraserPanel{
 
 	private void addComponents(){
 		for (JButton button : buttons) {
-			this.add(button);
+			add(button);
 		}
 	}
 

@@ -5,18 +5,16 @@ import java.awt.*;
 
 public class EraserPanel extends AppenderPanel2{
 	private JButton clearButton;
-	protected JTextArea textArea;
 	
 	public EraserPanel() {
 		super();
-		this.textArea = super.textArea;
 		createPanel();
-		super.panel().add(this);
+		setPanel();
 	}
 
 	private void createPanel(){
 		setButtons();
-		this.setLayout(new GridLayout(0, 0));
+		this.setLayout(new GridLayout(0, 1));
 		addComponents();
 		setActionListener();
 	}

@@ -17,6 +17,7 @@ public class ComponentCreator {
 	private Invoker answerInvoker;
 	private AccessoryPanel inputHistory, answerHistory;
 	private Panel appender, functions;
+	private Panel2 entryPanel;
 
 
 	public ComponentCreator(){
@@ -36,6 +37,16 @@ public class ComponentCreator {
 		return gui;
 	}
 
+	private JFrame frame(){
+		JFrame frame = new JFrame("Test");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setSize(500,600);
+		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
+		return frame;
+	}
+
 	private void addGuiDependencies(Ui gui){
 		panelStream( gui).forEach(gui::setPanels);
 		gui.addPanelsToMainPanel();
@@ -47,6 +58,8 @@ public class ComponentCreator {
 
 		Observer historyObserver = userBoundary.historyObserver(inputHistory, answerHistory);
 
+		entryPanel = userBoundary.entryPanel(gui, answerInvoker, historyObserver);
+		frame().add(entryPanel.panel());
 		appender = userBoundary.textAppendingPanel(gui);
 		functions = userBoundary.textFunctionPanel(gui, answerInvoker, historyObserver);
 

@@ -5,22 +5,15 @@ import java.awt.*;
 
 
 class AppenderPanel2 extends Panel2 {
-	protected JTextArea textArea;
 	private ButtonGroup buttons = new ButtonGroup();
 	private JButton[] numericalButtons = new JButton[10];
 	private JButton[] symbolButtons;
 
 	public AppenderPanel2(){
 		super();
-		textArea = super.textArea;
+		textArea.setText("test");
 		createPanel();
-	}
-
-	protected JPanel panel() {
-		JPanel panel = new JPanel(new FlowLayout());
-		panel.add(textArea);
-		panel.add(this);
-		return panel;
+		setPanel();
 	}
 
 	private void createPanel(){

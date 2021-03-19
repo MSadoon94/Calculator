@@ -29,4 +29,8 @@ public class UserController implements UserBoundary {
 	public FunctionsPanel textFunctionPanel(Ui gui, Invoker answerInvoker, Observer observer) {
 		return new FunctionsPanel(gui, answerInvoker, observer);
 	}
+
+	public Panel2 entryPanel(Ui gui, Invoker answerInvoker, Observer historyObserver) {
+		return new EntryPanel(gui, answerInvoker, historyObserver);
+	}
 }
