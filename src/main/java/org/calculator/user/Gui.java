@@ -2,7 +2,6 @@ package org.calculator.user;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 
 class Gui implements Ui {
 
@@ -21,9 +20,9 @@ class Gui implements Ui {
 	}
 
 	public void addPanels(Panel inputHistory, Panel answerHistory, CompositePanel entryPanel){
-		addComponent(inputHistory, 0,0,1,1);
-		addComponent(answerHistory, 1,0,1,1);
-		addComponent(entryPanel.panel(), 0,1,2,3);
+		addComponent(inputHistory, 1, 0, 0,0,1,1);
+		addComponent(answerHistory, 1, 0, 1,0,1,1);
+		addComponent(entryPanel.panel(),2, 2, 0,1,2,2);
 	}
 
 	public void inputErrorMessage(String invalidInput){
@@ -50,9 +49,9 @@ class Gui implements Ui {
 		gbc.fill = GridBagConstraints.BOTH;
 	}
 
-	private void addComponent(Component component, int gridX, int gridY, int gridWidth, int gridHeight){
-		gbc.weightx = 1;
-		gbc.weighty = 1;
+	private void addComponent(Component component, int weightX, int weightY, int gridX, int gridY, int gridWidth, int gridHeight){
+		gbc.weightx = weightX;
+		gbc.weighty = weightY;
 
 		gbc.gridx = gridX;
 		gbc.gridy = gridY;

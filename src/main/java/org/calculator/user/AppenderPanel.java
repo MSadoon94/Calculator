@@ -15,7 +15,7 @@ class AppenderPanel extends Panel {
 	}
 
 	private void createPanel(){
-		setLayout(new GridLayout(0,2));
+		setLayout(new GridLayout(0,4));
 		setSymbolButtons();
 		setNumericalButtons();
 		addComponents();

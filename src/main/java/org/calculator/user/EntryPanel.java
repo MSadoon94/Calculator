@@ -11,7 +11,7 @@ class EntryPanel extends Panel implements CompositePanel {
 
 	public EntryPanel(Verifier aErrorVerifier, Invoker invoker, Observer observer){
 		panel = new JPanel();
-		panel.add(textArea);
+
 		setPanels(aErrorVerifier, invoker, observer);
 		addPanels(groupLayout());
 	}

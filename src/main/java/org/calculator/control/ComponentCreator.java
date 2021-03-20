@@ -36,20 +36,10 @@ public class ComponentCreator {
 	private JFrame frame(){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
-		frame.setSize(500, 600);
+		frame.setSize(400, 500);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		return frame;
-	}
-	private void frame2(JPanel panel){
-		JFrame frame2 = new JFrame();
-		frame2.add(panel);
-		frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame2.pack();
-		frame2.setSize(500, 600);
-		frame2.setVisible(true);
-		frame2.setLocationRelativeTo(null);
-
 	}
 
 	private void addGuiDependencies(Ui gui) {
