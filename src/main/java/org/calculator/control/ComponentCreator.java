@@ -21,7 +21,7 @@ public class ComponentCreator {
 	private Verifier errorSender;
 	private Invoker answerInvoker;
 	private AccessoryPanel inputHistory, answerHistory;
-	private Panel functionsPanel;
+	private CompositePanel entryPanel;
 	private JFrame frame;
 
 
@@ -54,30 +54,22 @@ public class ComponentCreator {
 	}
 
 	private void addGuiDependencies(Ui gui) {
-		panelStream().forEach(gui::setPanels);
-		gui.addPanelsToMainPanel();
+
+		createPanels();
+		gui.addPanels(inputHistory, answerHistory, entryPanel);
 	}
 
-	private Stream<Panel> panelStream() {
+	private void createPanels() {
 		inputHistory = historyPanel(new JLabel("Input History"));
 		answerHistory = historyPanel(new JLabel("Answer History"));
 
 		Observer historyObserver = userBoundary.historyObserver(inputHistory, answerHistory);
 
-
-		functionsPanel = userBoundary.functionsPanel(
+		entryPanel = userBoundary.entryPanel(
 				errorSender,
 				answerInvoker,
 				historyObserver);
 
-		CompositePanel entryPanel = userBoundary.entryPanel(
-				errorSender,
-				answerInvoker,
-				historyObserver);
-
-		frame2(entryPanel.panel());
-
-		return Stream.of(inputHistory, answerHistory, functionsPanel);
 	}
 
 	private AccessoryPanel historyPanel(JLabel label) {

@@ -21,14 +21,10 @@ class Gui implements Ui {
 
 	}
 
-	public void setPanels(Panel panel){
-		panels.put(panel.getName(), panel);
-	}
-
-	public void addPanelsToMainPanel(){
-		addComponent(panels.get("Input History"), 0,0,1,1);
-		addComponent(panels.get("Answer History"), 1,0,1,1);
-		addComponent(panels.get("Functions"), 0,2,3,4);
+	public void addPanels(Panel inputHistory, Panel answerHistory, CompositePanel entryPanel){
+		addComponent(inputHistory, 0,0,1,1);
+		addComponent(answerHistory, 1,0,1,1);
+		addComponent(entryPanel.panel(), 0,2,3,4);
 	}
 
 	public void inputErrorMessage(String invalidInput){

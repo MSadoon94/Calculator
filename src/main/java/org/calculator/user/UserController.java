@@ -23,10 +23,6 @@ public class UserController implements UserBoundary {
 		return new HistoryObserver(inputHistory, answerHistory);
 	}
 
-	public Panel functionsPanel(Verifier aErrorMessenger, Invoker answerInvoker, Observer historyObserver) {
-		return new FunctionsPanel(aErrorMessenger, answerInvoker, historyObserver);
-	}
-
 	public CompositePanel entryPanel(Verifier aErrorMessenger, Invoker answerInvoker, Observer historyObserver) {
 		return new EntryPanel( aErrorMessenger,answerInvoker, historyObserver);
 	}
