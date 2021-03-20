@@ -46,6 +46,7 @@ class Gui implements Ui {
 	private void setLayout(){
 		layout =  new GridBagLayout();
 		gbc = new GridBagConstraints();
+		gbc.insets = new Insets(0, 2, 0, 2);
 		gbc.fill = GridBagConstraints.BOTH;
 	}
 

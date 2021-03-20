@@ -36,7 +36,7 @@ public class ComponentCreator {
 	private JFrame frame(){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
-		frame.setSize(400, 500);
+		frame.setSize(450, 550);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		return frame;
