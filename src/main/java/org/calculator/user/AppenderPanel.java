@@ -1,7 +1,7 @@
 package org.calculator.user;
 
 import javax.swing.*;
-
+import java.awt.*;
 
 
 class AppenderPanel extends Panel {
@@ -15,6 +15,7 @@ class AppenderPanel extends Panel {
 	}
 
 	private void createPanel(){
+		setLayout(new GridLayout(0,2));
 		setSymbolButtons();
 		setNumericalButtons();
 		addComponents();

@@ -11,7 +11,6 @@ import org.calculator.verification.VerificationController;
 import org.calculator.verification.Verifier;
 
 import javax.swing.*;
-import java.util.stream.Stream;
 
 public class ComponentCreator {
 	private ProcessorBoundary processorBoundary = new ProcessorController();

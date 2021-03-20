@@ -10,7 +10,6 @@ class Gui implements Ui {
 	private JFrame frame;
 	private GridBagLayout layout;
 	private GridBagConstraints gbc;
-	private HashMap<String, Panel> panels = new HashMap<>();
 
 	public Gui(JFrame frame){
 		this.frame = frame;
@@ -24,7 +23,7 @@ class Gui implements Ui {
 	public void addPanels(Panel inputHistory, Panel answerHistory, CompositePanel entryPanel){
 		addComponent(inputHistory, 0,0,1,1);
 		addComponent(answerHistory, 1,0,1,1);
-		addComponent(entryPanel.panel(), 0,2,3,4);
+		addComponent(entryPanel.panel(), 0,1,2,3);
 	}
 
 	public void inputErrorMessage(String invalidInput){
