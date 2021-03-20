@@ -1,27 +1,25 @@
 package org.calculator.user;
 
 import javax.swing.*;
-import java.awt.*;
+
 
 
 class AppenderPanel extends Panel {
-	private JTextArea textArea;
 	private ButtonGroup buttons = new ButtonGroup();
 	private JButton[] numericalButtons = new JButton[10];
 	private JButton[] symbolButtons;
 
-	public AppenderPanel(Ui gui){
-		super();
-		textArea = gui.textArea();
+	public AppenderPanel(){
+		textArea.setText("test");
 		createPanel();
 	}
 
 	private void createPanel(){
 		setSymbolButtons();
 		setNumericalButtons();
-		this.setLayout(new GridLayout(0,4));
 		addComponents();
 		setActionListener();
+
 	}
 
 	private void setNumericalButtons(){
@@ -55,4 +53,6 @@ class AppenderPanel extends Panel {
 	private void appendTextArea(AbstractButton button){
 		textArea.append(button.getText());
 	}
+
+
 }

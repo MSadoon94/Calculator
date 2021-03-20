@@ -7,7 +7,6 @@ import java.util.HashMap;
 class Gui implements Ui {
 
 	private JPanel mainPanel;
-	private JTextArea textArea;
 	private JFrame frame;
 	private GridBagLayout layout;
 	private GridBagConstraints gbc;
@@ -17,9 +16,9 @@ class Gui implements Ui {
 		this.frame = frame;
 		setLayout();
 		mainPanel = new JPanel(layout);
-		createTextArea();
 		frame.add(mainPanel);
 		frame.setContentPane(mainPanel);
+
 	}
 
 	public void setPanels(Panel panel){
@@ -27,15 +26,9 @@ class Gui implements Ui {
 	}
 
 	public void addPanelsToMainPanel(){
-		addComponent(panels.get("InputHistory"), 0,0,1,1);
-		addComponent(panels.get("AnswerHistory"), 1,0,1,1);
-		addComponent(textArea, 0,2, 2, 1);
-		addComponent(panels.get("Appender"), 0, 3 ,1, 2);
-		addComponent(panels.get("Functions"), 1,3,1,2);
-	}
-
-	public JTextArea textArea(){
-		return textArea;
+		addComponent(panels.get("Input History"), 0,0,1,1);
+		addComponent(panels.get("Answer History"), 1,0,1,1);
+		addComponent(panels.get("Functions"), 0,2,3,4);
 	}
 
 	public void inputErrorMessage(String invalidInput){
@@ -54,11 +47,6 @@ class Gui implements Ui {
 				"Decimal Position Error",
 				JOptionPane.ERROR_MESSAGE
 		);
-	}
-
-	private void createTextArea() {
-		textArea = new JTextArea();
-		textArea.setLineWrap(true);
 	}
 	
 	private void setLayout(){

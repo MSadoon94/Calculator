@@ -1,4 +1,4 @@
-package org.calculator.user;
+package org.calculator.verification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.*;

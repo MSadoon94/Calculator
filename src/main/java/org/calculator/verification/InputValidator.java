@@ -1,4 +1,4 @@
-package org.calculator.user;
+package org.calculator.verification;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

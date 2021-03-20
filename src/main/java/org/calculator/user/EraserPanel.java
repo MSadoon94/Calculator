@@ -3,13 +3,11 @@ package org.calculator.user;
 import javax.swing.*;
 import java.awt.*;
 
-public class EraserPanel extends AppenderPanel2{
+public class EraserPanel extends Panel {
 	private JButton clearButton, backspaceButton;
 	
 	public EraserPanel() {
-		super();
 		createPanel();
-		setPanel();
 	}
 
 	private void createPanel(){

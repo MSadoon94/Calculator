@@ -2,40 +2,37 @@ package org.calculator.user;
 
 import org.calculator.common.Request;
 import org.calculator.processing.Invoker;
+import org.calculator.verification.Verifier;
 
 import javax.swing.*;
 import java.awt.*;
 
-
 class FunctionsPanel extends Panel{
+	private Verifier errorVerifier;
 	private Observer observer;
-	private Ui gui;
 	private Invoker answerInvoker;
-	private JTextArea textArea;
-	private JButton clearButton, equalsButton,
+	private JButton equalsButton,
 			percentageButton, decimalPositionButton;
 	private JButton[] buttons;
 	private int position = 2;
 
-	public FunctionsPanel(Ui gui, Invoker invoker, Observer observer){
-		super();
-		this.gui = gui;
-		this.textArea = gui.textArea();
+	public FunctionsPanel(Verifier aErrorVerifier, Invoker invoker, Observer observer){
+		errorVerifier = aErrorVerifier;
 		this.observer = observer;
 		answerInvoker = invoker;
 		createPanel();
 	}
 
 	private void createPanel(){
+		setName("Functions");
 		setButtons();
 		setButtonArray();
-		this.setLayout(new GridLayout(0, 2));
+		setLayout(new GridLayout(3, 3));
 		addComponents();
 		setActionListener();
 	}
 
 	private void setButtons(){
-		clearButton = new JButton("C");
 		equalsButton = new JButton("=");
 		percentageButton = new JButton("%");
 		decimalPositionButton = new JButton("Decimal Position");
@@ -43,31 +40,28 @@ class FunctionsPanel extends Panel{
 
 	private void setButtonArray(){
 		buttons = new JButton[]{
-				decimalPositionButton, clearButton,
+				decimalPositionButton,
 				percentageButton, equalsButton
 				};
 	}
 
 	private void addComponents(){
 		for (JButton button : buttons) {
-			this.add(button);
+			add(button);
 		}
 	}
 
 	private void setActionListener(){
-		clearButton.addActionListener(e -> clearAll());
 		equalsButton.addActionListener(e -> calculate());
 		percentageButton.addActionListener(e -> percentage());
 		decimalPositionButton.addActionListener(e -> decimal());
 	}
 
-	private void clearAll(){
-		textArea.setText("");
-	}
+
 
 	private void calculate(){
 			Request request = request();
-			Request result = validatedRequest(request);
+			Request result = calculatedRequest();
 			observer.update(request, result);
 	}
 
@@ -78,14 +72,9 @@ class FunctionsPanel extends Panel{
 	}
 
 	private void decimal(){
-			InputValidator validator = new InputValidator();
-			String decimalInput = textArea.getText().strip();
-			if (!validator.isValidDecimalPosition(decimalInput)) {
-				gui.decimalPositionError();
-			} else {
-				position = Integer.parseInt(decimalInput);
-				clearButton.doClick();
-			}
+		String decimalInput = textArea.getText().strip();
+		position = errorVerifier.checkDecimalInput(decimalInput);
+		textArea.setText("");
 	}
 
 	private Request request(){
@@ -95,16 +84,17 @@ class FunctionsPanel extends Panel{
 		return request;
 	}
 
-	private Request validatedRequest(Request request){
-		InputValidator validator = new InputValidator();
+	private Request calculatedRequest(){
+		Request request = errorVerifier.checkedInput(textArea.getText());
 		Request result;
-		if(!validator.isValidInput(textArea.getText())){
-			gui.inputErrorMessage(validator.invalidInput());
-			result = new Request("Invalid Input");
-		} else {
+
+		if(!request.input().equals("Invalid Input")){
 			result = answerInvoker.answer(request);
 			textArea.setText(result.input());
+		} else {
+			result = request;
 		}
+
 		return result;
 	}
 }
