@@ -15,7 +15,6 @@ class HistoryPanel extends AccessoryPanel{
 	public HistoryPanel(JLabel label, UserCache cache){
 		super();
 		this.label = label;
-
 		this.cache = cache;
 		createPanel();
 	}
@@ -27,7 +26,7 @@ class HistoryPanel extends AccessoryPanel{
 
 	private void createPanel(){
 		textField = new JTextField();
-		label.setHorizontalAlignment(JLabel.CENTER);
+		setLabel();
 		setButtons();
 		BorderLayout layout = new BorderLayout(2, 1);
 		setLayout(layout);
@@ -40,6 +39,11 @@ class HistoryPanel extends AccessoryPanel{
 		back.setName("Back");
 		next = new JButton(">");
 		next.setName("Next");
+	}
+
+	private void setLabel(){
+		label.setHorizontalAlignment(JLabel.CENTER);
+		label.setFont(new Font("TimesRoman", Font.BOLD, 16));
 	}
 
 	private void addComponents(){
