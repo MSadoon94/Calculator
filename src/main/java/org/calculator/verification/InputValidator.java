@@ -17,7 +17,8 @@ class InputValidator {
 	}
 
 	public boolean isValidDecimalPosition(String position){
-		Matcher integerMatcher = Pattern.compile("[^\\d\\s]+").matcher(position);
-		return !integerMatcher.find();
+		Matcher nonInteger = Pattern.compile("[^\\d\\s]+").matcher(position);
+		boolean isInputValid = !nonInteger.find();
+		return isInputValid;
 	}
 }

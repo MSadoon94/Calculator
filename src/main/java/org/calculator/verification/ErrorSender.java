@@ -14,23 +14,27 @@ class ErrorSender implements Verifier {
 
 	public Request checkedInput(String input){
 		Request result;
+
 		if (validator.isValidInput(input)){
 			result = new Request(input);
 		} else {
 			gui.inputErrorMessage(validator.invalidInput());
 			result = new Request("Invalid Input");
 		}
+
 		return result;
 	}
 
 	public int checkDecimalInput(String input){
 		int position;
-		if(!validator.isValidDecimalPosition(input)){
+
+		if(validator.isValidDecimalPosition(input)){
+			position = Integer.parseInt(input);
+		} else {
 			gui.decimalPositionError();
 			position = 2;
-		} else {
-			position = Integer.parseInt(input);
 		}
+
 		return position;
 	}
 }

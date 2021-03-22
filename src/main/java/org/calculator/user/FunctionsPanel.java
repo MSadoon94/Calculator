@@ -57,11 +57,9 @@ class FunctionsPanel extends Panel{
 		decimalPositionButton.addActionListener(e -> decimal());
 	}
 
-
-
 	private void calculate(){
 			Request request = request();
-			Request result = calculatedRequest();
+			Request result = calculatedRequest(request);
 			observer.update(request, result);
 	}
 
@@ -78,14 +76,12 @@ class FunctionsPanel extends Panel{
 	}
 
 	private Request request(){
-		String validated = textArea.getText().strip();
-		Request request = new Request(validated);
+		Request request = errorVerifier.checkedInput(textArea.getText().trim());
 		request.setDecimalPosition(position);
 		return request;
 	}
 
-	private Request calculatedRequest(){
-		Request request = errorVerifier.checkedInput(textArea.getText().trim());
+	private Request calculatedRequest(Request request){
 		Request result;
 
 		if(!request.input().equals("Invalid Input")){
