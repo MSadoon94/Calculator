@@ -15,8 +15,6 @@ class EntryPanel extends Panel implements CompositePanel {
 		panel = new JPanel();
 		setPanels(aErrorVerifier, invoker, observer);
 		addPanels(groupLayout());
-
-		textArea.setText("test2");
 	}
 
 	public JPanel panel(){

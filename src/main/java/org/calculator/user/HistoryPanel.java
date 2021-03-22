@@ -12,10 +12,11 @@ class HistoryPanel extends AccessoryPanel{
 	private JLabel label;
 	private UserCache cache;
 
-	public HistoryPanel(JLabel label, UserCache cache){
+	public HistoryPanel(JLabel aLabel, UserCache aCache){
 		super();
-		this.label = label;
-		this.cache = cache;
+		label = aLabel;
+		setName(label.getText());
+		cache = aCache;
 		createPanel();
 	}
 

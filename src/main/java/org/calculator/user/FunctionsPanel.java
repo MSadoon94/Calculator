@@ -85,7 +85,7 @@ class FunctionsPanel extends Panel{
 	}
 
 	private Request calculatedRequest(){
-		Request request = errorVerifier.checkedInput(textArea.getText());
+		Request request = errorVerifier.checkedInput(textArea.getText().trim());
 		Request result;
 
 		if(!request.input().equals("Invalid Input")){
