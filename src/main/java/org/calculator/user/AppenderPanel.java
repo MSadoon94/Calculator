@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 class AppenderPanel extends Panel {
-	private JPanel numeralPanel, symbolPanel, mixedPanel;
+	private JPanel numeralPanel, operationPanel, mixedPanel;
 
 	public AppenderPanel(){
 		createPanel();
@@ -19,47 +19,42 @@ class AppenderPanel extends Panel {
 
 	private void setSubPanels(){
 		numeralPanel = new JPanel(new GridLayout(3, 4, 2, 1));
-		symbolPanel = new JPanel(new GridLayout(4, 2, 2, 1));
+		operationPanel = new JPanel(new GridLayout(4, 2, 2, 1));
 		mixedPanel = new JPanel(new GridLayout(1, 2, 2, 1));
 	}
 
 	private void setButtons(){
-		setSymbolButtons();
+		String[] operations = {"(", ")", "^", "√", "+", "-", "*", "/",};
+		String[] mixed = {"0", "."};
+		setSymbolButtons(operationPanel, operations);
 		setNumericalButtons();
-		setMixedButtons();
+		setSymbolButtons(mixedPanel, mixed);
 
 	}
 
 	private void setNumericalButtons(){
 		for (int i = 9; i >= 1; i--){
 			JButton button = new JButton(String.valueOf(i));
+			button.setFont(new Font("TimesRoman", Font.BOLD, 14));
 			numeralPanel.add(button);
 			setActionListener(button);
 		}
 	}
 
-	private void setSymbolButtons(){
-		String[] symbols = {"(", ")", "^", "√", "+", "-", "*", "/",};
-		for (String symbol : symbols) {
-			JButton button = new JButton(symbol);
-			symbolPanel.add(button);
-			setActionListener(button);
-		}
-	}
-
-	private void setMixedButtons(){
-		String[] mixed = {"0", "."};
-		for (String value : mixed) {
+	private void setSymbolButtons(JPanel panel, String[] symbols){
+		for (String value : symbols) {
 			JButton button = new JButton(value);
-			mixedPanel.add(button);
+			button.setFont(new Font("TimesRoman", Font.BOLD, 14));
+			panel.add(button);
 			setActionListener(button);
 		}
+
 	}
 
 	private void addComponents(){
 		add(numeralPanel, BorderLayout.CENTER);
 		add(mixedPanel, BorderLayout.SOUTH);
-		add(symbolPanel, BorderLayout.EAST);
+		add(operationPanel, BorderLayout.EAST);
 	}
 
 	private void setActionListener(JButton button){
