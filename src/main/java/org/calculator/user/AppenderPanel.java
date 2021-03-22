@@ -5,12 +5,8 @@ import java.awt.*;
 
 class AppenderPanel extends Panel {
 	private JPanel numeralPanel, symbolPanel, mixedPanel;
-	private ButtonGroup buttons = new ButtonGroup();
-	private JButton[] numericalButtons = new JButton[10];
-	private JButton[] symbolButtons, mixedButtons;
 
 	public AppenderPanel(){
-		textArea.setText("test");
 		createPanel();
 	}
 
@@ -19,8 +15,6 @@ class AppenderPanel extends Panel {
 		setLayout(new BorderLayout());
 		setButtons();
 		addComponents();
-		setActionListener();
-
 	}
 
 	private void setSubPanels(){
@@ -33,37 +27,32 @@ class AppenderPanel extends Panel {
 		setSymbolButtons();
 		setNumericalButtons();
 		setMixedButtons();
-		buttons.getElements()
-				.asIterator()
-				.forEachRemaining(button ->
-						button.setFont(new Font("TimesRoman", Font.BOLD, 14)));
+
 	}
 
 	private void setNumericalButtons(){
 		for (int i = 9; i >= 1; i--){
-			numericalButtons[i] = new JButton(String.valueOf(i));
-			buttons.add(numericalButtons[i]);
-			numeralPanel.add(numericalButtons[i]);
+			JButton button = new JButton(String.valueOf(i));
+			numeralPanel.add(button);
+			setActionListener(button);
 		}
 	}
 
 	private void setSymbolButtons(){
 		String[] symbols = {"(", ")", "^", "√", "+", "-", "*", "/",};
-		symbolButtons = new JButton[symbols.length];
-		for (int i = 0; i < symbolButtons.length; i++){
-			symbolButtons[i] = new JButton(symbols[i]);
-			buttons.add(symbolButtons[i]);
-			symbolPanel.add(symbolButtons[i]);
+		for (String symbol : symbols) {
+			JButton button = new JButton(symbol);
+			symbolPanel.add(button);
+			setActionListener(button);
 		}
 	}
 
 	private void setMixedButtons(){
 		String[] mixed = {"0", "."};
-		mixedButtons = new JButton[mixed.length];
-		for(int i = 0; i < mixed.length; i++){
-			mixedButtons[i] = new JButton(mixed[i]);
-			buttons.add(mixedButtons[i]);
-			mixedPanel.add(mixedButtons[i]);
+		for (String value : mixed) {
+			JButton button = new JButton(value);
+			mixedPanel.add(button);
+			setActionListener(button);
 		}
 	}
 
@@ -71,18 +60,14 @@ class AppenderPanel extends Panel {
 		add(numeralPanel, BorderLayout.CENTER);
 		add(mixedPanel, BorderLayout.SOUTH);
 		add(symbolPanel, BorderLayout.EAST);
-
 	}
 
-	private void setActionListener(){
-		buttons.getElements()
-				.asIterator()
-				.forEachRemaining(button -> button.addActionListener(e -> appendTextArea(button)));
+	private void setActionListener(JButton button){
+		button.addActionListener(e -> appendTextArea(button));
 	}
 
-	private void appendTextArea(AbstractButton button){
+	private void appendTextArea(JButton button){
 		textArea.append(button.getText());
 	}
-
 
 }

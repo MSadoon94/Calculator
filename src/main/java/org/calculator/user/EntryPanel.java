@@ -4,15 +4,19 @@ import org.calculator.processing.Invoker;
 import org.calculator.verification.Verifier;
 
 import javax.swing.*;
+import java.util.Arrays;
 
 class EntryPanel extends Panel implements CompositePanel {
 	private JPanel panel;
 	private Panel appender, eraser, functions;
 
 	public EntryPanel(Verifier aErrorVerifier, Invoker invoker, Observer observer){
+		textArea = new JTextArea();
 		panel = new JPanel();
 		setPanels(aErrorVerifier, invoker, observer);
 		addPanels(groupLayout());
+
+		textArea.setText("test2");
 	}
 
 	public JPanel panel(){
@@ -22,7 +26,8 @@ class EntryPanel extends Panel implements CompositePanel {
 		appender = new AppenderPanel();
 		eraser = new EraserPanel();
 		functions = new FunctionsPanel(aErrorVerifier, invoker, observer);
-
+		Panel[] panels = {appender, eraser, functions};
+		Arrays.stream(panels).forEach(aPanel -> aPanel.setTextArea(textArea));
 	}
 
 	private void addPanels(GroupLayout layout){
