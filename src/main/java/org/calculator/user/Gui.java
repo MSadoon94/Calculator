@@ -2,40 +2,27 @@ package org.calculator.user;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 
 class Gui implements Ui {
 
 	private JPanel mainPanel;
-	private JTextArea textArea;
 	private JFrame frame;
 	private GridBagLayout layout;
 	private GridBagConstraints gbc;
-	private HashMap<String, Panel> panels = new HashMap<>();
 
 	public Gui(JFrame frame){
 		this.frame = frame;
 		setLayout();
 		mainPanel = new JPanel(layout);
-		createTextArea();
 		frame.add(mainPanel);
 		frame.setContentPane(mainPanel);
+
 	}
 
-	public void setPanels(Panel panel){
-		panels.put(panel.getName(), panel);
-	}
-
-	public void addPanelsToMainPanel(){
-		addComponent(panels.get("InputHistory"), 0,0,1,1);
-		addComponent(panels.get("AnswerHistory"), 1,0,1,1);
-		addComponent(textArea, 0,2, 2, 1);
-		addComponent(panels.get("Appender"), 0, 3 ,1, 2);
-		addComponent(panels.get("Functions"), 1,3,1,2);
-	}
-
-	public JTextArea textArea(){
-		return textArea;
+	public void addPanels(Panel inputHistory, Panel answerHistory, CompositePanel entryPanel){
+		addComponent(inputHistory, 1, 0, 0,0,1,1);
+		addComponent(answerHistory, 1, 0, 1,0,1,1);
+		addComponent(entryPanel.panel(),2, 2, 0,1,2,2);
 	}
 
 	public void inputErrorMessage(String invalidInput){
@@ -55,21 +42,17 @@ class Gui implements Ui {
 				JOptionPane.ERROR_MESSAGE
 		);
 	}
-
-	private void createTextArea() {
-		textArea = new JTextArea();
-		textArea.setLineWrap(true);
-	}
 	
 	private void setLayout(){
 		layout =  new GridBagLayout();
 		gbc = new GridBagConstraints();
+		gbc.insets = new Insets(0, 2, 0, 2);
 		gbc.fill = GridBagConstraints.BOTH;
 	}
 
-	private void addComponent(Component component, int gridX, int gridY, int gridWidth, int gridHeight){
-		gbc.weightx = 1;
-		gbc.weighty = 1;
+	private void addComponent(Component component, int weightX, int weightY, int gridX, int gridY, int gridWidth, int gridHeight){
+		gbc.weightx = weightX;
+		gbc.weighty = weightY;
 
 		gbc.gridx = gridX;
 		gbc.gridy = gridY;

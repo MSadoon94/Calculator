@@ -13,7 +13,8 @@ class RequestUtility {
 
 	protected long amountOfOperators(Request request){
 		return Arrays.stream(Operations.values())
-				.filter(operation -> request.input.contains(operation.symbol()))
+				.map(Operations::symbol)
+				.filter(request.input::contains)
 				.count();
 	}
 

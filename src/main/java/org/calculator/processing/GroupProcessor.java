@@ -6,28 +6,23 @@ import org.calculator.extraction.ExtractorUtilities;
 
 public class GroupProcessor {
 	private ExtractorUtilities extractor;
-	private String innerGroup;
-	private String answer = "";
-	private String targetGroup;
 
 	public GroupProcessor(ExtractorUtilities extractorUtilities){
 		this.extractor = extractorUtilities;
 	}
-	public String answer(String targetGroup) {
-		this.targetGroup = targetGroup;
-		Request targetRequest = extractor.extraction(new Request(targetGroup));
-		innerGroup = targetRequest.getInnerGroup();
-		if (extractor.amountOfGroups(targetRequest) > 0) {
-			processInnerGroup();
+
+	public Request answer(Request aRequest){
+		Request targetRequest = extractor.extraction(aRequest);
+		if (extractor.amountOfGroups(aRequest) > 0){
+			aRequest = processInnerGroup(targetRequest);
 		}
 		OperationSequencer sequencer = new OperationSequencer(new ExtractionController().multiOperatorExtractor());
-		answer = sequencer.answer(targetGroup);
-		return answer;
+		return sequencer.answer(aRequest);
 	}
 
-	private void processInnerGroup() {
+	private Request processInnerGroup(Request aRequest) {
 		GroupProcessor secondaryProcessor = new GroupProcessor(extractor);
-		String secondaryAnswer = secondaryProcessor.answer(innerGroup);
-		targetGroup = targetGroup.replace(innerGroup, secondaryAnswer);
+		Request subRequest = secondaryProcessor.answer(new Request(aRequest.getInnerGroup()));
+		return new Request(aRequest.input().replace(aRequest.getInnerGroup(), subRequest.input()));
 	}
 }

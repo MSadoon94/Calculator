@@ -1,61 +1,68 @@
 package org.calculator.user;
 
-import org.calculator.common.Request;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.util.function.Consumer;
 
 class AppenderPanel extends Panel {
-	private JTextArea textArea;
-	private ButtonGroup buttons = new ButtonGroup();
-	private JButton[] numericalButtons = new JButton[10];
-	private JButton[] symbolButtons;
+	private JPanel numeralPanel, operationPanel, mixedPanel;
 
-	public AppenderPanel(Ui gui){
-		super();
-		textArea = gui.textArea();
+	public AppenderPanel(){
 		createPanel();
 	}
 
 	private void createPanel(){
-		setSymbolButtons();
-		setNumericalButtons();
-		this.setLayout(new GridLayout(0,4));
+		setSubPanels();
+		setLayout(new BorderLayout());
+		setButtons();
 		addComponents();
-		setActionListener();
+	}
+
+	private void setSubPanels(){
+		numeralPanel = new JPanel(new GridLayout(3, 4, 2, 1));
+		operationPanel = new JPanel(new GridLayout(4, 2, 2, 1));
+		mixedPanel = new JPanel(new GridLayout(1, 2, 2, 1));
+	}
+
+	private void setButtons(){
+		String[] operations = {"(", ")", "^", "√", "+", "-", "*", "/",};
+		String[] mixed = {"0", "."};
+		setSymbolButtons(operationPanel, operations);
+		setNumericalButtons();
+		setSymbolButtons(mixedPanel, mixed);
+
 	}
 
 	private void setNumericalButtons(){
-		for (int i = 0; i < numericalButtons.length; i++){
-			numericalButtons[i] = new JButton(String.valueOf(i));
-			buttons.add(numericalButtons[i]);
+		for (int i = 9; i >= 1; i--){
+			JButton button = new JButton(String.valueOf(i));
+			button.setFont(new Font("TimesRoman", Font.BOLD, 14));
+			numeralPanel.add(button);
+			setActionListener(button);
 		}
 	}
 
-	private void setSymbolButtons(){
-		String[] symbols = {"+", "-", "*", "/", ".", "(", ")", "^", "√"};
-		symbolButtons = new JButton[symbols.length];
-		for (int i = 0; i < symbolButtons.length; i++){
-			symbolButtons[i] = new JButton(symbols[i]);
-			buttons.add(symbolButtons[i]);
+	private void setSymbolButtons(JPanel panel, String[] symbols){
+		for (String value : symbols) {
+			JButton button = new JButton(value);
+			button.setFont(new Font("TimesRoman", Font.BOLD, 14));
+			panel.add(button);
+			setActionListener(button);
 		}
+
 	}
 
 	private void addComponents(){
-		buttons.getElements().asIterator().forEachRemaining(
-				this::add
-		);
+		add(numeralPanel, BorderLayout.CENTER);
+		add(mixedPanel, BorderLayout.SOUTH);
+		add(operationPanel, BorderLayout.EAST);
 	}
 
-	private void setActionListener(){
-		buttons.getElements()
-				.asIterator()
-				.forEachRemaining(button -> button.addActionListener(e -> appendTextArea(button)));
+	private void setActionListener(JButton button){
+		button.addActionListener(e -> appendTextArea(button));
 	}
 
-	private void appendTextArea(AbstractButton button){
+	private void appendTextArea(JButton button){
 		textArea.append(button.getText());
 	}
+
 }

@@ -12,10 +12,11 @@ class HistoryPanel extends AccessoryPanel{
 	private JLabel label;
 	private UserCache cache;
 
-	public HistoryPanel(JLabel label, UserCache cache){
+	public HistoryPanel(JLabel aLabel, UserCache aCache){
 		super();
-		this.label = label;
-		this.cache = cache;
+		label = aLabel;
+		setName(label.getText());
+		cache = aCache;
 		createPanel();
 	}
 
@@ -25,13 +26,21 @@ class HistoryPanel extends AccessoryPanel{
 	}
 
 	private void createPanel(){
-		textField = new JTextField();
+		setTextField();
+		setLabel();
 		setButtons();
-		this.setLayout(new BorderLayout());
+		BorderLayout layout = new BorderLayout(2, 1);
+		setLayout(layout);
 		addComponents();
 		setActionListener();
 	}
 
+	private void setTextField(){
+		textField = new JTextField();
+		textField.setEditable(false);
+		textField.setBackground(Color.white);
+		textField.setFont(new Font("TimesRoman", Font.BOLD, 14));
+	}
 	private void setButtons(){
 		back = new JButton("<");
 		back.setName("Back");
@@ -39,11 +48,16 @@ class HistoryPanel extends AccessoryPanel{
 		next.setName("Next");
 	}
 
+	private void setLabel(){
+		label.setHorizontalAlignment(JLabel.CENTER);
+		label.setFont(new Font("TimesRoman", Font.BOLD, 16));
+	}
+
 	private void addComponents(){
-		this.add(label, BorderLayout.NORTH);
-		this.add(textField, BorderLayout.CENTER);
-		this.add(back, BorderLayout.WEST);
-		this.add(next, BorderLayout.EAST);
+		add(label, BorderLayout.NORTH);
+		add(textField, BorderLayout.CENTER);
+		add(back, BorderLayout.WEST);
+		add(next, BorderLayout.EAST);
 	}
 
 	private void setActionListener(){

@@ -6,63 +6,64 @@ import org.calculator.processing.Invoker;
 import org.calculator.processing.ProcessorBoundary;
 import org.calculator.processing.ProcessorController;
 import org.calculator.user.*;
+import org.calculator.verification.VerificationBoundary;
+import org.calculator.verification.VerificationController;
+import org.calculator.verification.Verifier;
 
 import javax.swing.*;
-import java.util.stream.Stream;
 
 public class ComponentCreator {
 	private ProcessorBoundary processorBoundary = new ProcessorController();
 	private ExtractionBoundary extractionBoundary = new ExtractionController();
+	private VerificationBoundary verificationBoundary = new VerificationController();
 	private UserBoundary userBoundary = new UserController();
+	private Verifier errorSender;
 	private Invoker answerInvoker;
 	private AccessoryPanel inputHistory, answerHistory;
-	private Panel appender, functions;
+	private CompositePanel entryPanel;
+	private JFrame frame;
 
 
-	public ComponentCreator(){
+	public ComponentCreator() {
 		answerInvoker = processorBoundary.answerInvoker(extractionBoundary.groupExtractor());
-		createGui();
+		frame = new JFrame("Gui");
+		Ui gui = userBoundary.gui(frame);
+		errorSender = verificationBoundary.errorSender(gui);
+		addGuiDependencies(gui);
+		frame();
 	}
 
-	private Ui createGui() {
-		JFrame frame = new JFrame("Gui");
-		Ui gui = userBoundary.gui(frame);
-		addGuiDependencies(gui);
+	private JFrame frame(){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
-		frame.setSize(500,600);
+		frame.setSize(500, 600);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
-		return gui;
+		return frame;
 	}
 
-	private void addGuiDependencies(Ui gui){
-		panelStream( gui).forEach(gui::setPanels);
-		gui.addPanelsToMainPanel();
+	private void addGuiDependencies(Ui gui) {
+
+		createPanels();
+		gui.addPanels(inputHistory, answerHistory, entryPanel);
 	}
 
-	private Stream<Panel> panelStream(Ui gui){
+	private void createPanels() {
 		inputHistory = historyPanel(new JLabel("Input History"));
 		answerHistory = historyPanel(new JLabel("Answer History"));
 
 		Observer historyObserver = userBoundary.historyObserver(inputHistory, answerHistory);
 
-		appender = userBoundary.textAppendingPanel(gui);
-		functions = userBoundary.textFunctionPanel(gui, answerInvoker, historyObserver);
+		entryPanel = userBoundary.entryPanel(
+				errorSender,
+				answerInvoker,
+				historyObserver);
 
-		return namedPanels();
 	}
 
-	private AccessoryPanel historyPanel(JLabel label){
-		return userBoundary.historyPanel(label, userBoundary.userCache());
-	}
-
-	private Stream<Panel> namedPanels(){
-		inputHistory.setName("InputHistory");
-		answerHistory.setName("AnswerHistory");
-		appender.setName("Appender");
-		functions.setName("Functions");
-
-		return Stream.of(inputHistory, answerHistory, appender, functions);
+	private AccessoryPanel historyPanel(JLabel label) {
+		AccessoryPanel panel = userBoundary.historyPanel(label, userBoundary.userCache());
+		panel.setName(label.getText());
+		return panel;
 	}
 }

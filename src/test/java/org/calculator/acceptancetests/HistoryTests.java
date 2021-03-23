@@ -54,8 +54,8 @@ public class HistoryTests{
 	}
 
 	private void setPanels(){
-		inputPanel = new JComponentOperator(frame, new NameComponentChooser("InputHistory"), 0);
-		answerPanel = new JComponentOperator(frame, new NameComponentChooser("AnswerHistory"), 0);
+		inputPanel = new JComponentOperator(frame, new NameComponentChooser("Input History"), 0);
+		answerPanel = new JComponentOperator(frame, new NameComponentChooser("Answer History"), 0);
 	}
 
 	private void setButtons(){
