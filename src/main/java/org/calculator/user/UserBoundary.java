@@ -1,6 +1,7 @@
 package org.calculator.user;
 
 import org.calculator.processing.Invoker;
+import org.calculator.verification.Verifier;
 
 import javax.swing.*;
 
@@ -9,6 +10,5 @@ public interface UserBoundary {
 	UserCache userCache();
 	HistoryPanel historyPanel(JLabel label, UserCache cache);
 	Observer historyObserver(AccessoryPanel inputHistory, AccessoryPanel answerHistory);
-	AppenderPanel textAppendingPanel(Ui gui);
-	FunctionsPanel textFunctionPanel(Ui gui, Invoker answerInvoker, Observer historyObserver);
+	CompositePanel entryPanel(Verifier aErrorMessenger, Invoker answerInvoker, Observer historyObserver);
 }

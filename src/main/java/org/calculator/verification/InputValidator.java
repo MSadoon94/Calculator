@@ -1,4 +1,4 @@
-package org.calculator.user;
+package org.calculator.verification;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,7 +8,7 @@ class InputValidator {
 	public boolean isValidInput(String input) {
 		String divisionByZero = "[\\d]+/0";
 		String validCharacters = "[^\\d\\s+\\-*/%().^√]+";
-		this.matcher = Pattern.compile(divisionByZero + "|" + validCharacters).matcher(input);
+		matcher = Pattern.compile(divisionByZero + "|" + validCharacters).matcher(input);
 		return !matcher.find();
 	}
 
@@ -17,7 +17,8 @@ class InputValidator {
 	}
 
 	public boolean isValidDecimalPosition(String position){
-		Matcher integerMatcher = Pattern.compile("[^\\d\\s]+").matcher(position);
-		return !integerMatcher.find();
+		Matcher nonInteger = Pattern.compile("[^\\d\\s]+").matcher(position);
+		boolean isInputValid = !nonInteger.find();
+		return isInputValid;
 	}
 }
