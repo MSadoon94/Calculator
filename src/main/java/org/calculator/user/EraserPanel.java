@@ -19,6 +19,9 @@ public class EraserPanel extends Panel {
 	private void setButtons(){
 		clearButton = new JButton("C");
 		backspaceButton = new JButton("←");
+
+		clearButton.setFont(new Font("TimesRoman", Font.BOLD, 14));
+		backspaceButton.setFont(new Font("TimesRoman", Font.BOLD, 14));
 	}
 	
 	private void addComponents(){

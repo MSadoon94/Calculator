@@ -4,6 +4,7 @@ import org.calculator.processing.Invoker;
 import org.calculator.verification.Verifier;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Arrays;
 
 class EntryPanel extends Panel implements CompositePanel {
@@ -11,7 +12,7 @@ class EntryPanel extends Panel implements CompositePanel {
 	private Panel appender, eraser, functions;
 
 	public EntryPanel(Verifier aErrorVerifier, Invoker invoker, Observer observer){
-		textArea = new JTextArea();
+		createTextArea();
 		panel = new JPanel();
 		setPanels(aErrorVerifier, invoker, observer);
 		addPanels(groupLayout());
@@ -19,6 +20,11 @@ class EntryPanel extends Panel implements CompositePanel {
 
 	public JPanel panel(){
 		return panel;
+	}
+
+	private void createTextArea(){
+		textArea = new JTextArea();
+		textArea.setFont(new Font("TimesRoman", Font.PLAIN, 30));
 	}
 	private void setPanels(Verifier aErrorVerifier, Invoker invoker, Observer observer){
 		appender = new AppenderPanel();

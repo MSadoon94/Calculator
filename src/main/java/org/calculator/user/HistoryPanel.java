@@ -26,7 +26,7 @@ class HistoryPanel extends AccessoryPanel{
 	}
 
 	private void createPanel(){
-		textField = new JTextField();
+		setTextField();
 		setLabel();
 		setButtons();
 		BorderLayout layout = new BorderLayout(2, 1);
@@ -35,6 +35,12 @@ class HistoryPanel extends AccessoryPanel{
 		setActionListener();
 	}
 
+	private void setTextField(){
+		textField = new JTextField();
+		textField.setEditable(false);
+		textField.setBackground(Color.white);
+		textField.setFont(new Font("TimesRoman", Font.BOLD, 14));
+	}
 	private void setButtons(){
 		back = new JButton("<");
 		back.setName("Back");

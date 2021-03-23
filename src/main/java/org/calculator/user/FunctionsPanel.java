@@ -36,6 +36,10 @@ class FunctionsPanel extends Panel{
 		equalsButton = new JButton("=");
 		percentageButton = new JButton("%");
 		decimalPositionButton = new JButton("Decimal Position");
+
+		equalsButton.setFont(new Font("TimesRoman", Font.BOLD, 14));
+		percentageButton.setFont(new Font("TimesRoman", Font.BOLD, 14));
+		decimalPositionButton.setFont(new Font("TimesRoman", Font.BOLD, 14));
 	}
 
 	private void setButtonArray(){
