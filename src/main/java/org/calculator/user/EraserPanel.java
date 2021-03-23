@@ -40,6 +40,8 @@ public class EraserPanel extends Panel {
 
 	private void backspace(){
 		String text = textArea.getText();
-		textArea.setText(text.substring(0, text.length() - 1));
+		if(!text.isBlank()){
+			textArea.setText(text.substring(0, text.length() - 1));
+		}
 	}
 }
