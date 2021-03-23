@@ -63,8 +63,10 @@ class FunctionsPanel extends Panel{
 
 	private void calculate(){
 			Request request = request();
-			Request result = calculatedRequest(request);
-			observer.update(request, result);
+			if(!request.input().isBlank()) {
+				Request result = calculatedRequest(request);
+				observer.update(request, result);
+			}
 	}
 
 	private void percentage(){
