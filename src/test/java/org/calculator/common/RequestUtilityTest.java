@@ -41,4 +41,11 @@ public class RequestUtilityTest {
 
 		assertThat(utility.operatorList(request), is(allOf(iterableWithSize(1), hasItem(Operations.SUBTRACTION))));
 	}
+
+	@Test
+	void shouldCountAmountOfNumbersBeforeOrAfterFirstDigit(){
+		Request request = new Request("2431");
+
+		assertThat(request.scientificNotation(), containsString("3"));
+	}
 }

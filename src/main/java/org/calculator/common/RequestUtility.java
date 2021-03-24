@@ -24,6 +24,14 @@ class RequestUtility {
 				.collect(Collectors.toList());
 	}
 
+	protected String scientificNotation(String input){
+		String secondDigit = input.substring(1);
+
+		int digits = secondDigit.length();
+
+		return String.valueOf(digits);
+	}
+
 	private String[] splitInput(Request request){
 		return Arrays.stream(request.input.split(Pattern.quote(request.operation.symbol())))
 				.filter(value -> (value != null && value.length() > 0))
@@ -40,6 +48,7 @@ class RequestUtility {
 		}
 		return bigDecimals;
 	}
+
 
 
 }
