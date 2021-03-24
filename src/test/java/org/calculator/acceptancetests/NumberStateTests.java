@@ -4,6 +4,7 @@ import org.calculator.common.TestHelper;
 import org.calculator.control.ComponentCreator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.netbeans.jemmy.operators.JButtonOperator;
@@ -30,29 +31,34 @@ public class NumberStateTests {
 		void setUp(){
 			new ComponentCreator();
 			setAnswers();
+			setOperators();
 		}
 
-		@DisplayName("Number State Tests")
-		@ParameterizedTest(name = "{index} ==> {0}")
-		@CsvSource({
-				"WhenUserSpecifiesDecimalPosition_ThenResultWillHaveDecimalInSpecifiedPosition, 4.5234",
-				"WhenUserSpecifiesScientificNotation_ThenResultWillBeConvertedToScientificNotation, 6543.21"
-		})
-		void testingFixture(String test, String aInput){
-			//Test variable is used to report name in test results
-			input = aInput;
-			setOperators();
-			startInputtingRequest();
+		@Test
+		void WhenUserSpecifiesDecimalPosition_ThenResultWillHaveDecimalInSpecifiedPosition(){
+			input = TestHelper.DECIMAL.input();
+			textArea.enterText(String.valueOf(decimalPosition()));
+			decimalPositionButton.push();
+			textArea.enterText(input);
+			equalsButton.push();
 			hasDisplayedAnswer();
-			frame.getWindow().dispose();
 		}
+
+		@Test
+		void WhenUserRequestsScientificNotation_ThenResultWillBeConvertedToScientificNotation(){
+			input = TestHelper.NOTATION.input();
+			textArea.enterText(input);
+			notationButton.push();
+			hasDisplayedAnswer();
+		}
+
 
 		private void setOperators(){
 			frame = new JFrameOperator();
 			textArea = new JTextAreaOperator(frame);
 			equalsButton = new JButtonOperator(frame, "=");
 			decimalPositionButton = new JButtonOperator(frame, "Decimal Position");
-			notationButton = new JButtonOperator(frame, "Scientific Notation");
+			notationButton = new JButtonOperator(frame, "Notation");
 		}
 
 		private void setAnswers(){
@@ -62,14 +68,6 @@ public class NumberStateTests {
 			}
 
 		}
-
-		protected void startInputtingRequest(){
-			textArea.enterText(String.valueOf(decimalPosition()));
-			decimalPositionButton.push();
-			textArea.enterText(input);
-			equalsButton.push();
-		}
-
 
 		private int decimalPosition(){
 			int position = 2;

@@ -67,7 +67,7 @@ public class ArithmeticTests {
 
 	}
 
-	protected void startInputtingRequest(){
+	private void startInputtingRequest(){
 		textArea.enterText(input);
 		equalsButton.push();
 	}
