@@ -48,4 +48,11 @@ public class RequestUtilityTest {
 
 		assertThat(request.scientificNotation(), containsString("3"));
 	}
+
+	@Test
+	void shouldAddScientificNotationSuffix(){
+		Request request = new Request("2431");
+
+		assertThat(request.scientificNotation(), containsString("*10^3"));
+	}
 }
