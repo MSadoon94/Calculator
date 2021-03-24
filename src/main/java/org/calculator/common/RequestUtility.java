@@ -25,11 +25,39 @@ class RequestUtility {
 	}
 
 	protected String scientificNotation(String input){
-		String secondDigit = input.substring(1);
+		String result;
+		if (input.contains(".")){
+			result = notation(input.split("\\."));
+		} else {
+			result = notation(input);
+		}
+		return result;
+	}
 
+	private String notation(String[] input){
+		int offset = input[1].length();
+		String preNotation = input[0] + input[1];
+		String secondDigit = preNotation.substring(1);
+
+		int digits = secondDigit.length() - offset;
+
+
+		return preNotation.charAt(0) + "." + zerosRemoved(secondDigit) + "*10^" + digits;
+	}
+
+	private String notation(String input){
+		String secondDigit = input.substring(1);
 		int digits = secondDigit.length();
 
-		return input.charAt(0) + "." + secondDigit + "*10^" + digits;
+		return input.charAt(0) + "." + zerosRemoved(secondDigit) + "*10^" + digits;
+	}
+
+	private String zerosRemoved(String input){
+		String result = input;
+		while(result.endsWith("0")){
+			result = result.substring(0, result.length() - 1);
+		}
+		return result;
 	}
 
 	private String[] splitInput(Request request){

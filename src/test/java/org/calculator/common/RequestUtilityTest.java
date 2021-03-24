@@ -44,7 +44,7 @@ public class RequestUtilityTest {
 
 	@Test
 	void shouldConvertRequestInputToScientificNotation(){
-		Request request = new Request("2431");
+		Request request = new Request("2431.00");
 
 		assertThat(request.scientificNotation(), is("2.431*10^3"));
 	}
