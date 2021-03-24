@@ -43,16 +43,9 @@ public class RequestUtilityTest {
 	}
 
 	@Test
-	void shouldCountAmountOfNumbersBeforeOrAfterFirstDigit(){
+	void shouldConvertRequestInputToScientificNotation(){
 		Request request = new Request("2431");
 
-		assertThat(request.scientificNotation(), containsString("3"));
-	}
-
-	@Test
-	void shouldAddScientificNotationSuffix(){
-		Request request = new Request("2431");
-
-		assertThat(request.scientificNotation(), containsString("*10^3"));
+		assertThat(request.scientificNotation(), is("2.431*10^3"));
 	}
 }
