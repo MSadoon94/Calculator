@@ -29,7 +29,7 @@ class RequestUtility {
 
 		int digits = secondDigit.length();
 
-		return String.valueOf(digits);
+		return input.substring(0, 0) + "." + secondDigit + "*10^" + digits;
 	}
 
 	private String[] splitInput(Request request){
