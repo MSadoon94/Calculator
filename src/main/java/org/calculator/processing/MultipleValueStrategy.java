@@ -3,8 +3,11 @@ package org.calculator.processing;
 import org.calculator.common.Operations;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.HashMap;
 import java.util.function.BiFunction;
+
+import ch.obermuhlner.math.big.BigDecimalMath;
 
 public class MultipleValueStrategy implements OperationStrategy {
 	private HashMap<Operations, BiFunction<BigDecimal, BigDecimal, BigDecimal>> bigDecimalOperations = new HashMap<>();
@@ -31,6 +34,6 @@ public class MultipleValueStrategy implements OperationStrategy {
 		bigDecimalOperations.put(Operations.EXPONENT, this::exponentiation);
 	}
 	private BigDecimal exponentiation(BigDecimal base, BigDecimal exponent){
-		return base.pow(exponent.intValue());
+		return BigDecimalMath.pow(base, exponent, MathContext.DECIMAL32);
 	}
 }
