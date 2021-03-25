@@ -19,6 +19,10 @@ public class Request extends RequestUtility{
 		return input;
 	}
 
+	public String scientificNotation(){
+		return scientificNotation(input);
+	}
+
 	public void setOperation(Operations operation){
 		this.operation = operation;
 	}
@@ -52,5 +56,7 @@ public class Request extends RequestUtility{
 	public List<Operations> operators(){
 		return operatorList(this);
 	}
+
+
 
 }

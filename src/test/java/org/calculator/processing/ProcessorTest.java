@@ -18,7 +18,7 @@ public class ProcessorTest {
 	private ExtractorUtilities extractor = new ExtractionController().groupExtractor();
 
 	@ParameterizedTest(name = "{index} ==> {0}")
-	@EnumSource(mode = EnumSource.Mode.EXCLUDE, names = {"DECIMAL"})
+	@EnumSource(mode = EnumSource.Mode.EXCLUDE, names = {"DECIMAL", "NOTATION"})
 	void shouldCalculateAnswerForSpecificOperationWhenRequestIsReceived(TestHelper helper){
 		Request request = new Request(helper.input());
 		Processor processor = new Processor(request, extractor);

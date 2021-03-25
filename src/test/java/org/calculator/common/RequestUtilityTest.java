@@ -41,4 +41,11 @@ public class RequestUtilityTest {
 
 		assertThat(utility.operatorList(request), is(allOf(iterableWithSize(1), hasItem(Operations.SUBTRACTION))));
 	}
+
+	@Test
+	void shouldConvertRequestInputToScientificNotation(){
+		Request request = new Request("2431.00");
+
+		assertThat(request.scientificNotation(), is("2.431*10^3"));
+	}
 }
