@@ -43,7 +43,6 @@ public class ArithmeticTests {
 			"WhenUserRequestsHaveExponents_ThenTheValuesWillBeUsedInExponentiation, 2^3",
 			"WhenUserRequestsHaveSquareRoot_ThenTheValueWillBeSquareRooted, √4",
 			"WhenUserRequestsHaveNegativeNumbers_ThenProcessingWillTakeIntoAccountTheNegative, 4+-2",
-			"WhenUserSpecifiesDecimalPosition_ThenResultWillHaveDecimalInSpecifiedPosition, 4.5234*5.4325"
 	})
 	void testingFixture(String test, String aInput){
 		//Test variable is used to report name in test results
@@ -58,7 +57,6 @@ public class ArithmeticTests {
 		frame = new JFrameOperator();
 		textArea = new JTextAreaOperator(frame);
 		equalsButton = new JButtonOperator(frame, "=");
-		decimalPositionButton = new JButtonOperator(frame, "Decimal Position");
 	}
 
 	private void setAnswers(){
@@ -69,20 +67,9 @@ public class ArithmeticTests {
 
 	}
 
-	protected void startInputtingRequest(){
-		textArea.enterText(String.valueOf(decimalPosition()));
-		decimalPositionButton.push();
+	private void startInputtingRequest(){
 		textArea.enterText(input);
 		equalsButton.push();
-	}
-
-
-	private int decimalPosition(){
-		int position = 2;
-		if(input.equals(TestHelper.DECIMAL.input())){
-			position = 3;
-		}
-		return position;
 	}
 
 	private void hasDisplayedAnswer() {

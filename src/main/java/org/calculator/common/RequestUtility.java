@@ -24,6 +24,27 @@ class RequestUtility {
 				.collect(Collectors.toList());
 	}
 
+	protected String scientificNotation(String input){
+		String[] split = input.split("\\.");
+
+		int offset = split[1].length();
+
+		String preNotation = split[0] + split[1];
+		String firstDigitRemoved = preNotation.substring(1);
+
+		int digits = firstDigitRemoved.length() - offset;
+
+		return preNotation.charAt(0) + "." + zerosRemoved(firstDigitRemoved) + "*10^" + digits;
+	}
+
+	private String zerosRemoved(String input){
+		String result = input;
+		while(result.endsWith("0")){
+			result = result.substring(0, result.length() - 1);
+		}
+		return result;
+	}
+
 	private String[] splitInput(Request request){
 		return Arrays.stream(request.input.split(Pattern.quote(request.operation.symbol())))
 				.filter(value -> (value != null && value.length() > 0))
@@ -40,6 +61,7 @@ class RequestUtility {
 		}
 		return bigDecimals;
 	}
+
 
 
 }
