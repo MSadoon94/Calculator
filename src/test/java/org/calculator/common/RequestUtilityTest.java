@@ -22,7 +22,7 @@ public class RequestUtilityTest {
 	@Test
 	void shouldRemoveVoidValues(){
 		Request request = new Request(TestHelper.SQUARE_ROOT.input());
-		request.setOperation(Operations.SQUARE_ROOT);
+		request.setOperation(Operations.ROOT);
 
 		assertThat(utility.bigDecimalValues(request),
 				is(arrayContaining(new BigDecimal("4"))));

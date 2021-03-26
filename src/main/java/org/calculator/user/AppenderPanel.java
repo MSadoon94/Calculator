@@ -48,7 +48,6 @@ class AppenderPanel extends Panel {
 			panel.add(button);
 			setActionListener(button);
 		}
-
 	}
 
 	private void addComponents(){

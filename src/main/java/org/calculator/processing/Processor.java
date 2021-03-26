@@ -68,6 +68,7 @@ class Processor implements ProcessorActions {
 				.contains(aRequest.getOperation());
 	}
 
+
 	private List<Operations> operatorForRequest(Request aRequest){
 		List<Operations> operators = aRequest.operators();
 		if (operators.size() == 0){

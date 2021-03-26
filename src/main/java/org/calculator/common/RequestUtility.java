@@ -51,6 +51,8 @@ class RequestUtility {
 				.toArray(String[]::new);
 	}
 
+
+
 	private BigDecimal[] convertedToBigDecimals(BigDecimal[] bigDecimals, String[] split) {
 		for (int i = 0; i < split.length; i++) {
 			if (split[i].equals(Operations.SUBTRACTION.symbol())) {

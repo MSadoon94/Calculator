@@ -16,7 +16,6 @@ class Gui implements Ui {
 		mainPanel = new JPanel(layout);
 		frame.add(mainPanel);
 		frame.setContentPane(mainPanel);
-
 	}
 
 	public void addPanels(Panel inputHistory, Panel answerHistory, CompositePanel entryPanel){

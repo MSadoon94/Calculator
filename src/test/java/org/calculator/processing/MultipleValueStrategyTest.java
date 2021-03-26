@@ -12,11 +12,22 @@ import static org.hamcrest.Matchers.*;
 public class MultipleValueStrategyTest {
 
 	@ParameterizedTest(name = "{index} ==> {0}")
-	@EnumSource(mode = EnumSource.Mode.EXCLUDE, names = {"PERCENTAGE", "MIXED", "SQUARE_ROOT", "NEGATIVE", "DECIMAL", "NOTATION"})
+	@EnumSource(mode = EnumSource.Mode.EXCLUDE,
+			names = {"PERCENTAGE", "MIXED", "NEGATIVE", "DECIMAL", "NOTATION", "SQUARE_ROOT"})
 	void shouldCalculateIncomingBigDecimalValuesBasedOnChosenArithmeticOperation(TestHelper helper){
-		MultipleValueStrategy strategy = new MultipleValueStrategy(Operations.valueOf(helper.name()));
+		MultipleValueStrategy strategy = new MultipleValueStrategy(getOperation(helper));
 		BigDecimal[] values = helper.extracted();
 
 		assertThat(strategy.execute(values), comparesEqualTo(new BigDecimal(helper.answer())));
+	}
+
+	private Operations getOperation(TestHelper helper){
+		Operations op;
+		if(helper == TestHelper.SQUARE_ROOT || helper == TestHelper.NTH_ROOT){
+			op = Operations.ROOT;
+		} else{
+			op = Operations.valueOf(helper.name());
+		}
+		return op;
 	}
 }
