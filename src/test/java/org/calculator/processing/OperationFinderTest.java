@@ -32,7 +32,7 @@ public class OperationFinderTest {
 
 	@Test
 	void shouldPrioritizeSquareRootOperationsOverDivisionAndMultiplication(){
-		assertThat(finder.targetOperation(new Request("√4/2")), is(Operations.SQUARE_ROOT));
-		assertThat(finder.targetOperation(new Request("√4*2")), is(Operations.SQUARE_ROOT));
+		assertThat(finder.targetOperation(new Request("√4/2")), is(Operations.ROOT));
+		assertThat(finder.targetOperation(new Request("√4*2")), is(Operations.ROOT));
 	}
 }

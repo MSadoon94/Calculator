@@ -31,9 +31,14 @@ public class MultipleValueStrategy implements OperationStrategy {
 		bigDecimalOperations.put(Operations.SUBTRACTION, BigDecimal::subtract);
 		bigDecimalOperations.put(Operations.MULTIPLICATION, BigDecimal::multiply);
 		bigDecimalOperations.put(Operations.DIVISION, BigDecimal::divide);
-		bigDecimalOperations.put(Operations.EXPONENT, this::exponentiation);
+		bigDecimalOperations.put(Operations.EXPONENT, this::pow);
+		bigDecimalOperations.put(Operations.ROOT, this::root);
 	}
-	private BigDecimal exponentiation(BigDecimal base, BigDecimal exponent){
+	private BigDecimal pow(BigDecimal base, BigDecimal exponent){
 		return BigDecimalMath.pow(base, exponent, MathContext.DECIMAL32);
+	}
+
+	private BigDecimal root(BigDecimal root, BigDecimal base){
+		return BigDecimalMath.root(base, root, MathContext.DECIMAL32);
 	}
 }

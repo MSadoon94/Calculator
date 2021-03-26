@@ -23,7 +23,7 @@ public class UnaryValueStrategy implements OperationStrategy {
 	private void setBigDecimalOperations(){
 		bigDecimalOperations.put(Operations.SINGLE_VALUE, this::singleValue);
 		bigDecimalOperations.put(Operations.PERCENTAGE, this::percentage);
-		bigDecimalOperations.put(Operations.SQUARE_ROOT, this::squareRoot);
+		//bigDecimalOperations.put(Operations.SQUARE_ROOT, this::squareRoot);
 	}
 
 	private BigDecimal singleValue(BigDecimal value){
@@ -32,8 +32,10 @@ public class UnaryValueStrategy implements OperationStrategy {
 	private BigDecimal percentage(BigDecimal fraction){
 		return fraction.multiply(BigDecimal.valueOf(100));
 	}
-	private BigDecimal squareRoot(BigDecimal radicand){
+	/*private BigDecimal squareRoot(BigDecimal radicand){
 		return radicand.sqrt(MathContext.DECIMAL32);
 	}
+
+	 */
 
 }

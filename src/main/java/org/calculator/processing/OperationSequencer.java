@@ -1,7 +1,10 @@
 package org.calculator.processing;
 
+import org.calculator.common.Operations;
 import org.calculator.common.Request;
 import org.calculator.extraction.Extractor;
+
+import java.util.Arrays;
 
 public class OperationSequencer {
 	private Extractor multiOpExtractor;
@@ -17,6 +20,7 @@ public class OperationSequencer {
 				aRequest = new Request(aRequest.input().replace(subRequest.input(), answer.input()));
 			}
 		}
+		System.out.println(aRequest.input());
 		return aRequest;
 	}
 
@@ -26,4 +30,6 @@ public class OperationSequencer {
 		subRequest.setOperation(aRequest.getOperation());
 		return subRequest;
 	}
+
+
 }

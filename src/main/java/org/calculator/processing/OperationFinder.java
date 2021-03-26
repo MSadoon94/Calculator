@@ -11,7 +11,7 @@ public class OperationFinder {
 	public Operations targetOperation(Request aRequest){
 		List<Operations[]> operationTiers = Arrays.asList
 				(
-						new Operations[]{Operations.SQUARE_ROOT, Operations.EXPONENT},
+						new Operations[]{Operations.ROOT, Operations.EXPONENT},
 						new Operations[]{Operations.DIVISION, Operations.MULTIPLICATION},
 						new Operations[]{Operations.ADDITION, Operations.SUBTRACTION}
 				);
