@@ -8,7 +8,7 @@ public enum Operations {
 	DIVISION("/"),
 	PERCENTAGE("%"),
 	EXPONENT("^"),
-	SQUARE_ROOT("√");
+	ROOT("√");
 
 	private final String symbol;
 	Operations(String symbol) {
@@ -18,6 +18,6 @@ public enum Operations {
 		return symbol;
 	}
 	public static Operations[] unaryOps(){
-		return new Operations[]{SINGLE_VALUE, PERCENTAGE, SQUARE_ROOT};
+		return new Operations[]{SINGLE_VALUE, PERCENTAGE};
 	}
 }

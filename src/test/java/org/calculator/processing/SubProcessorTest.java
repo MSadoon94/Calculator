@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.*;
 public class SubProcessorTest {
 
 	@ParameterizedTest(name = "{index} ==> {0}")
-	@EnumSource(mode = EnumSource.Mode.EXCLUDE, names = {"SINGLE_VALUE", "PERCENTAGE", "MIXED", "SQUARE_ROOT", "NEGATIVE", "DECIMAL", "NOTATION"})
+	@EnumSource(mode = EnumSource.Mode.EXCLUDE, names = {"SINGLE_VALUE", "PERCENTAGE", "MIXED", "SQUARE_ROOT", "NEGATIVE", "DECIMAL", "NOTATION", "NTH_ROOT"})
 	void shouldCalculateSingleArithmeticOperationAnswers(TestHelper helper){
 		SubProcessor processor = new SubProcessor();
 		Request request = new Request(helper.input());

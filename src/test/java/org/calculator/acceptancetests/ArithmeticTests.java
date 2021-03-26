@@ -42,6 +42,7 @@ public class ArithmeticTests {
 			"WhenUserRequestsMixedArithmetic_ThenOperationsAreAppliedToGroupedInputs, (2-1+1*2)/(10/5)",
 			"WhenUserRequestsHaveExponents_ThenTheValuesWillBeUsedInExponentiation, 2^3",
 			"WhenUserRequestsHaveSquareRoot_ThenTheValueWillBeSquareRooted, √4",
+			"WhenUserRequestIsRootWithNumberInFront_ThenTheValueInTheRootWillBeRootedByTheOutsideValue, 3√27",
 			"WhenUserRequestsHaveNegativeNumbers_ThenProcessingWillTakeIntoAccountTheNegative, 4+-2",
 	})
 	void testingFixture(String test, String aInput){
