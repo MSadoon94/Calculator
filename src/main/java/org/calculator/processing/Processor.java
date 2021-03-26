@@ -25,9 +25,7 @@ class Processor implements ProcessorActions {
 
 	public Request processedAnswer(){
 		Request groupsProcessed = requestAfterProcessingGroups(request);
-		System.out.println(groupsProcessed.input());
 		Request multiOpProcessed = requestAfterProcessingMultiOperatorSections(groupsProcessed);
-		System.out.println(multiOpProcessed.input());
 		return answer(multiOpProcessed);
 	}
 	private Request requestAfterProcessingGroups(Request aRequest){
@@ -59,7 +57,6 @@ class Processor implements ProcessorActions {
 		if(isUnaryOperation(aRequest)){
 			context.setStrategy(new UnaryValueStrategy(aRequest.getOperation()));
 		} else {
-			System.out.println(aRequest.getOperation());
 			context.setStrategy(new MultipleValueStrategy(aRequest.getOperation()));
 		}
 		answer = context.executeStrategy(aRequest).setScale(decimalPosition, RoundingMode.HALF_UP);

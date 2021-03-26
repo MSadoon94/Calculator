@@ -20,7 +20,6 @@ public class OperationSequencer {
 				aRequest = new Request(aRequest.input().replace(subRequest.input(), answer.input()));
 			}
 		}
-		System.out.println(aRequest.input());
 		return aRequest;
 	}
 
