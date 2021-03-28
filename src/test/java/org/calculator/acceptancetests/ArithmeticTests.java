@@ -7,8 +7,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.netbeans.jemmy.operators.JButtonOperator;
+import org.netbeans.jemmy.operators.JComponentOperator;
 import org.netbeans.jemmy.operators.JFrameOperator;
-import org.netbeans.jemmy.operators.JTextAreaOperator;
+import org.netbeans.jemmy.operators.JTextFieldOperator;
+import org.netbeans.jemmy.util.NameComponentChooser;
+
 import java.util.HashMap;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -18,9 +21,10 @@ public class ArithmeticTests {
 
 	private static HashMap<String, String> answers = new HashMap<>();
 
-	protected JFrameOperator frame;
-	protected JTextAreaOperator textArea;
-	protected JButtonOperator equalsButton, decimalPositionButton;
+	private JFrameOperator frame;
+	private JComponentOperator entryPanel;
+	private JTextFieldOperator textField;
+	private JButtonOperator equalsButton;
 
 	private String input = "0";
 
@@ -56,7 +60,8 @@ public class ArithmeticTests {
 
 	private void setOperators(){
 		frame = new JFrameOperator();
-		textArea = new JTextAreaOperator(frame);
+		entryPanel = new JComponentOperator(frame, new NameComponentChooser("Entry Panel"), 0);
+		textField = new JTextFieldOperator(entryPanel);
 		equalsButton = new JButtonOperator(frame, "=");
 	}
 
@@ -69,11 +74,11 @@ public class ArithmeticTests {
 	}
 
 	private void startInputtingRequest(){
-		textArea.enterText(input);
+		textField.enterText(input);
 		equalsButton.push();
 	}
 
 	private void hasDisplayedAnswer() {
-		assertThat(textArea.getText().trim(), is(equalTo(answers.get(input))));
+		assertThat(textField.getText().trim(), is(equalTo(answers.get(input))));
 	}
 }

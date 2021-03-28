@@ -66,20 +66,20 @@ class FunctionsPanel extends Panel{
 	}
 
 	private void decimal(){
-		String decimalInput = textArea.getText().strip();
+		String decimalInput = text.getText().strip();
 		position = errorVerifier.checkDecimalInput(decimalInput);
-		textArea.setText("");
+		text.setText("");
 	}
 
 	private void notation(){
 		Request notation = calculatedRequest(request());
-		textArea.setText(notation.scientificNotation());
+		text.setText(notation.scientificNotation());
 	}
 
 	private void percentage(){
-		textArea.append("%");
+		text.setText(text.getText() + "%");
 		equalsButton.doClick();
-		textArea.append("%");
+		text.setText(text.getText() + "%");
 	}
 
 	private void calculate(){
@@ -91,7 +91,7 @@ class FunctionsPanel extends Panel{
 	}
 
 	private Request request(){
-		Request request = errorVerifier.checkedInput(textArea.getText().trim());
+		Request request = errorVerifier.checkedInput(text.getText().trim());
 		request.setDecimalPosition(position);
 		return request;
 	}
@@ -101,7 +101,7 @@ class FunctionsPanel extends Panel{
 
 		if(!request.input().equals("Invalid Input")){
 			result = answerInvoker.answer(request);
-			textArea.setText(result.input());
+			text.setText(result.input());
 		} else {
 			result = request;
 		}
