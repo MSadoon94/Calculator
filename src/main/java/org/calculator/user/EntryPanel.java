@@ -12,9 +12,8 @@ class EntryPanel extends Panel implements CompositePanel {
 	private Panel appender, eraser, functions;
 
 	public EntryPanel(Verifier aErrorVerifier, Invoker invoker, Observer observer){
-		createTextArea();
+		createTextField();
 		panel = new JPanel();
-		panel.setName("Entry Panel");
 		setPanels(aErrorVerifier, invoker, observer);
 		addPanels(groupLayout());
 	}
@@ -23,11 +22,12 @@ class EntryPanel extends Panel implements CompositePanel {
 		return panel;
 	}
 
-	private void createTextArea(){
+	private void createTextField(){
 		text = new JTextField();
-		text.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+		text.setFont(new Font("TimesRoman", Font.PLAIN, 40));
 	}
 	private void setPanels(Verifier aErrorVerifier, Invoker invoker, Observer observer){
+		panel.setName("Entry Panel");
 		appender = new AppenderPanel();
 		eraser = new EraserPanel();
 		functions = new FunctionsPanel(aErrorVerifier, invoker, observer);
