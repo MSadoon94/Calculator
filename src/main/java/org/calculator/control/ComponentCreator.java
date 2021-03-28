@@ -26,7 +26,7 @@ public class ComponentCreator {
 
 	public ComponentCreator() {
 		answerInvoker = processorBoundary.answerInvoker(extractionBoundary.groupExtractor());
-		frame = new JFrame("Gui");
+		frame = new JFrame("Calculator");
 		Ui gui = userBoundary.gui(frame);
 		errorSender = verificationBoundary.errorSender(gui);
 		addGuiDependencies(gui);

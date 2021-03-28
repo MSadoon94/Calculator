@@ -16,10 +16,9 @@ import static org.hamcrest.Matchers.*;
 
 public class HistoryTests{
 	private JFrameOperator frame;
-	private JComponentOperator inputPanel, answerPanel;
-	private JTextAreaOperator textArea;
-	private JButtonOperator equalsButton, decimalPositionButton,
-			inputBackButton, inputNextButton, answerBackButton, answerNextButton;
+	private JComponentOperator entryPanel, inputPanel, answerPanel;
+	private JTextFieldOperator textField;
+	private JButtonOperator equalsButton, inputBackButton, answerBackButton;
 	private JTextFieldOperator inputTextField, answerTextField;
 
 	@BeforeEach
@@ -54,27 +53,26 @@ public class HistoryTests{
 	}
 
 	private void setPanels(){
+		entryPanel = new JComponentOperator(frame, new NameComponentChooser("Entry Panel"), 0);
 		inputPanel = new JComponentOperator(frame, new NameComponentChooser("Input History"), 0);
 		answerPanel = new JComponentOperator(frame, new NameComponentChooser("Answer History"), 0);
 	}
 
 	private void setButtons(){
-		equalsButton = new JButtonOperator(frame, "=");
-		decimalPositionButton = new JButtonOperator(frame, "Decimal Position");
+		equalsButton = new JButtonOperator(entryPanel, "=");
 		inputBackButton = new JButtonOperator(inputPanel, "<", 0);
-		inputNextButton = new JButtonOperator(inputPanel, ">", 0);
 		answerBackButton = new JButtonOperator(answerPanel, "<", 0);
-		answerNextButton = new JButtonOperator(answerPanel, ">", 0);
+
 	}
 
 	private void setTextFields(){
-		textArea = new JTextAreaOperator(frame);
+		textField = new JTextFieldOperator(entryPanel);
 		inputTextField = new JTextFieldOperator(inputPanel);
 		answerTextField = new JTextFieldOperator(answerPanel);
 	}
 
 	private void startInputtingRequest(String input){
-			textArea.enterText(input);
+			textField.enterText(input);
 			equalsButton.push();
 			inputBackButton.push();
 			answerBackButton.push();

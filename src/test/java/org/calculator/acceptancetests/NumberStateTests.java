@@ -3,13 +3,12 @@ package org.calculator.acceptancetests;
 import org.calculator.common.TestHelper;
 import org.calculator.control.ComponentCreator;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.netbeans.jemmy.operators.JButtonOperator;
+import org.netbeans.jemmy.operators.JComponentOperator;
 import org.netbeans.jemmy.operators.JFrameOperator;
-import org.netbeans.jemmy.operators.JTextAreaOperator;
+import org.netbeans.jemmy.operators.JTextFieldOperator;
+import org.netbeans.jemmy.util.NameComponentChooser;
 
 import java.util.HashMap;
 
@@ -21,9 +20,10 @@ public class NumberStateTests {
 
 		private static HashMap<String, String> answers = new HashMap<>();
 
-		protected JFrameOperator frame;
-		protected JTextAreaOperator textArea;
-		protected JButtonOperator equalsButton, decimalPositionButton, notationButton;
+		private JFrameOperator frame;
+		private JComponentOperator entryPanel;
+		private JTextFieldOperator textField;
+		private JButtonOperator equalsButton, decimalPositionButton, notationButton;
 
 		private String input = "0";
 
@@ -37,9 +37,9 @@ public class NumberStateTests {
 		@Test
 		void WhenUserSpecifiesDecimalPosition_ThenResultWillHaveDecimalInSpecifiedPosition(){
 			input = TestHelper.DECIMAL.input();
-			textArea.enterText(String.valueOf(decimalPosition()));
+			textField.enterText(String.valueOf(decimalPosition()));
 			decimalPositionButton.push();
-			textArea.enterText(input);
+			textField.enterText(input);
 			equalsButton.push();
 			hasDisplayedAnswer();
 		}
@@ -47,7 +47,7 @@ public class NumberStateTests {
 		@Test
 		void WhenUserRequestsScientificNotation_ThenResultWillBeConvertedToScientificNotation(){
 			input = TestHelper.NOTATION.input();
-			textArea.enterText(input);
+			textField.enterText(input);
 			notationButton.push();
 			hasDisplayedAnswer();
 		}
@@ -55,10 +55,11 @@ public class NumberStateTests {
 
 		private void setOperators(){
 			frame = new JFrameOperator();
-			textArea = new JTextAreaOperator(frame);
-			equalsButton = new JButtonOperator(frame, "=");
-			decimalPositionButton = new JButtonOperator(frame, "Decimal Position");
-			notationButton = new JButtonOperator(frame, "Notation");
+			entryPanel = new JComponentOperator(frame, new NameComponentChooser("Entry Panel"), 0);
+			textField = new JTextFieldOperator(entryPanel);
+			equalsButton = new JButtonOperator(entryPanel, "=");
+			decimalPositionButton = new JButtonOperator(entryPanel, "Decimal Position");
+			notationButton = new JButtonOperator(entryPanel, "Notation");
 		}
 
 		private void setAnswers(){
@@ -78,6 +79,6 @@ public class NumberStateTests {
 		}
 
 		private void hasDisplayedAnswer() {
-			assertThat(textArea.getText().trim(), is(equalTo(answers.get(input))));
+			assertThat(textField.getText().trim(), is(equalTo(answers.get(input))));
 		}
 }

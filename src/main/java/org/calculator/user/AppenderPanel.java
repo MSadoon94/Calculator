@@ -61,7 +61,7 @@ class AppenderPanel extends Panel {
 	}
 
 	private void appendTextArea(JButton button){
-		textArea.append(button.getText());
+		text.setText(text.getText() + button.getText());
 	}
 
 }

@@ -12,7 +12,7 @@ class EntryPanel extends Panel implements CompositePanel {
 	private Panel appender, eraser, functions;
 
 	public EntryPanel(Verifier aErrorVerifier, Invoker invoker, Observer observer){
-		createTextArea();
+		createTextField();
 		panel = new JPanel();
 		setPanels(aErrorVerifier, invoker, observer);
 		addPanels(groupLayout());
@@ -22,22 +22,23 @@ class EntryPanel extends Panel implements CompositePanel {
 		return panel;
 	}
 
-	private void createTextArea(){
-		textArea = new JTextArea();
-		textArea.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+	private void createTextField(){
+		text = new JTextField();
+		text.setFont(new Font("TimesRoman", Font.PLAIN, 40));
 	}
 	private void setPanels(Verifier aErrorVerifier, Invoker invoker, Observer observer){
+		panel.setName("Entry Panel");
 		appender = new AppenderPanel();
 		eraser = new EraserPanel();
 		functions = new FunctionsPanel(aErrorVerifier, invoker, observer);
 		Panel[] panels = {appender, eraser, functions};
-		Arrays.stream(panels).forEach(aPanel -> aPanel.setTextArea(textArea));
+		Arrays.stream(panels).forEach(aPanel -> aPanel.setText(text));
 	}
 
 	private void addPanels(GroupLayout layout){
 		layout.setHorizontalGroup(
 				layout.createParallelGroup()
-				.addComponent(textArea)
+				.addComponent(text)
 				.addGroup(
 						layout.createSequentialGroup()
 						.addComponent(appender)
@@ -47,7 +48,7 @@ class EntryPanel extends Panel implements CompositePanel {
 		);
 		layout.setVerticalGroup(
 				layout.createSequentialGroup()
-				.addComponent(textArea)
+				.addComponent(text)
 				.addGroup(
 						layout.createParallelGroup()
 						.addComponent(appender)
