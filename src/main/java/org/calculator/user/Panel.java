@@ -4,9 +4,9 @@ import javax.swing.*;
 
 
 public abstract class Panel extends JPanel {
-	protected  JTextArea textArea;
+	protected JTextField text;
 
-	protected void setTextArea(JTextArea aTextArea){
-		textArea = aTextArea;
+	protected void setText(JTextField textField){
+		text = textField;
 	}
 }
