@@ -34,6 +34,18 @@ public class InputValidatorTest {
 		assertThat(validator.isValidDecimalPosition("4t"), is(false));
 		assertThat(validator.isValidDecimalPosition("+"), is(false));
 	}
+	@Test
+	void shouldReturnInvalidIfInputContainsInvalidOperationSequences(){
+		assertThat(validator.isValidInput("2++2"), is(false));
+		assertThat(validator.isValidInput("2+-+2"), is(false));
+		assertThat(validator.isValidInput("2**2"), is(false));
+	}
+
+	@Test
+	void shouldReturnValidIfInputHasNegativeNumber(){
+		assertThat(validator.isValidInput("2+-2"), is(true));
+	}
+
 
 
 }
