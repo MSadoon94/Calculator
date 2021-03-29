@@ -46,6 +46,12 @@ public class InputValidatorTest {
 		assertThat(validator.isValidInput("2+-2"), is(true));
 	}
 
+	@Test
+	void shouldReturnInvalidIfInputContainsNumberWithMultipleDecimalPoints(){
+		assertThat(validator.isValidInput("2.03.20"), is(false));
+		assertThat(validator.isValidInput("103.4156.13"), is(false));
+		assertThat(validator.isValidInput(".215.1546.0"), is(false));
+	}
 
 
 }

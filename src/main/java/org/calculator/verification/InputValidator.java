@@ -9,11 +9,12 @@ class InputValidator {
 		String divisionByZero = "[\\d]+/0";
 		String invalidCharacters = "[^\\d\\s+\\-*/%().^√]+";
 		String invalidSequences = "(" + "[+\\-*/%.^√]+" + "[+*/%.^√]+" + ")+";
+		String multipleDecimals = "(" + "\\d*[.]" + "){2}";
 
-		matcher = Pattern.compile(
-						divisionByZero + "|"
+		matcher = Pattern.compile(divisionByZero + "|"
 						+ invalidCharacters + "|"
-						+ invalidSequences)
+						+ invalidSequences + "|"
+						+ multipleDecimals)
 				.matcher(input);
 
 		return !matcher.find();
@@ -22,6 +23,7 @@ class InputValidator {
 	public String invalidInput() {
 		return matcher.group();
 	}
+
 
 	public boolean isValidDecimalPosition(String position){
 		Matcher nonInteger = Pattern.compile("[^\\d\\s]+").matcher(position);
