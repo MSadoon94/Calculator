@@ -6,15 +6,7 @@ import java.util.regex.Pattern;
 class InputValidator {
 	private Matcher matcher;
 	public boolean isValidInput(String input) {
-		String divisionByZero = "[\\d]+/0";
-		String invalidCharacters = "[^\\d\\s+\\-*/%().^√]+";
-		String invalidSequences = "(" + "[+\\-*/%.^√]+" + "[+*/%.^√]+" + ")+";
-		String multipleDecimals = "(" + "\\d*[.]" + "){2}";
-
-		matcher = Pattern.compile(divisionByZero + "|"
-						+ invalidCharacters + "|"
-						+ invalidSequences + "|"
-						+ multipleDecimals)
+		matcher = Pattern.compile(invalidGroups())
 				.matcher(input);
 
 		return !matcher.find();
@@ -24,10 +16,18 @@ class InputValidator {
 		return matcher.group();
 	}
 
-
 	public boolean isValidDecimalPosition(String position){
 		Matcher nonInteger = Pattern.compile("[^\\d\\s]+").matcher(position);
 		boolean isInputValid = !nonInteger.find();
 		return isInputValid;
+	}
+
+	private String invalidGroups(){
+		String divisionByZero = "[\\d]+/0";
+		String invalidCharacters = "[^\\d\\s+\\-*/%().^√]+";
+		String invalidSequences = "(" + "[+\\-*/%.^√]+" + "[+*/%.^√]+" + ")+";
+		String multipleDecimals = "(" + "\\d*[.]" + "){2}";
+
+		return divisionByZero + "|" + invalidCharacters + "|" + invalidSequences + "|" + multipleDecimals;
 	}
 }
