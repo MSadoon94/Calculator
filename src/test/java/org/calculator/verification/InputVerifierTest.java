@@ -27,4 +27,14 @@ public class InputVerifierTest {
 
 		assertThat(verifier.verified(input).input(), is("2√4"));
 	}
+
+	@Test
+	void shouldAppendMultiplicationBetweenAdjacentParenthesis(){
+		String input = "(2)(2)";
+		when(validator.isValidInput(input)).thenReturn(true);
+
+		InputVerifier verifier = new InputVerifier(validator, errorSender, gui);
+
+		assertThat(verifier.verified(input).input(), is("(2)*(2)"));
+	}
 }
