@@ -19,14 +19,12 @@ public class InputVerifierTest {
 	@Mock Ui gui;
 
 	@Test
-	void shouldReturnRequestWithVerifiedInput(){
+	void shouldAppend2ToRootsWithoutNumberInFront(){
 		String input = TestHelper.SQUARE_ROOT.input();
 		when(validator.isValidInput(input)).thenReturn(true);
 
-
 		InputVerifier verifier = new InputVerifier(validator, errorSender, gui);
-		Request result = verifier.verified(TestHelper.SQUARE_ROOT.input());
 
-		assertThat(result.input(), is(TestHelper.SQUARE_ROOT.input()));
+		assertThat(verifier.verified(input).input(), is("2√4"));
 	}
 }
