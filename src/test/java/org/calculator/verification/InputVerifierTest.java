@@ -1,33 +1,32 @@
 package org.calculator.verification;
+import org.calculator.common.Request;
 import org.calculator.common.TestHelper;
 import org.calculator.user.Ui;
-import org.calculator.user.UserBoundary;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.Mockito.when;
-
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ErrorSenderTest {
+public class InputVerifierTest {
 
-	@Mock
-	InputValidator validator;
-
-	@Mock
-	Ui gui;
+	@Mock InputValidator validator;
+	@Mock ErrorSender errorSender;
+	@Mock Ui gui;
 
 	@Test
-	void shouldAppend2ToRootsWithoutNumberInFront(){
+	void shouldReturnRequestWithVerifiedInput(){
 		String input = TestHelper.SQUARE_ROOT.input();
 		when(validator.isValidInput(input)).thenReturn(true);
 
-		ErrorSender sender = new ErrorSender(validator, gui );
 
-		assertThat(sender.checkedInput(input).input(), is("2√4"));
+		InputVerifier verifier = new InputVerifier(validator, errorSender, gui);
+		Request result = verifier.verified(TestHelper.SQUARE_ROOT.input());
+
+		assertThat(result.input(), is(TestHelper.SQUARE_ROOT.input()));
 	}
 }

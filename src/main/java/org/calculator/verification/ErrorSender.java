@@ -36,7 +36,7 @@ class ErrorSender implements Verifier {
 		return position;
 	}
 
-	private Request validate(String input){
+	public Request validate(String input){
 		Request result;
 		if (validator.isValidInput(input)){
 			result = new Request(input);
@@ -45,6 +45,10 @@ class ErrorSender implements Verifier {
 			result = new Request("Invalid Input");
 		}
 		return result;
+	}
+
+	public void sendInputError(InputValidator validator){
+		gui.inputErrorMessage(validator.invalidInput());
 	}
 
 
