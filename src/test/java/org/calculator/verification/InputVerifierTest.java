@@ -1,7 +1,5 @@
 package org.calculator.verification;
-import org.calculator.common.Request;
 import org.calculator.common.TestHelper;
-import org.calculator.user.Ui;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -16,16 +14,15 @@ public class InputVerifierTest {
 
 	@Mock InputValidator validator;
 	@Mock ErrorSender errorSender;
-	@Mock Ui gui;
 
 	@Test
 	void shouldAppend2ToRootsWithoutNumberInFront(){
 		String input = TestHelper.SQUARE_ROOT.input();
 		when(validator.isValidInput(input)).thenReturn(true);
 
-		InputVerifier verifier = new InputVerifier(validator, errorSender, gui);
+		InputVerifier verifier = new InputVerifier(validator, errorSender);
 
-		assertThat(verifier.verified(input).input(), is("2√4"));
+		assertThat(verifier.verifiedInput(input).input(), is("2√4"));
 	}
 
 	@Test
@@ -33,8 +30,8 @@ public class InputVerifierTest {
 		String input = "(2)(2)";
 		when(validator.isValidInput(input)).thenReturn(true);
 
-		InputVerifier verifier = new InputVerifier(validator, errorSender, gui);
+		InputVerifier verifier = new InputVerifier(validator, errorSender);
 
-		assertThat(verifier.verified(input).input(), is("(2)*(2)"));
+		assertThat(verifier.verifiedInput(input).input(), is("(2)*(2)"));
 	}
 }

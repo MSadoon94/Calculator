@@ -12,7 +12,6 @@ public class VerificationController implements VerificationBoundary {
 		InputValidator validator = new InputValidator();
 		return new InputVerifier(
 				validator,
-				new ErrorSender(validator, gui),
-				gui);
+				new ErrorSender(validator, gui));
 	}
 }

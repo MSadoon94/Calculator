@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 class FunctionsPanel extends Panel{
-	private Verifier errorVerifier;
+	private Verifier verifier;
 	private Observer observer;
 	private Invoker answerInvoker;
 	private JButton decimalPositionButton, notationButton,
@@ -17,7 +17,7 @@ class FunctionsPanel extends Panel{
 	private int position = 2;
 
 	public FunctionsPanel(Verifier aErrorVerifier, Invoker invoker, Observer observer){
-		errorVerifier = aErrorVerifier;
+		verifier = aErrorVerifier;
 		this.observer = observer;
 		answerInvoker = invoker;
 		createPanel();
@@ -67,7 +67,7 @@ class FunctionsPanel extends Panel{
 
 	private void decimal(){
 		String decimalInput = text.getText().strip();
-		position = errorVerifier.checkDecimalInput(decimalInput);
+		position = verifier.verifiedDecimal(decimalInput);
 		text.setText("");
 	}
 
@@ -91,7 +91,7 @@ class FunctionsPanel extends Panel{
 	}
 
 	private Request request(){
-		Request request = errorVerifier.checkedInput(text.getText().trim());
+		Request request = verifier.verifiedInput(text.getText().trim());
 		request.setDecimalPosition(position);
 		return request;
 	}
