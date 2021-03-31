@@ -18,7 +18,7 @@ class InputVerifier {
 	public Request verified(String input){
 		Request result;
 		if (validator.isValidInput(input)){
-			result = requestAfterRootCheck(new Request(input));
+			result = appendedRequest(new Request(input));
 		} else {
 			errorSender.sendInputError(validator);
 			result = new Request("Invalid Input");
@@ -26,9 +26,12 @@ class InputVerifier {
 		return result;
 	}
 
-	private Request requestAfterRootCheck(Request request){
+	private Request appendedRequest(Request request){
 		if(request.input().contains(Operations.ROOT.symbol())){
 			request = rootOperation(request);
+		}
+		if(request.input().contains(")")){
+			request = doubleParenthesis(request);
 		}
 		return request;
 	}
@@ -48,5 +51,17 @@ class InputVerifier {
 		aRequest = new Request(aRequest.input().replace(sqrtMatch.group(), replacement));
 		aRequest.setOperation(Operations.ROOT);
 		return aRequest;
+	}
+
+	private Request doubleParenthesis(Request request){
+		Matcher doubleParenthesis = Pattern.compile("\\)[\\d+(]|[\\d+)]\\(").matcher(request.input());
+		if(doubleParenthesis.find()){
+			String replacement = doubleParenthesis.group().replace(")", ")*");
+			if (!replacement.matches("\\)\\*\\(")){
+				replacement = replacement.replace("(", "*(");
+			}
+			request = new Request(request.input().replace(doubleParenthesis.group(), replacement));
+		}
+		return request;
 	}
 }
