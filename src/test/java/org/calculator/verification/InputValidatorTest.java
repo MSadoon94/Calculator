@@ -53,5 +53,10 @@ public class InputValidatorTest {
 		assertThat(validator.isValidInput(".215.1546.0"), is(false));
 	}
 
+	@Test
+	void shouldReturnInvalidIfInputContainsEmptyParenthesis(){
+		assertThat(validator.isValidInput("()+2"), is(false));
+	}
+
 
 }
