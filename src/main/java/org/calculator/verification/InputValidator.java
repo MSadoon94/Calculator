@@ -27,7 +27,12 @@ class InputValidator {
 		String invalidCharacters = "[^\\d\\s+\\-*/%().^√]+";
 		String invalidSequences = "(" + "[+\\-*/%.^√]+" + "[+*/%.^√]+" + ")+";
 		String multipleDecimals = "(" + "\\d*[.]" + "){2}";
+		String emptyParenthesis = "\\(\\)";
 
-		return divisionByZero + "|" + invalidCharacters + "|" + invalidSequences + "|" + multipleDecimals;
+		return divisionByZero
+				+ "|" + invalidCharacters
+				+ "|" + invalidSequences
+				+ "|" + multipleDecimals
+				+ "|" + emptyParenthesis;
 	}
 }
