@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 class FunctionsPanel extends Panel{
-	private Verifier errorVerifier;
+	private Verifier verifier;
 	private Observer observer;
 	private Invoker answerInvoker;
 	private JButton decimalPositionButton, notationButton,
@@ -17,7 +17,7 @@ class FunctionsPanel extends Panel{
 	private int position = 2;
 
 	public FunctionsPanel(Verifier aErrorVerifier, Invoker invoker, Observer observer){
-		errorVerifier = aErrorVerifier;
+		verifier = aErrorVerifier;
 		this.observer = observer;
 		answerInvoker = invoker;
 		createPanel();
@@ -66,20 +66,20 @@ class FunctionsPanel extends Panel{
 	}
 
 	private void decimal(){
-		String decimalInput = textArea.getText().strip();
-		position = errorVerifier.checkDecimalInput(decimalInput);
-		textArea.setText("");
+		String decimalInput = text.getText().strip();
+		position = verifier.verifiedDecimal(decimalInput);
+		text.setText("");
 	}
 
 	private void notation(){
 		Request notation = calculatedRequest(request());
-		textArea.setText(notation.scientificNotation());
+		text.setText(notation.scientificNotation());
 	}
 
 	private void percentage(){
-		textArea.append("%");
+		text.setText(text.getText() + "%");
 		equalsButton.doClick();
-		textArea.append("%");
+		text.setText(text.getText() + "%");
 	}
 
 	private void calculate(){
@@ -91,7 +91,7 @@ class FunctionsPanel extends Panel{
 	}
 
 	private Request request(){
-		Request request = errorVerifier.checkedInput(textArea.getText().trim());
+		Request request = verifier.verifiedInput(text.getText().trim());
 		request.setDecimalPosition(position);
 		return request;
 	}
@@ -101,7 +101,7 @@ class FunctionsPanel extends Panel{
 
 		if(!request.input().equals("Invalid Input")){
 			result = answerInvoker.answer(request);
-			textArea.setText(result.input());
+			text.setText(result.input());
 		} else {
 			result = request;
 		}

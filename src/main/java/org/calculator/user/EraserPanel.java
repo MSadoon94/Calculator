@@ -35,13 +35,13 @@ public class EraserPanel extends Panel {
 	}
 	
 	private void clearAll(){
-		textArea.setText("");
+		text.setText("");
 	}
 
 	private void backspace(){
-		String text = textArea.getText();
+		String text = this.text.getText();
 		if(!text.isBlank()){
-			textArea.setText(text.substring(0, text.length() - 1));
+			this.text.setText(text.substring(0, text.length() - 1));
 		}
 	}
 }

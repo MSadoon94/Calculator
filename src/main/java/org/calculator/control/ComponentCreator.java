@@ -17,7 +17,7 @@ public class ComponentCreator {
 	private ExtractionBoundary extractionBoundary = new ExtractionController();
 	private VerificationBoundary verificationBoundary = new VerificationController();
 	private UserBoundary userBoundary = new UserController();
-	private Verifier errorSender;
+	private Verifier verifier;
 	private Invoker answerInvoker;
 	private AccessoryPanel inputHistory, answerHistory;
 	private CompositePanel entryPanel;
@@ -26,9 +26,9 @@ public class ComponentCreator {
 
 	public ComponentCreator() {
 		answerInvoker = processorBoundary.answerInvoker(extractionBoundary.groupExtractor());
-		frame = new JFrame("Gui");
+		frame = new JFrame("Calculator");
 		Ui gui = userBoundary.gui(frame);
-		errorSender = verificationBoundary.errorSender(gui);
+		verifier = verificationBoundary.verifier(gui);
 		addGuiDependencies(gui);
 		frame();
 	}
@@ -55,7 +55,7 @@ public class ComponentCreator {
 		Observer historyObserver = userBoundary.historyObserver(inputHistory, answerHistory);
 
 		entryPanel = userBoundary.entryPanel(
-				errorSender,
+				verifier,
 				answerInvoker,
 				historyObserver);
 

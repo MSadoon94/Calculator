@@ -39,7 +39,7 @@ class HistoryPanel extends AccessoryPanel{
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setBackground(Color.white);
-		textField.setFont(new Font("TimesRoman", Font.BOLD, 14));
+		textField.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 	}
 	private void setButtons(){
 		back = new JButton("<");
