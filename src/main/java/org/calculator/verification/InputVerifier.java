@@ -2,20 +2,19 @@ package org.calculator.verification;
 
 import org.calculator.common.Operations;
 import org.calculator.common.Request;
-import org.calculator.user.Ui;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class InputVerifier {
+class InputVerifier implements Verifier{
 	private InputValidator validator;
 	private ErrorSender errorSender;
-	public InputVerifier(InputValidator aValidator, ErrorSender aErrorSender,Ui aGui){
+	public InputVerifier(InputValidator aValidator, ErrorSender aErrorSender){
 		validator = aValidator;
 		errorSender = aErrorSender;
 	}
 
-	public Request verified(String input){
+	public Request verifiedInput(String input){
 		Request result;
 		if (validator.isValidInput(input)){
 			result = appendedRequest(new Request(input));
@@ -63,5 +62,16 @@ class InputVerifier {
 			request = new Request(request.input().replace(doubleParenthesis.group(), replacement));
 		}
 		return request;
+	}
+
+	public int verifiedDecimal(String input) {
+		int position;
+		if (validator.isValidDecimalPosition(input)) {
+			position = Integer.parseInt(input);
+		} else {
+			errorSender.sendDecimalError();
+			position = 2;
+		}
+		return position;
 	}
 }
