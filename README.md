@@ -1,4 +1,7 @@
 # Calculator
+
+![CalculatorPreview](https://user-images.githubusercontent.com/61786966/117544310-1b446600-afde-11eb-870b-250950b4e7fd.jpg)
+
   A simple calculator with basic functions. 
 
   The purpose of this project is to practice software development techniques and Agile-Like methodology.
